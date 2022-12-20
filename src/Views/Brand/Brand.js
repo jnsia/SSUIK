@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
-import BrandItem from '../Components/BrandItem';
+import BrandItem from '../../Components/BrandItem';
 
 const Brand = () => {
   return (

@@ -15,6 +15,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import Route from './Route';
+
 import Home from './Views/Home';
 import Brand from './Views/Brand';
 import My from './Views/My';
@@ -27,8 +29,6 @@ import Goods from './Views/Goods';
 
 const PointStack = createStackNavigator();
 const MyStack = createStackNavigator();
-
-const Tab = createBottomTabNavigator();
 
 const BrandScreen = () => {
   return (
@@ -96,7 +96,37 @@ const EventScreen = () => {
 const MyScreen = () => {
   return (
     <View>
-      <My />
+      <View style={styles.myInfo}>
+        <Image
+          style={{
+            width: 50,
+            height: 50,
+            borderRadius: 20,
+          }}
+          source={require('../Images/my-img-test.png')}
+        />
+        <View style={styles.myInfoText}>
+          <Text style={{marginBottom: 10, fontSize: 18, fontWeight: 'bold'}}>
+            파란눈사람
+          </Text>
+          <Text style={{fontSize: 16}}>kia54682@gmail.com</Text>
+        </View>
+      </View>
+      <View style={styles.myPageList}>
+        <Text>서포트 내역</Text>
+      </View>
+      <View style={styles.myPageList}>
+        <Text>포인트 사용 내역</Text>
+      </View>
+      <View style={styles.myPageList}>
+        <Text>고객센터</Text>
+      </View>
+      <View style={styles.myPageList}>
+        <Text>환경설정</Text>
+      </View>
+      <View style={styles.myPageList}>
+        <Text>약관 및 정책</Text>
+      </View>
     </View>
   );
 };
@@ -124,15 +154,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
-        <Tab.Navigator
-          initialRouteName="홈"
-          screenOptions={{headerShown: false}}>
-          <Tab.Screen name="브랜드" component={BrandScreen} />
-          <Tab.Screen name="포인트" component={PointStackNavigator} />
-          <Tab.Screen name="홈" component={HomeScreen} />
-          <Tab.Screen name="이벤트" component={EventScreen} />
-          <Tab.Screen name="마이페이지" component={MyScreen} />
-        </Tab.Navigator>
+        <Route />
       </NavigationContainer>
     </SafeAreaView>
   );

@@ -1,9 +1,12 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, Button} from 'react-native';
 import React from 'react';
 
 const Home = () => {
   return (
     <View style={{margin: 20}}>
+      <View>
+        <Button>내 차량 및 위치 정보 등록</Button>
+      </View>
       <View style={styles.adContent}>
         <Text style={styles.text}>현재 나의 포인트: {'my point'}</Text>
         <View>
