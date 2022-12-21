@@ -71,13 +71,13 @@ const AuthStackNavigator = () => {
 const MainTabNavigator = () => {
   return (
     <MainTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeScreen"
       screenOptions={{headerShown: false}}>
-      <MainTab.Screen name="Brand" component={Brand} />
-      <MainTab.Screen name="Point" component={PointStackNavigator} />
-      <MainTab.Screen name="Home" component={HomeStackNavigator} />
-      <MainTab.Screen name="Event" component={Event} />
-      <MainTab.Screen name="Mypage" component={MypageStackNavigator} />
+      <MainTab.Screen name="BrandScreen" component={Brand} />
+      <MainTab.Screen name="PointScreen" component={PointStackNavigator} />
+      <MainTab.Screen name="HomeScreen" component={HomeStackNavigator} />
+      <MainTab.Screen name="EventScreen" component={Event} />
+      <MainTab.Screen name="MypageScreen" component={MypageStackNavigator} />
     </MainTab.Navigator>
   );
 };
@@ -119,7 +119,7 @@ const MypageStackNavigator = () => {
 
 const Route = () => {
   return (
-    <RouteStack.Navigator>
+    <RouteStack.Navigator screenOptions={{headerShown: false}}>
       {isLoggedIn ? (
         <RouteStack.Screen name="Main" component={MainTabNavigator} />
       ) : (

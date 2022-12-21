@@ -1,17 +1,26 @@
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 
-const My = () => {
+const My = ({navigation}) => {
   return (
-    <View>
-      <View style={styles.myInfo}>
+    <ScrollView>
+      <TouchableOpacity
+        style={styles.myInfo}
+        onPress={() => navigation.push('UserInfo')}>
         <Image
           style={{
             width: 50,
             height: 50,
             borderRadius: 20,
           }}
-          source={require('../Images/my-img-test.png')}
+          source={require('../../Images/my-img-test.png')}
         />
         <View style={styles.myInfoText}>
           <Text style={{marginBottom: 10, fontSize: 18, fontWeight: 'bold'}}>
@@ -19,23 +28,33 @@ const My = () => {
           </Text>
           <Text style={{fontSize: 16}}>kia54682@gmail.com</Text>
         </View>
-      </View>
-      <View style={styles.myPageList}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.myPageList}
+        onPress={() => navigation.push('SupportHistory')}>
         <Text>서포트 내역</Text>
-      </View>
-      <View style={styles.myPageList}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.myPageList}
+        onPress={() => navigation.push('PointUseHistory')}>
         <Text>포인트 사용 내역</Text>
-      </View>
-      <View style={styles.myPageList}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.myPageList}
+        onPress={() => navigation.push('ServiceCenter')}>
         <Text>고객센터</Text>
-      </View>
-      <View style={styles.myPageList}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.myPageList}
+        onPress={() => navigation.push('Setting')}>
         <Text>환경설정</Text>
-      </View>
-      <View style={styles.myPageList}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.myPageList}
+        onPress={() => navigation.push('TermsAndPolicy')}>
         <Text>약관 및 정책</Text>
-      </View>
-    </View>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 

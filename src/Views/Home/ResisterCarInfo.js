@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
     padding: 5,
     marginTop: 30,
   },
-  button: {},
 });
 
 export default ResisterCarInfo;

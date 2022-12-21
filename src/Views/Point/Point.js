@@ -1,11 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import Header from '../Components/Header';
-import {createStackNavigator} from '@react-navigation/stack';
-
-import PointInfo from './PointInfo';
-import Refund from './Refund';
-import Goods from './Goods';
 
 const Point = ({navigation}) => {
   return (
@@ -17,7 +11,7 @@ const Point = ({navigation}) => {
         </View>
         <TouchableOpacity
           style={styles.pointViewList}
-          onPress={() => this.navigation.push('Refund')}>
+          onPress={() => navigation.push('Refund')}>
           <Text>환급 신청하기</Text>
         </TouchableOpacity>
         <TouchableOpacity

@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <View style={{margin: 20}}>
       <View>
-        <Button>내 차량 및 위치 정보 등록</Button>
+        <Button title="addInfo">내 차량 및 위치 정보 등록</Button>
       </View>
       <View style={styles.adContent}>
         <Text style={styles.text}>현재 나의 포인트: {'my point'}</Text>
@@ -18,7 +18,7 @@ const Home = () => {
               // borderColor: 'black',
               resizeMode: 'contain',
             }}
-            source={require('../Images/sample.jpg')}
+            source={require('../../Images/sample.jpg')}
           />
         </View>
         <Text style={styles.text}>해당 광고 리워드: {'reward point'}</Text>
