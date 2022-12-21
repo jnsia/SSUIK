@@ -6,99 +6,114 @@ import {
   TextInput,
   Button,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 
 import ProfileDefaultImage from '../../Images/love-img-test.png';
 
-const Resister = () => {
+const Resister = ({navigation}) => {
+  const [userNickname, setuserNickname] = useState('');
+  const [userID, setuserID] = useState('');
+  const [userPW, setuserPW] = useState('');
+  const [userEmail, setuserEmail] = useState('');
+  const [userCheckPW, setuserCheckPW] = useState('');
+  const [userPhoneNumber, setuserPhoneNumber] = useState('');
+  const [userBirthday, setuserBirthday] = useState('');
+
   return (
     <ScrollView>
-      <View>
-        <Image
-          source={ProfileDefaultImage}
-          resizeMode={'contain'}
-          style={{width: 50, height: 50}}
-        />
-      </View>
-      <View>
-        <Text>닉네임</Text>
-        <TextInput
-          value={this.state.myTextInput}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
-          style={styles.input}
-          placeholder="이메일 주소"
-          placeholderTextColor={'#ddd'}
-        />
-        <Text>이름</Text>
-        <TextInput
-          value={this.state.myTextInput}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
-          style={styles.input}
-          placeholder="이름"
-          placeholderTextColor={'#ddd'}
-        />
-        <Text>이메일</Text>
-        <TextInput
-          value={this.state.myTextInput}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
-          style={styles.input}
-          placeholder="이메일"
-          placeholderTextColor={'#ddd'}
-        />
-        <Text>비밀번호</Text>
-        <TextInput
-          value={this.state.myTextInput}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
-          style={styles.input}
-          placeholder="비밀번호"
-          placeholderTextColor={'#ddd'}
-        />
-        <Text>비밀번호 확인</Text>
-        <TextInput
-          value={this.state.myTextInput}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
-          style={styles.input}
-          placeholder="비밀번호 확인"
-          placeholderTextColor={'#ddd'}
-        />
-        <Text>전화번호</Text>
-        <TextInput
-          value={this.state.myTextInput}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
-          style={styles.input}
-          placeholder="전화번호"
-          placeholderTextColor={'#ddd'}
-        />
-        <Text>성별</Text>
-        <TextInput
-          value={this.state.myTextInput}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
-          style={styles.input}
-          placeholder="비밀번호"
-          placeholderTextColor={'#ddd'}
-        />
-        <Text>생년월일 6자리</Text>
-        <TextInput
-          value={this.state.myTextInput}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
-          style={styles.input}
-          placeholder="980309"
-          placeholderTextColor={'#ddd'}
-        />
-      </View>
-      <View style={{marginTop: 40}}>
-        <View style={styles.button}>
-          <Button title="가입하기" color="#48567" />
+      <View style={{margin: 20}}>
+        <View style={{alignItems: 'center'}}>
+          <Text style={{fontWeight: 'bold'}}>회원정보</Text>
+          <Image
+            source={ProfileDefaultImage}
+            resizeMode={'contain'}
+            style={{width: 50, height: 50, margin: 20}}
+          />
         </View>
+        <View style={styles.resisterInputArea}>
+          <Text style={{fontWeight: 'bold', padding: 10}}>닉네임</Text>
+          <TextInput
+            autoCapitalize={'none'}
+            style={styles.input}
+            placeholder="닉네임"
+            value={userNickname}
+            onChangeText={setuserNickname}
+            returnKeyType="next"
+          />
+        </View>
+        <View style={styles.resisterInputArea}>
+          <Text style={{fontWeight: 'bold', padding: 10}}>이름</Text>
+          <TextInput
+            autoCapitalize={'none'}
+            style={styles.input}
+            placeholder="아이디"
+            value={userID}
+            onChangeText={setuserID}
+          />
+        </View>
+        <View style={styles.resisterInputArea}>
+          <Text style={{fontWeight: 'bold', padding: 10}}>이메일</Text>
+          <TextInput
+            autoCapitalize={'none'}
+            keyboardType={'email-address'}
+            style={styles.input}
+            placeholder="이메일"
+            value={userEmail}
+            onChangeText={setuserEmail}
+          />
+        </View>
+        <View style={styles.resisterInputArea}>
+          <Text style={{fontWeight: 'bold', padding: 10}}>비밀번호</Text>
+          <TextInput
+            autoCapitalize={'none'}
+            style={styles.input}
+            placeholder="비밀번호"
+            value={userPW}
+            onChangeText={setuserPW}
+            secureTextEntry
+          />
+        </View>
+        <View style={styles.resisterInputArea}>
+          <Text style={{fontWeight: 'bold', padding: 10}}>비밀번호 확인</Text>
+          <TextInput
+            autoCapitalize={'none'}
+            style={styles.input}
+            placeholder="비밀번호 확인"
+            value={userCheckPW}
+            onChangeText={setuserCheckPW}
+            secureTextEntry
+          />
+        </View>
+        <View style={styles.resisterInputArea}>
+          <Text style={{fontWeight: 'bold', padding: 10}}>전화번호</Text>
+          <TextInput
+            autoCapitalize={'none'}
+            style={styles.input}
+            placeholder="01012345678"
+            value={userPhoneNumber}
+            onChangeText={setuserPhoneNumber}
+          />
+        </View>
+        <View style={styles.resisterInputArea}>
+          <Text style={{fontWeight: 'bold', padding: 10}}>생년월일 6자리</Text>
+          <TextInput
+            autoCapitalize={'none'}
+            keyboardType={'email-address'}
+            style={styles.input}
+            placeholder="980309"
+            value={userBirthday}
+            onChangeText={setuserBirthday}
+          />
+        </View>
+        <TouchableOpacity
+          style={styles.resisterBtn}
+          onPress={() => navigation.push('Login')}>
+          <Text style={{textAlign: 'center', fontSize: 18, fontWeight: 'bold'}}>
+            시작하기
+          </Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -107,13 +122,25 @@ const Resister = () => {
 const styles = StyleSheet.create({
   input: {
     width: '100%',
-    borderBottomWidth: 1,
-    borderBottomColor: '#fff',
-    fontSize: 17,
+    fontSize: 16,
     padding: 5,
-    marginTop: 30,
+    paddingLeft: 15,
+    marginBottom: 10,
+    borderRadius: 5,
+    backgroundColor: 'lightgrey',
   },
-  button: {},
+  resisterInputArea: {
+    fontWeight: 'bold',
+  },
+  resisterBtn: {
+    marginTop: 20,
+    marginLeft: 40,
+    marginRight: 40,
+    padding: 5,
+    backgroundColor: 'grey',
+    borderRadius: 5,
+    textAlign: 'center',
+  },
 });
 
 export default Resister;

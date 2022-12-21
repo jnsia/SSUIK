@@ -55,7 +55,7 @@ const MypageStack = createStackNavigator();
 
 */
 
-const isLoggedIn = true;
+const isLoggedIn = false;
 
 const AuthStackNavigator = () => {
   return (
@@ -64,6 +64,7 @@ const AuthStackNavigator = () => {
       screenOptions={{headerShown: false}}>
       <AuthStack.Screen name="Login" component={Login} />
       <AuthStack.Screen name="Resister" component={Resister} />
+      <AuthStack.Screen name="Main" component={MainTabNavigator} />
     </AuthStack.Navigator>
   );
 };

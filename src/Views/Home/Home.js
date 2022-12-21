@@ -1,27 +1,38 @@
-import {View, Text, StyleSheet, Image, Button} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <View style={{margin: 20}}>
       <View>
-        <Button title="addInfo">내 차량 및 위치 정보 등록</Button>
+        <TouchableOpacity
+          style={{backgroundColor: 'lightblue', padding: 10}}
+          onPress={() => navigation.push('ResisterCarInfo')}>
+          <Text style={{textAlign: 'center', fontSize: 24}}>
+            내 차량 및 위치 정보 등록
+          </Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.adContent}>
-        <Text style={styles.text}>현재 나의 포인트: {'my point'}</Text>
-        <View>
+      <View style={{margin: 20, marginTop: 40}}>
+        <Text style={styles.text}>현재 나의 포인트: {'???'}</Text>
+        <View style={styles.adContent}>
           <Image
             style={{
-              height: 300,
-              width: 300,
-              // borderWidth: 1,
-              // borderColor: 'black',
+              height: 250,
+              width: 250,
               resizeMode: 'contain',
             }}
             source={require('../../Images/sample.jpg')}
           />
         </View>
-        <Text style={styles.text}>해당 광고 리워드: {'reward point'}</Text>
+        <Text style={styles.text}>해당 광고 리워드: {'???'}</Text>
       </View>
     </View>
   );
@@ -30,17 +41,20 @@ const Home = () => {
 const styles = StyleSheet.create({
   adContent: {
     borderColor: 'black',
-    // borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 20,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    marginTop: '30%',
+    marginTop: 20,
+    marginBottom: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   text: {
+    textAlign: 'center',
     fontSize: 20,
-    margin: 20,
   },
 });
 

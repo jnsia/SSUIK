@@ -27,7 +27,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightgray',
+    backgroundColor: '#3143e8',
   },
   navIcon: {
     width: 150,
