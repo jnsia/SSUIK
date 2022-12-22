@@ -5,20 +5,21 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
+import {Picker} from '@react-native-picker/picker';
 
 const ResisterCarInfo = ({navigation}) => {
   const [userCarNumber, setuserCarNumber] = useState('');
-  const [userID, setuserID] = useState('');
-  const [userPW, setuserPW] = useState('');
-  const [userEmail, setuserEmail] = useState('');
-  const [userCheckPW, setuserCheckPW] = useState('');
+  const [userCarModel, setuserCarModel] = useState('');
+  const [userCarMFR, setuserCarMFR] = useState('');
+  const [userCarYear, setuserCarYear] = useState('');
   const [userPhoneNumber, setuserPhoneNumber] = useState('');
   const [userBirthday, setuserBirthday] = useState('');
 
   return (
-    <View>
+    <ScrollView>
       <View style={{margin: 20}}>
         <View style={styles.resisterInputArea}>
           <Text style={{fontWeight: 'bold', padding: 10}}>차량번호</Text>
@@ -33,7 +34,12 @@ const ResisterCarInfo = ({navigation}) => {
         </View>
         <View style={styles.resisterInputArea}>
           <Text style={{fontWeight: 'bold', padding: 10}}>제조국</Text>
-          <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              marginBottom: 10,
+            }}>
             <Button title="          국산          " />
             <Button title="          수입          " />
           </View>
@@ -41,14 +47,20 @@ const ResisterCarInfo = ({navigation}) => {
         </View>
         <View style={styles.resisterInputArea}>
           <Text style={{fontWeight: 'bold', padding: 10}}>제조사</Text>
-          <TextInput
-            autoCapitalize={'none'}
-            style={styles.input}
-            placeholder="현대"
-            value={userPW}
-            onChangeText={setuserPW}
-          />
-          {/* 드롭박스형 선택 */}
+          <View style={styles.picker}>
+            <Picker
+              selectedValue={userCarMFR}
+              onValueChange={(itemValue, itemIndex) =>
+                setuserCarMFR(itemValue)
+              }>
+              <Picker.Item
+                style={styles.pickerItem}
+                label="현대"
+                value="hyundai"
+              />
+              <Picker.Item style={styles.pickerItem} label="기아" value="kia" />
+            </Picker>
+          </View>
         </View>
         <View style={styles.resisterInputArea}>
           <Text style={{fontWeight: 'bold', padding: 10}}>차량 모델</Text>
@@ -56,8 +68,8 @@ const ResisterCarInfo = ({navigation}) => {
             autoCapitalize={'none'}
             style={styles.input}
             placeholder="아반떼AD"
-            value={userPW}
-            onChangeText={setuserPW}
+            value={userCarModel}
+            onChangeText={setuserCarModel}
           />
         </View>
         <View style={styles.resisterInputArea}>
@@ -65,31 +77,33 @@ const ResisterCarInfo = ({navigation}) => {
           <TextInput
             autoCapitalize={'none'}
             style={styles.input}
-            placeholder="비밀번호 확인"
-            value={userCheckPW}
-            onChangeText={setuserCheckPW}
+            placeholder="2018"
+            value={userCarYear}
+            onChangeText={setuserCarYear}
           />
         </View>
         <View style={styles.resisterInputArea}>
-          <Text style={{fontWeight: 'bold', padding: 10}}>전화번호</Text>
-          <TextInput
-            autoCapitalize={'none'}
-            style={styles.input}
-            placeholder="01012345678"
-            value={userPhoneNumber}
-            onChangeText={setuserPhoneNumber}
-          />
-        </View>
-        <View style={styles.resisterInputArea}>
-          <Text style={{fontWeight: 'bold', padding: 10}}>생년월일 6자리</Text>
-          <TextInput
-            autoCapitalize={'none'}
-            keyboardType={'email-address'}
-            style={styles.input}
-            placeholder="980309"
-            value={userBirthday}
-            onChangeText={setuserBirthday}
-          />
+          <Text style={{fontWeight: 'bold', padding: 10}}>
+            차량소유주와의 관계
+          </Text>
+          <View style={styles.picker}>
+            <Picker
+              selectedValue={userCarMFR}
+              onValueChange={(itemValue, itemIndex) =>
+                setuserCarMFR(itemValue)
+              }>
+              <Picker.Item
+                style={styles.pickerItem}
+                label="본인"
+                value="myself"
+              />
+              <Picker.Item
+                style={styles.pickerItem}
+                label="자녀"
+                value="children"
+              />
+            </Picker>
+          </View>
         </View>
         <TouchableOpacity
           style={styles.resisterBtn}
@@ -99,19 +113,36 @@ const ResisterCarInfo = ({navigation}) => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   input: {
     width: '100%',
-    fontSize: 16,
-    padding: 5,
-    paddingLeft: 15,
+    fontSize: 14,
+    padding: 10,
     marginBottom: 10,
     borderRadius: 5,
     backgroundColor: 'lightgrey',
+  },
+  picker: {
+    borderRadius: 5,
+    backgroundColor: 'lightgrey',
+    marginBottom: 10,
+    paddingLeft: 5,
+  },
+  pickerItem: {
+    fontSize: 14,
+  },
+  resisterBtn: {
+    marginTop: 20,
+    marginLeft: 40,
+    marginRight: 40,
+    padding: 10,
+    backgroundColor: 'grey',
+    borderRadius: 5,
+    textAlign: 'center',
   },
 });
 

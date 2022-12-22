@@ -33,13 +33,12 @@ const Login = ({navigation}) => {
       return false;
     }
 
-    alert('환영합니다!');
     // document.loginForm.submit();
     navigation.push('Main');
   }
 
   return (
-    <View style={{margin: 40}}>
+    <View style={{margin: 40, top: 80}}>
       <View style={{alignItems: 'center'}}>
         <Image
           source={LogoImage}
@@ -55,7 +54,6 @@ const Login = ({navigation}) => {
           placeholder="아이디"
           value={userID}
           onChangeText={setuserID}
-          autoFocus
         />
         <TextInput
           autoCapitalize={'none'}
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     fontSize: 16,
-    padding: 5,
+    padding: 10,
     paddingLeft: 15,
     marginTop: 10,
     marginBottom: 10,
@@ -99,7 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 40,
     marginRight: 40,
-    padding: 5,
+    padding: 10,
     backgroundColor: 'grey',
     borderRadius: 5,
     textAlign: 'center',
