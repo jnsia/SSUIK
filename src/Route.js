@@ -9,6 +9,7 @@ import Login from './Views/auth/Login';
 import Resister from './Views/auth/Resister';
 
 import Brand from './Views/Brand/Brand';
+import BrandInfo from './Views/Brand/BrandInfo';
 
 import Event from './Views/Event/Event';
 
@@ -23,7 +24,7 @@ import Goods from './Views/Point/Goods';
 
 import Mypage from './Views/Mypage/Mypage';
 import UserInfo from './Views/Mypage/UserInfo';
-import SupportHistory from './Views/Mypage/SupportHistory';
+import AdsCollection from './Views/Mypage/AdsCollection';
 import PointUseHistory from './Views/Mypage/PointUseHistory';
 import ServiceCenter from './Views/Mypage/ServiceCenter';
 import Setting from './Views/Mypage/Setting';
@@ -74,12 +75,21 @@ const MainTabNavigator = () => {
     <MainTab.Navigator
       initialRouteName="HomeScreen"
       screenOptions={{headerShown: false}}>
-      <MainTab.Screen name="BrandScreen" component={Brand} />
+      <MainTab.Screen name="BrandScreen" component={BrandStackNavigator} />
       <MainTab.Screen name="PointScreen" component={PointStackNavigator} />
       <MainTab.Screen name="HomeScreen" component={HomeStackNavigator} />
       <MainTab.Screen name="EventScreen" component={Event} />
       <MainTab.Screen name="MypageScreen" component={MypageStackNavigator} />
     </MainTab.Navigator>
+  );
+};
+
+const BrandStackNavigator = () => {
+  return (
+    <BrandStack.Navigator initialRouteName="Brand">
+      <BrandStack.Screen name="Brand" component={Brand} />
+      <BrandStack.Screen name="BrandInfo" component={BrandInfo} />
+    </BrandStack.Navigator>
   );
 };
 
@@ -109,7 +119,7 @@ const MypageStackNavigator = () => {
     <MypageStack.Navigator initialRouteName="Mypage">
       <MypageStack.Screen name="Mypage" component={Mypage} />
       <MypageStack.Screen name="UserInfo" component={UserInfo} />
-      <MypageStack.Screen name="SupportHistory" component={SupportHistory} />
+      <MypageStack.Screen name="AdsCollection" component={AdsCollection} />
       <MypageStack.Screen name="PointUseHistory" component={PointUseHistory} />
       <MypageStack.Screen name="ServiceCenter" component={ServiceCenter} />
       <MypageStack.Screen name="Setting" component={Setting} />

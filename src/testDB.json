@@ -1,0 +1,52 @@
+{
+  "brand": [
+    {
+      "title": "SSUIK",
+      "currentVolume": "19",
+      "maxVolume": "98",
+      "location": "대구",
+      "target": "택시",
+      "deadline": "2022/07/12"
+    },
+    {
+      "title": "금연공익광고",
+      "currentVolume": "3",
+      "maxVolume": "9",
+      "location": "경기",
+      "target": "버스",
+      "deadline": "2022/12/27"
+    },
+    {
+      "title": "삼성",
+      "currentVolume": "21",
+      "maxVolume": "50",
+      "location": "수원",
+      "target": "자가용",
+      "deadline": "2022.1.1"
+    },
+    {
+      "title": "코카콜라",
+      "currentVolume": "3",
+      "maxVolume": "50",
+      "location": "구미",
+      "target": "버스",
+      "deadline": "2026.6.6"
+    },
+    {
+      "title": "나이키",
+      "currentVolume": "21",
+      "maxVolume": "50",
+      "location": "LA",
+      "target": "택시",
+      "deadline": "2022.1.1"
+    },
+    {
+      "title": "교보문고",
+      "currentVolume": "3",
+      "maxVolume": "9",
+      "location": "대구",
+      "target": "자가용",
+      "deadline": "2023.3.9"
+    }
+  ]
+}

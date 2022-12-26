@@ -16,9 +16,10 @@ const My = ({navigation}) => {
         onPress={() => navigation.push('UserInfo')}>
         <Image
           style={{
-            width: 50,
-            height: 50,
+            width: 75,
+            height: 75,
             borderRadius: 20,
+            backgroundColor: '#FF9500',
           }}
           source={require('../../Images/my-img-test.png')}
         />
@@ -31,8 +32,8 @@ const My = ({navigation}) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.myPageList}
-        onPress={() => navigation.push('SupportHistory')}>
-        <Text>서포트 내역</Text>
+        onPress={() => navigation.push('AdsCollection')}>
+        <Text>내 광고 컬렉션</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.myPageList}

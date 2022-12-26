@@ -15,8 +15,6 @@ const ResisterCarInfo = ({navigation}) => {
   const [userCarModel, setuserCarModel] = useState('');
   const [userCarMFR, setuserCarMFR] = useState('');
   const [userCarYear, setuserCarYear] = useState('');
-  const [userPhoneNumber, setuserPhoneNumber] = useState('');
-  const [userBirthday, setuserBirthday] = useState('');
 
   return (
     <ScrollView>
@@ -36,12 +34,17 @@ const ResisterCarInfo = ({navigation}) => {
           <Text style={{fontWeight: 'bold', padding: 10}}>제조국</Text>
           <View
             style={{
+              flex: 1,
               flexDirection: 'row',
-              justifyContent: 'space-around',
+              // justifyContent: 'space-around',
               marginBottom: 10,
             }}>
-            <Button title="          국산          " />
-            <Button title="          수입          " />
+            <TouchableOpacity style={styles.madeCountry}>
+              <Text style={styles.madeCountryText}>국산</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.madeCountry}>
+              <Text style={styles.madeCountryText}>수입</Text>
+            </TouchableOpacity>
           </View>
           {/* 버튼 포커스 선택 */}
         </View>
@@ -135,12 +138,23 @@ const styles = StyleSheet.create({
   pickerItem: {
     fontSize: 14,
   },
+  madeCountry: {
+    flex: 1,
+    backgroundColor: '#FF9500',
+    marginHorizontal: 20,
+    padding: 10,
+    borderRadius: 5,
+  },
+  madeCountryText: {
+    textAlign: 'center',
+    fontSize: 14,
+  },
   resisterBtn: {
     marginTop: 20,
     marginLeft: 40,
     marginRight: 40,
     padding: 10,
-    backgroundColor: 'grey',
+    backgroundColor: '#FF9500',
     borderRadius: 5,
     textAlign: 'center',
   },

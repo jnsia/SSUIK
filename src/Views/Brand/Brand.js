@@ -1,8 +1,17 @@
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import React from 'react';
-import BrandItem from '../../Components/BrandItem';
+import testDB from '../../testDB.json';
 
-const Brand = () => {
+const Brand = ({navigation: {navigate}}) => {
+  const brands = testDB.brand;
+
   return (
     <View style={[styles.container]}>
       <ScrollView>
@@ -15,35 +24,36 @@ const Brand = () => {
           }}>
           <Text>필터 기능</Text>
         </View>
-        <BrandItem />
-        <BrandItem
-          name="삼성"
-          volume="21/50"
-          location="수원"
-          target="자가용"
-          time="2022.1.1"
-        />
-        <BrandItem
-          name="코카콜라"
-          volume="3/50"
-          location="구미"
-          target="버스"
-          time="2026.6.6"
-        />
-        <BrandItem
-          name="나이키"
-          volume="21/50"
-          location="LA"
-          target="택시"
-          time="2022.1.1"
-        />
-        <BrandItem
-          name="교보문고"
-          volume="3/9"
-          location="대구"
-          target="자가용"
-          time="2023.3.9"
-        />
+        {brands.map((brand, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.brand}
+            onPress={() => navigate('BrandInfo', brand)}>
+            <Image
+              style={{
+                padding: 5,
+                width: '20%',
+                height: '100%',
+                resizeMode: 'contain',
+              }}
+              source={require('../../Images/brand-img-test.png')}
+            />
+            <View
+              style={{display: 'flex', flexDirection: 'column', width: '60%'}}>
+              <View style={styles.brandInfo}>
+                <Text style={[styles.title]}>{brand.title}</Text>
+                <Text style={[styles.title]}>
+                  ({brand.currentVolume + '/' + brand.maxVolume})
+                </Text>
+              </View>
+              <View style={styles.brandInfo}>
+                <Text style={[styles.text]}>{brand.location}</Text>
+                <Text style={[styles.text]}>{brand.target}</Text>
+                <Text style={[styles.text]}>{brand.deadline}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ))}
       </ScrollView>
     </View>
   );
@@ -52,6 +62,36 @@ const Brand = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
+  },
+  brand: {
+    width: '100%',
+    height: 120,
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    borderBottomWidth: 1,
+    borderColor: 'lightgrey',
+  },
+  brandInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    padding: 5,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    padding: 5,
+  },
+  text: {
+    marginRight: 5,
+    padding: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderColor: 'lightgrey',
+    borderWidth: 1,
+    borderRadius: 20,
   },
 });
 

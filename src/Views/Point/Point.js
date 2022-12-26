@@ -6,8 +6,12 @@ const Point = ({navigation}) => {
     <View>
       <View style={styles.pointView}>
         <View style={styles.pointBox}>
-          <Text style={{fontSize: 24, marginBottom: 20}}>나의 씤 포인트</Text>
-          <Text style={{fontSize: 24, textAlign: 'right'}}>???? 원</Text>
+          <Text style={{fontSize: 20, marginBottom: 20, color: 'white'}}>
+            나의 씤 포인트
+          </Text>
+          <Text style={{fontSize: 24, textAlign: 'right', color: 'white'}}>
+            ???? 원
+          </Text>
         </View>
         <TouchableOpacity
           style={styles.pointViewList}
@@ -32,7 +36,7 @@ const styles = StyleSheet.create({
     margin: 40,
   },
   pointBox: {
-    backgroundColor: 'lightblue',
+    backgroundColor: 'black',
     borderRadius: 20,
     padding: 40,
   },
