@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
-const Point = ({navigation}) => {
+const Point = ({navigation: {navigate}, route}) => {
   return (
     <View>
       <View style={styles.pointView}>
@@ -9,18 +9,23 @@ const Point = ({navigation}) => {
           <Text style={{fontSize: 20, marginBottom: 20, color: 'white'}}>
             나의 씤 포인트
           </Text>
-          <Text style={{fontSize: 24, textAlign: 'right', color: 'white'}}>
-            ???? 원
-          </Text>
+          <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+            <Text style={{fontSize: 24, color: 'white'}}>????원</Text>
+            <TouchableOpacity
+              style={{paddingLeft: 10}}
+              onPress={() => navigate('PointInfo')}>
+              <Text style={{fontSize: 22, color: 'white'}}>▶</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <TouchableOpacity
           style={styles.pointViewList}
-          onPress={() => navigation.push('Refund')}>
+          onPress={() => navigate('Refund')}>
           <Text>환급 신청하기</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.pointViewList}
-          onPress={() => navigation.push('Goods')}>
+          onPress={() => navigate('Goods')}>
           <Text>상품 구매 및 교환</Text>
         </TouchableOpacity>
       </View>
@@ -39,6 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderRadius: 20,
     padding: 40,
+    paddingVertical: 30,
   },
   pointViewList: {
     borderColor: 'black',

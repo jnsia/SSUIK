@@ -1,4 +1,3 @@
-import {View, Text} from 'react-native';
 import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
@@ -10,6 +9,7 @@ import Resister from './Views/auth/Resister';
 
 import Brand from './Views/Brand/Brand';
 import BrandInfo from './Views/Brand/BrandInfo';
+import BrandApply from './Views/Brand/BrandApply';
 
 import Event from './Views/Event/Event';
 
@@ -89,6 +89,7 @@ const BrandStackNavigator = () => {
     <BrandStack.Navigator initialRouteName="Brand">
       <BrandStack.Screen name="Brand" component={Brand} />
       <BrandStack.Screen name="BrandInfo" component={BrandInfo} />
+      <BrandStack.Screen name="BrandApply" component={BrandApply} />
     </BrandStack.Navigator>
   );
 };

@@ -17,7 +17,7 @@ const Brand = ({navigation: {navigate}}) => {
       <ScrollView>
         <View
           style={{
-            height: 150,
+            height: 100,
             backgroundColor: 'aliceblue',
             justifyContent: 'center',
             alignItems: 'center',
@@ -43,13 +43,27 @@ const Brand = ({navigation: {navigate}}) => {
               <View style={styles.brandInfo}>
                 <Text style={[styles.title]}>{brand.title}</Text>
                 <Text style={[styles.title]}>
-                  ({brand.currentVolume + '/' + brand.maxVolume})
+                  {brand.reward.toLocaleString('ko-KR')}
                 </Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={[styles.title]}>
+                    ({brand.currentVolume + '/' + brand.maxVolume})
+                  </Text>
+                  <Text style={[styles.title]}>{brand.period}일</Text>
+                </View>
               </View>
               <View style={styles.brandInfo}>
-                <Text style={[styles.text]}>{brand.location}</Text>
-                <Text style={[styles.text]}>{brand.target}</Text>
-                <Text style={[styles.text]}>{brand.deadline}</Text>
+                {brand.location.length === 1 ? (
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={[styles.text]}>{brand.location[0]}</Text>
+                  </View>
+                ) : (
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={[styles.text]}>{brand.location[0]}</Text>
+                    <Text style={[styles.text]}>{brand.location[1]}</Text>
+                  </View>
+                )}
+                {/* <Text style={[styles.text]}>{brand.target}</Text> */}
               </View>
             </View>
           </TouchableOpacity>
@@ -65,7 +79,8 @@ const styles = StyleSheet.create({
   },
   brand: {
     width: '100%',
-    height: 120,
+    paddingTop: 15,
+    paddingBottom: 15,
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: 'white',
@@ -76,17 +91,17 @@ const styles = StyleSheet.create({
   },
   brandInfo: {
     display: 'flex',
-    flexDirection: 'row',
-    padding: 5,
+    // flexDirection: 'row',
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    padding: 5,
+    marginRight: 10,
   },
   text: {
     marginRight: 5,
-    padding: 5,
+    marginTop: 5,
+    // padding: 5,
     paddingLeft: 10,
     paddingRight: 10,
     borderColor: 'lightgrey',

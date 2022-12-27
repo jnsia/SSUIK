@@ -2,51 +2,58 @@
   "brand": [
     {
       "title": "SSUIK",
-      "currentVolume": "19",
-      "maxVolume": "98",
-      "location": "대구",
+      "currentVolume": 19,
+      "maxVolume": 98,
+      "location": ["대구광역시"],
       "target": "택시",
-      "deadline": "2022/07/12"
+      "period": 12,
+      "reward": 20000,
+      "description": "광고 설명 테스트용 텍스트 그리고 위의 예제들은 아래와 같이 Number 타입의 toLocaleString() 함수를 사용하는 것이기 때문에, 문자열 타입 객체에 toLocaleString()를 호출해도 콤마가 입력되지 않습니다."
     },
     {
-      "title": "금연공익광고",
-      "currentVolume": "3",
-      "maxVolume": "9",
-      "location": "경기",
+      "title": "음주운전 공익광고",
+      "currentVolume": 3,
+      "maxVolume": 9,
+      "location": ["경기"],
       "target": "버스",
-      "deadline": "2022/12/27"
+      "period": 27,
+      "reward": 15000
     },
     {
       "title": "삼성",
-      "currentVolume": "21",
-      "maxVolume": "50",
-      "location": "수원",
+      "currentVolume": 21,
+      "maxVolume": 50,
+      "location": ["서울특별시", "수원"],
       "target": "자가용",
-      "deadline": "2022.1.1"
+      "period": 14,
+      "reward": 15000
     },
     {
       "title": "코카콜라",
-      "currentVolume": "3",
-      "maxVolume": "50",
-      "location": "구미",
+      "currentVolume": 3,
+      "maxVolume": 50,
+      "location": ["구미"],
       "target": "버스",
-      "deadline": "2026.6.6"
+      "period": 30,
+      "reward": 20000
     },
     {
       "title": "나이키",
-      "currentVolume": "21",
-      "maxVolume": "50",
-      "location": "LA",
+      "currentVolume": 21,
+      "maxVolume": 50,
+      "location": ["LA"],
       "target": "택시",
-      "deadline": "2022.1.1"
+      "period": 15,
+      "reward": 5000
     },
     {
       "title": "교보문고",
-      "currentVolume": "3",
-      "maxVolume": "9",
-      "location": "대구",
+      "currentVolume": 3,
+      "maxVolume": 9,
+      "location": ["대구"],
       "target": "자가용",
-      "deadline": "2023.3.9"
+      "period": 25,
+      "reward": 25000
     }
   ]
 }
