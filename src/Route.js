@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 //Screens
 import Login from './Views/auth/Login';
 import Resister from './Views/auth/Resister';
+import Permission from './Views/auth/Permission';
 
 import Brand from './Views/Brand/Brand';
 import BrandInfo from './Views/Brand/BrandInfo';
@@ -32,7 +33,11 @@ import TermsAndPolicy from './Views/Mypage/TermsAndPolicy';
 
 const RouteStack = createStackNavigator();
 
+const PermissionStack = createStackNavigator();
+
 const AuthStack = createStackNavigator();
+const LoginStack = createStackNavigator();
+
 const MainTab = createBottomTabNavigator();
 
 const BrandStack = createStackNavigator();
@@ -56,17 +61,42 @@ const MypageStack = createStackNavigator();
 
 */
 
+const isPermission = true;
 const isLoggedIn = false;
+
+const PermissionStackNavigator = () => {
+  <PermissionStack.Navigator
+    initialRouteName="Login"
+    screenOptions={{headerShown: false}}>
+    <PermissionStack.Screen name="Pemission" component={Permission} />
+    <PermissionStack.Screen name="Login" component={Login} />
+  </PermissionStack.Navigator>;
+};
 
 const AuthStackNavigator = () => {
   return (
-    <AuthStack.Navigator
+    <AuthStack.Navigator screenOptions={{headerShown: false}}>
+      {isPermission ? (
+        <AuthStack.Screen name="LoginStack" component={LoginStackNavigator} />
+      ) : (
+        <AuthStack.Screen
+          name="Permission"
+          component={PermissionStackNavigator}
+        />
+      )}
+    </AuthStack.Navigator>
+  );
+};
+
+const LoginStackNavigator = () => {
+  return (
+    <LoginStack.Navigator
       initialRouteName="Login"
       screenOptions={{headerShown: false}}>
-      <AuthStack.Screen name="Login" component={Login} />
-      <AuthStack.Screen name="Resister" component={Resister} />
-      <AuthStack.Screen name="Main" component={MainTabNavigator} />
-    </AuthStack.Navigator>
+      <LoginStack.Screen name="Login" component={Login} />
+      <LoginStack.Screen name="Resister" component={Resister} />
+      <LoginStack.Screen name="Main" component={MainTabNavigator} />
+    </LoginStack.Navigator>
   );
 };
 
