@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -63,7 +64,6 @@ const MypageStack = createStackNavigator();
 */
 
 const isPermission = true;
-const isLoggedIn = false;
 
 const PermissionStackNavigator = () => {
   <PermissionStack.Navigator
@@ -96,7 +96,6 @@ const LoginStackNavigator = () => {
       screenOptions={{headerShown: false}}>
       <LoginStack.Screen name="Login" component={Login} />
       <LoginStack.Screen name="Resister" component={Resister} />
-      <LoginStack.Screen name="Main" component={MainTabNavigator} />
     </LoginStack.Navigator>
   );
 };
@@ -214,6 +213,23 @@ const MypageStackNavigator = () => {
 };
 
 const Route = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const getIsLogin = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('isLogin');
+        setIsLoggedIn(jsonValue);
+        console.log(jsonValue);
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+      } catch (e) {
+        console.log('get error');
+      }
+    };
+
+    getIsLogin();
+  }, []);
+
   return (
     <RouteStack.Navigator screenOptions={{headerShown: false}}>
       {isLoggedIn ? (

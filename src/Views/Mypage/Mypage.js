@@ -7,8 +7,19 @@ import {
   ScrollView,
 } from 'react-native';
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const My = ({navigation}) => {
+  const storeData = async () => {
+    try {
+      const jsonValue = JSON.stringify(false);
+      await AsyncStorage.setItem('isLogin', jsonValue);
+      console.log(jsonValue);
+    } catch (e) {
+      console.log('set error');
+    }
+  };
+
   return (
     <ScrollView>
       <TouchableOpacity
@@ -19,7 +30,7 @@ const My = ({navigation}) => {
             width: 75,
             height: 75,
             borderRadius: 20,
-            backgroundColor: '#FF9500',
+            backgroundColor: 'white',
           }}
           source={require('../../Images/my-img-test.png')}
         />
@@ -54,6 +65,9 @@ const My = ({navigation}) => {
         style={styles.myPageList}
         onPress={() => navigation.push('TermsAndPolicy')}>
         <Text>약관 및 정책</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.myPageList} onPress={() => storeData()}>
+        <Text>로그아웃</Text>
       </TouchableOpacity>
     </ScrollView>
   );

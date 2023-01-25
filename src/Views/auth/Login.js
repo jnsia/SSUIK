@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import LogoImage from '../../Images/ssuik-logo.png';
 
@@ -15,26 +16,22 @@ const Login = ({navigation}) => {
   const [userPW, setuserPW] = useState('');
 
   function checkInfo() {
-    // const userID = document.getElementById('userID');
-    // const userPW = document.getElementById('userPW');
+    const storeData = async () => {
+      try {
+        const jsonValue = JSON.stringify(true);
+        await AsyncStorage.setItem('isLogin', jsonValue);
+
+        console.log(jsonValue);
+      } catch (e) {
+        console.log('set error');
+      }
+    };
 
     // 아이디 입력 유무 체크
-    if (userID.value === '') {
-      alert('아이디를 입력하시오.');
-      userID.focus();
-      userID.select();
-      return false;
-    }
 
     // 암호 입력 유무 체크
-    if (userPW.value === '') {
-      alert('암호를 입력하세요.');
-      userPW.focus();
-      return false;
-    }
 
-    // document.loginForm.submit();
-    navigation.push('Main');
+    storeData();
   }
 
   return (
