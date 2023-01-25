@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from 'react-native-vector-icons/Entypo';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -40,9 +41,9 @@ const LoginStack = createStackNavigator();
 
 const MainTab = createBottomTabNavigator();
 
+const HomeStack = createStackNavigator();
 const BrandStack = createStackNavigator();
 const EventStack = createStackNavigator();
-const HomeStack = createStackNavigator();
 const PointStack = createStackNavigator();
 const MypageStack = createStackNavigator();
 
@@ -104,12 +105,51 @@ const MainTabNavigator = () => {
   return (
     <MainTab.Navigator
       initialRouteName="HomeScreen"
-      screenOptions={{headerShown: false}}>
-      <MainTab.Screen name="BrandScreen" component={BrandStackNavigator} />
-      <MainTab.Screen name="PointScreen" component={PointStackNavigator} />
-      <MainTab.Screen name="HomeScreen" component={HomeStackNavigator} />
-      <MainTab.Screen name="EventScreen" component={Event} />
-      <MainTab.Screen name="MypageScreen" component={MypageStackNavigator} />
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: 'black',
+        },
+        tabBarActiveTintColor: 'white',
+      }}>
+      <MainTab.Screen
+        name="HomeScreen"
+        component={HomeStackNavigator}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <MainTab.Screen
+        name="PointScreen"
+        component={PointStackNavigator}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="credit" color={color} size={size} />
+          ),
+        }}
+      />
+      <MainTab.Screen
+        name="BrandScreen"
+        component={BrandStackNavigator}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="calendar" color={color} size={size} />
+          ),
+        }}
+      />
+      {/* <MainTab.Screen name="EventScreen" component={Event} /> */}
+      <MainTab.Screen
+        name="MypageScreen"
+        component={MypageStackNavigator}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="user" color={color} size={size} />
+          ),
+        }}
+      />
     </MainTab.Navigator>
   );
 };
@@ -127,7 +167,21 @@ const BrandStackNavigator = () => {
 const HomeStackNavigator = () => {
   return (
     <HomeStack.Navigator initialRouteName="Home">
-      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          title: 'SSUIK',
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerLeft: false,
+        }}
+      />
       <HomeStack.Screen name="ResisterCarInfo" component={ResisterCarInfo} />
       <HomeStack.Screen name="AdsSlide" component={AdsSlide} />
     </HomeStack.Navigator>

@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 
-import LogoImage from '../../Images/sample.jpg';
+import LogoImage from '../../Images/ssuik-logo.png';
 
 const Login = ({navigation}) => {
   const [userID, setuserID] = useState('');
@@ -43,7 +43,7 @@ const Login = ({navigation}) => {
         <Image
           source={LogoImage}
           resizeMode={'contain'}
-          style={{width: 250, height: 200}}
+          style={{width: 200, height: 200}}
         />
       </View>
       <View style={{marginTop: 20, marginBottom: 20}}>

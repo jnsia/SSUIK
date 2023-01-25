@@ -36,7 +36,7 @@ const Brand = ({navigation: {navigate}}) => {
                 height: '100%',
                 resizeMode: 'contain',
               }}
-              source={require('../../Images/brand-img-test.png')}
+              source={require('../../Images/ssuik-logo.png')}
             />
             <View
               style={{display: 'flex', flexDirection: 'column', width: '60%'}}>
@@ -79,8 +79,7 @@ const styles = StyleSheet.create({
   },
   brand: {
     width: '100%',
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingVertical: 15,
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: 'white',
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
     // flexDirection: 'row',
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     marginRight: 10,
   },
@@ -102,11 +101,11 @@ const styles = StyleSheet.create({
     marginRight: 5,
     marginTop: 5,
     // padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingHorizontal: 10,
     borderColor: 'lightgrey',
     borderWidth: 1,
     borderRadius: 20,
+    fontSize: 12,
   },
 });
 
