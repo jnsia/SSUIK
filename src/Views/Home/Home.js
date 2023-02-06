@@ -5,224 +5,239 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
+
+import testImage from '../../Images/test.jpg';
+import testBrand from '../../Images/testBrand.jpg';
+import testBack from '../../Images/testBack.jpg';
+import logoImage from '../../Images/ssuik-logo.png';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 const Home = ({navigation}) => {
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-      <View>
-        <View
+    <ScrollView style={{flex: 1, backgroundColor: 'black'}}>
+      <ScrollView
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={true}>
+        <ImageBackground
+          source={testImage}
+          resizeMode="cover"
           style={{
-            backgroundColor: 'black',
+            width: SCREEN_WIDTH,
+            backgroundColor: 'grey',
             paddingHorizontal: 20,
+            marginVertical: 40,
             paddingVertical: 40,
           }}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{...styles.HomeText, fontSize: 52}}>SSUIK</Text>
-            <Text style={styles.HomeText}>의</Text>
+          <View style={{paddingVertical: 20}}>
+            <Text style={{...styles.HomeText, fontSize: 20}}>
+              나도 이제부터 브랜드 서포터즈?
+            </Text>
           </View>
-          <Text style={styles.HomeText}>스폰서가</Text>
-          <Text style={styles.HomeText}>되어주세요</Text>
+          <View style={{marginBottom: 40}}>
+            <Text style={styles.HomeText}>나의 스폰서를</Text>
+            <Text style={styles.HomeText}>찾아주세요</Text>
+          </View>
           <TouchableOpacity
-            style={styles.ResisterCarInfoBtn}
+            style={styles.searchBtn}
             onPress={() => navigation.push('ResisterCarInfo')}>
             <Text
               style={{
                 textAlign: 'center',
-                fontSize: 18,
-                color: 'black',
+                fontSize: 16,
+                color: 'white',
                 fontFamily: 'BlackHanSans-Regular',
               }}>
-              견적 확인하기
+              스폰서 찾기
             </Text>
           </TouchableOpacity>
-        </View>
-        <View style={{zIndex: 2, top: -40, marginHorizontal: 20}}>
-          <ScrollView
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}>
-            <View style={styles.adContent}>
-              <Image
-                style={{
-                  height: 100,
-                  width: 100,
-                  resizeMode: 'contain',
-                }}
-                source={require('../../Images/ssuik-logo.png')}
-              />
-              <View style={{justifyContent: 'center'}}>
-                <Text
-                  style={{
-                    textAlign: 'right',
-                    fontSize: 16,
-                    fontFamily: 'BlackHanSans-Regular',
-                    color: 'black',
-                  }}>
-                  D-21
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 40,
-                    color: 'black',
-                    fontFamily: 'BlackHanSans-Regular',
-                  }}>
-                  25,000
-                </Text>
-              </View>
-            </View>
-            <View style={styles.adContent}>
-              <Image
-                style={{
-                  height: 100,
-                  width: 100,
-                  resizeMode: 'contain',
-                }}
-                source={require('../../Images/ssuik-logo.png')}
-              />
-              <View>
-                <Text
-                  style={{
-                    textAlign: 'right',
-                    fontSize: 16,
-                    fontWeight: 'bold',
-                    fontFamily: 'BlackHanSans-Regular',
-                    color: 'black',
-                  }}>
-                  D-21
-                </Text>
-                <Text
-                  style={{fontSize: 40, fontWeight: 'bold', color: 'black'}}>
-                  25,000
-                </Text>
-              </View>
-            </View>
-          </ScrollView>
-          <View
-            style={{
-              borderWidth: 2,
-              borderRadius: 20,
-              paddingHorizontal: 15,
-              paddingVertical: 15,
-            }}>
+        </ImageBackground>
+        <ImageBackground
+          source={testBack}
+          resizeMode="cover"
+          style={{
+            width: SCREEN_WIDTH,
+            backgroundColor: 'grey',
+            paddingHorizontal: 20,
+            marginVertical: 40,
+            paddingVertical: 40,
+          }}>
+          <View style={{paddingVertical: 20}}>
+            <Text style={{...styles.HomeText, fontSize: 20}}>
+              나도 이제부터 브랜드 서포터즈?
+            </Text>
+          </View>
+          <View style={{marginBottom: 40}}>
+            <Text style={styles.HomeText}>나의 스폰서를</Text>
+            <Text style={styles.HomeText}>찾아주세요</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.searchBtn}
+            onPress={() => navigation.push('ResisterCarInfo')}>
             <Text
               style={{
-                marginBottom: 10,
-                fontWeight: '500',
-                color: 'black',
+                textAlign: 'center',
+                fontSize: 16,
+                color: 'white',
                 fontFamily: 'BlackHanSans-Regular',
-                fontSize: 18,
               }}>
-              맞춤 추천 광고
+              스폰서 찾기
             </Text>
-            <View style={styles.recommendAds}>
-              <Image
-                style={{
-                  height: 50,
-                  width: 100,
-                  resizeMode: 'contain',
-                }}
-                source={require('../../Images/ssuik-logo.png')}
-              />
-              <View style={styles.recommendAdsText}>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.recommendAdsTexts1}>예상수익</Text>
-                  <View>
-                    <Text style={styles.recommendAdsTexts2}>
-                      16,000 ~ 17,000
-                    </Text>
-                  </View>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.recommendAdsTexts1}>부착기간</Text>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.recommendAdsTexts2}>23일</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View style={styles.recommendAds}>
-              <Image
-                style={{
-                  height: 50,
-                  width: 100,
-                  resizeMode: 'contain',
-                }}
-                source={require('../../Images/ssuik-logo.png')}
-              />
-              <View style={styles.recommendAdsText}>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.recommendAdsTexts1}>예상수익</Text>
-                  <View>
-                    <Text style={styles.recommendAdsTexts2}>
-                      16,000 ~ 17,000
-                    </Text>
-                  </View>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.recommendAdsTexts1}>부착기간</Text>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.recommendAdsTexts2}>23일</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
+          </TouchableOpacity>
+        </ImageBackground>
+      </ScrollView>
+      <View style={{marginBottom: 20}}>
+        <Text style={{color: 'white', fontSize: 16, marginHorizontal: 20}}>
+          OOO님이 진행 중인 광고
+        </Text>
+        <ScrollView
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}>
+          <ImageBackground
+            source={testBack}
+            resizeMode="cover"
+            imageStyle={{borderRadius: 20}}
+            style={styles.processADS}>
+            <Text
+              style={{
+                fontSize: 12,
+                fontFamily: 'BlackHanSans-Regular',
+                color: 'white',
+                lineHeight: 30,
+              }}>
+              2023.01.25 ~ 2023.03.23
+            </Text>
+            <Text
+              style={{
+                fontSize: 28,
+                fontFamily: 'BlackHanSans-Regular',
+                color: 'yellow',
+                lineHeight: 30,
+              }}>
+              D-21
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                color: 'white',
+                fontFamily: 'BlackHanSans-Regular',
+                lineHeight: 30,
+              }}>
+              + point 25,000
+            </Text>
+          </ImageBackground>
+          <ImageBackground
+            source={testImage}
+            resizeMode="cover"
+            imageStyle={{borderRadius: 20}}
+            style={styles.processADS}>
+            <Text
+              style={{
+                fontSize: 12,
+                fontFamily: 'BlackHanSans-Regular',
+                color: 'white',
+                lineHeight: 30,
+              }}>
+              2023.02.05 ~ 2023.04.30
+            </Text>
+            <Text
+              style={{
+                fontSize: 28,
+                fontFamily: 'BlackHanSans-Regular',
+                color: 'yellow',
+                lineHeight: 30,
+              }}>
+              D-10
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                color: 'white',
+                fontFamily: 'BlackHanSans-Regular',
+                lineHeight: 30,
+              }}>
+              + point 28,000
+            </Text>
+          </ImageBackground>
+        </ScrollView>
       </View>
-    </View>
+      <View>
+        <Text style={{color: 'white', fontSize: 16, marginHorizontal: 20}}>
+          OOO님을 위한 추천광고
+        </Text>
+        <ScrollView
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}>
+          <View style={styles.recommendADS}>
+            <Image
+              source={logoImage}
+              resizeMode="contain"
+              style={{width: '100%'}}></Image>
+          </View>
+          <View style={styles.recommendADS}>
+            <Image
+              source={testBrand}
+              resizeMode="contain"
+              style={{width: '100%'}}></Image>
+          </View>
+          <View style={styles.recommendADS}>
+            <Image
+              source={logoImage}
+              resizeMode="contain"
+              style={{width: '100%'}}></Image>
+          </View>
+          <View style={styles.recommendADS}>
+            <Image
+              source={testBrand}
+              resizeMode="contain"
+              style={{width: '100%'}}></Image>
+          </View>
+        </ScrollView>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  ResisterCarInfoBtn: {
-    width: '50%',
-    backgroundColor: 'white',
+  searchBtn: {
+    width: '30%',
     paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: 'white',
     borderRadius: 20,
-    marginVertical: 20,
-  },
-  adContent: {
-    width: SCREEN_WIDTH - 40,
-    borderColor: 'black',
-    borderWidth: 2,
-    borderRadius: 20,
-    justifyContent: 'space-evenly',
-    backgroundColor: 'white',
-    marginVertical: 20,
-    paddingVertical: 10,
-    flexDirection: 'row',
+    marginVertical: 10,
   },
   HomeText: {
-    fontSize: 42,
+    fontSize: 28,
     color: 'white',
     fontFamily: 'BlackHanSans-Regular',
     textAlignVertical: 'bottom',
   },
-  recommendAds: {
-    borderWidth: 1,
-    paddingVertical: 5,
-    borderRadius: 10,
-    marginBottom: 10,
-    flexDirection: 'row',
+  processADS: {
+    width: 270,
+    height: 180,
+    borderRadius: 20,
+    padding: 20,
+    marginVertical: 20,
+    marginLeft: 20,
   },
-  recommendAdsText: {
+  recommendADS: {
+    width: 180,
+    height: 180,
+    borderRadius: 20,
+    backgroundColor: 'white',
+    padding: 10,
+    marginVertical: 20,
+    marginLeft: 20,
     justifyContent: 'center',
-  },
-  recommendAdsTexts1: {
-    paddingHorizontal: 10,
-    fontFamily: 'BlackHanSans-Regular',
-  },
-  recommendAdsTexts2: {
-    fontWeight: '500',
-    color: 'black',
-    paddingHorizontal: 10,
-    fontFamily: 'BlackHanSans-Regular',
-    textAlign: 'center',
+    alignItems: 'center',
   },
 });
 

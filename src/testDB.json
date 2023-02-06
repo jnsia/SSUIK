@@ -1,4 +1,12 @@
 {
+  "user": [
+    {
+      "userID": "test1",
+      "userPW": "test1",
+      "nickname": "김준수"
+    }
+  ],
+
   "brand": [
     {
       "title": "SSUIK",

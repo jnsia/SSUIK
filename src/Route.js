@@ -4,13 +4,28 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+
+import {Image} from 'react-native';
+// import logoImage from './Images/ssuik-logo.png';
+
+// function logo() {
+//   return (
+//     <Image
+//       source={logoImage}
+//       resizeMode="center"
+//       style={{width: '100%'}}></Image>
+//   );
+// }
 
 //Screens
 import Login from './Views/auth/Login';
 import Resister from './Views/auth/Resister';
 import Permission from './Views/auth/Permission';
 
-import Brand from './Views/Brand/Brand';
+import recruitBrand from './Views/Brand/recruitBrand';
+import beforeBrand from './Views/Brand/beforeBrand';
+import afterBrand from './Views/Brand/afterBrand';
 import BrandInfo from './Views/Brand/BrandInfo';
 import BrandApply from './Views/Brand/BrandApply';
 
@@ -41,6 +56,8 @@ const AuthStack = createStackNavigator();
 const LoginStack = createStackNavigator();
 
 const MainTab = createBottomTabNavigator();
+
+const BrandTopTab = createMaterialTopTabNavigator();
 
 const HomeStack = createStackNavigator();
 const BrandStack = createStackNavigator();
@@ -106,7 +123,7 @@ const MainTabNavigator = () => {
       initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
+        // tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: 'black',
         },
@@ -116,6 +133,7 @@ const MainTabNavigator = () => {
         name="HomeScreen"
         component={HomeStackNavigator}
         options={{
+          tabBarLabel: '홈',
           tabBarIcon: ({color, size}) => (
             <Icon name="home" color={color} size={size} />
           ),
@@ -125,6 +143,7 @@ const MainTabNavigator = () => {
         name="PointScreen"
         component={PointStackNavigator}
         options={{
+          tabBarLabel: '포인트',
           tabBarIcon: ({color, size}) => (
             <Icon name="credit" color={color} size={size} />
           ),
@@ -134,6 +153,7 @@ const MainTabNavigator = () => {
         name="BrandScreen"
         component={BrandStackNavigator}
         options={{
+          tabBarLabel: '이벤트',
           tabBarIcon: ({color, size}) => (
             <Icon name="calendar" color={color} size={size} />
           ),
@@ -144,6 +164,7 @@ const MainTabNavigator = () => {
         name="MypageScreen"
         component={MypageStackNavigator}
         options={{
+          tabBarLabel: '마이페이지',
           tabBarIcon: ({color, size}) => (
             <Icon name="user" color={color} size={size} />
           ),
@@ -156,10 +177,61 @@ const MainTabNavigator = () => {
 const BrandStackNavigator = () => {
   return (
     <BrandStack.Navigator initialRouteName="Brand">
-      <BrandStack.Screen name="Brand" component={Brand} />
+      <BrandStack.Screen
+        name="Brand"
+        component={BrandTopTabNavigator}
+        options={{
+          title: 'SSUIK',
+          headerTitleStyle: {color: 'white', fontWeight: 'bold'},
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+        }}
+      />
       <BrandStack.Screen name="BrandInfo" component={BrandInfo} />
       <BrandStack.Screen name="BrandApply" component={BrandApply} />
     </BrandStack.Navigator>
+  );
+};
+
+const BrandTopTabNavigator = () => {
+  return (
+    <BrandTopTab.Navigator
+      initialRouteName="recruitBrand"
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: 'black',
+        },
+        tabBarActiveTintColor: '#FFD500',
+        tabBarInactiveTintColor: 'grey',
+        tabBarPressColor: '#FFD500',
+        tabBarLabelStyle: {fontSize: 16, fontWeight: '700'},
+        swipeEnabled: false,
+        tabBarIndicatorStyle: {
+          backgroundColor: '#FFD500',
+          height: 3,
+          borderRadius: 20,
+        },
+      }}>
+      <BrandTopTab.Screen
+        name="recruitBrand"
+        component={recruitBrand}
+        options={{
+          title: '모집중',
+        }}
+      />
+      <BrandTopTab.Screen
+        name="beforeBrand"
+        component={beforeBrand}
+        options={{title: '모집 예정'}}
+      />
+      <BrandTopTab.Screen
+        name="afterBrand"
+        component={afterBrand}
+        options={{title: '모집 마감'}}
+      />
+    </BrandTopTab.Navigator>
   );
 };
 
@@ -171,6 +243,8 @@ const HomeStackNavigator = () => {
         component={Home}
         options={{
           title: 'SSUIK',
+          headerBackTitleVisible: false,
+          // headerTitle: logo,
           headerStyle: {
             backgroundColor: 'black',
           },
@@ -179,6 +253,9 @@ const HomeStackNavigator = () => {
             fontWeight: 'bold',
           },
           headerLeft: false,
+          headerRight: ({color, size}) => (
+            <Icon name="home" color={color} size={size} />
+          ),
         }}
       />
       <HomeStack.Screen name="ResisterCarInfo" component={ResisterCarInfo} />
