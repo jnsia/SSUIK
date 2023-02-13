@@ -185,8 +185,16 @@ const BrandStackNavigator = () => {
           headerTitleStyle: {color: 'white', fontWeight: 'bold'},
           headerStyle: {
             backgroundColor: 'black',
-            height: 75,
+            height: 65,
           },
+          headerRight: () => (
+            <Icon
+              name="magnifying-glass"
+              color={'white'}
+              size={25}
+              style={{marginRight: 20}}
+            />
+          ),
         }}
       />
       <BrandStack.Screen name="BrandInfo" component={BrandInfo} />
@@ -247,14 +255,20 @@ const HomeStackNavigator = () => {
           // headerTitle: logo,
           headerStyle: {
             backgroundColor: 'black',
+            height: 65,
           },
           headerTintColor: 'white',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
           headerLeft: false,
-          headerRight: ({color, size}) => (
-            <Icon name="home" color={color} size={size} />
+          headerRight: () => (
+            <Icon
+              name="menu"
+              color={'white'}
+              size={25}
+              style={{marginRight: 20}}
+            />
           ),
         }}
       />

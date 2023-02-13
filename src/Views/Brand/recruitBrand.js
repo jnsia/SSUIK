@@ -8,28 +8,63 @@ import {
   Dimensions,
 } from 'react-native';
 import React, {useState} from 'react';
+import Icon from 'react-native-vector-icons/Entypo';
 
 import testDB from '../../testDB.json';
 import {Dropdown} from 'react-native-element-dropdown';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
-const data = [
-  {label: 'Item 1', value: '1'},
-  {label: 'Item 2', value: '2'},
-  {label: 'Item 3', value: '3'},
-  {label: 'Item 4', value: '4'},
-  {label: 'Item 5', value: '5'},
-  {label: 'Item 6', value: '6'},
-  {label: 'Item 7', value: '7'},
-  {label: 'Item 8', value: '8'},
+const option_data = [
+  {
+    value: 'normal',
+    lable: '기본순',
+  },
+  {
+    value: 'close',
+    lable: '가까운순',
+  },
+  {
+    value: 'point',
+    lable: '포인트\n높은순',
+  },
+];
+
+const location_data = [
+  {
+    value: 'seoul',
+    lable: '서울',
+  },
+  {
+    value: 'gyunggi',
+    lable: '경기',
+  },
+  {
+    value: 'daegu',
+    lable: '대구',
+  },
+];
+
+const etc_data = [
+  {
+    value: 'etc',
+    lable: '기타',
+  },
+  {
+    value: '2',
+    lable: 'Item 2',
+  },
+  {
+    value: '3',
+    lable: 'Item 3',
+  },
 ];
 
 const Brand = ({navigation: {navigate}}) => {
   const brands = testDB.brand;
 
-  const [option, setOption] = useState('');
-  const [location, setLocation] = useState('');
+  const [option, setOption] = useState('기본순');
+  const [location, setLocation] = useState('지역');
   const [etc, setEtc] = useState('기타');
 
   const [value, setValue] = useState(null);
@@ -41,24 +76,89 @@ const Brand = ({navigation: {navigate}}) => {
         <View style={styles.filter}>
           <Dropdown
             style={{...styles.dropdown, isFocus}}
-            placeholderStyle={{
+            selectedTextStyle={{
+              fontSize: 10,
               color: 'white',
-              fontSize: 12,
               textAlign: 'center',
             }}
-            itemContainerStyle={{color: 'black'}}
-            itemTextStyle={{color: 'black'}}
+            placeholderStyle={{
+              fontSize: 10,
+              color: 'white',
+              textAlign: 'center',
+            }}
+            itemContainerStyle={{borderRadius: 20}}
+            itemTextStyle={{
+              fontSize: 10,
+              borderRadius: 20,
+              textAlign: 'center',
+            }}
             containerStyle={{borderRadius: 20}}
-            selectedTextStyle={{color: 'black'}}
-            data={data}
+            maxHeight={200}
+            value={option}
+            data={option_data}
             valueField="value"
-            placeholder={'기본순'}
-            value={value}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            onChange={item => {
-              setValue(item.value);
-              setIsFocus(false);
+            labelField="lable"
+            placeholder="기본순"
+            onChange={e => {
+              setOption(e.value);
+            }}
+          />
+          <Dropdown
+            style={{...styles.dropdown, isFocus}}
+            selectedTextStyle={{
+              fontSize: 10,
+              color: 'white',
+              textAlign: 'center',
+            }}
+            placeholderStyle={{
+              fontSize: 10,
+              color: 'white',
+              textAlign: 'center',
+            }}
+            itemContainerStyle={{borderRadius: 20}}
+            itemTextStyle={{
+              fontSize: 10,
+              borderRadius: 20,
+              textAlign: 'center',
+            }}
+            containerStyle={{borderRadius: 20}}
+            maxHeight={200}
+            value={location}
+            data={location_data}
+            valueField="value"
+            labelField="lable"
+            placeholder="지역"
+            onChange={e => {
+              setLocation(e.value);
+            }}
+          />
+          <Dropdown
+            style={{...styles.dropdown, isFocus}}
+            selectedTextStyle={{
+              fontSize: 10,
+              color: 'white',
+              textAlign: 'center',
+            }}
+            placeholderStyle={{
+              fontSize: 10,
+              color: 'white',
+              textAlign: 'center',
+            }}
+            itemContainerStyle={{borderRadius: 20}}
+            itemTextStyle={{
+              fontSize: 10,
+              borderRadius: 20,
+              textAlign: 'center',
+            }}
+            containerStyle={{borderRadius: 20}}
+            maxHeight={200}
+            value={etc}
+            data={etc_data}
+            valueField="value"
+            labelField="lable"
+            placeholder="기타"
+            onChange={e => {
+              setEtc(e.value);
             }}
           />
         </View>
@@ -78,6 +178,17 @@ const Brand = ({navigation: {navigate}}) => {
                 style={styles.brand}
                 onPress={() => navigate('BrandInfo', brand)}>
                 <View style={{alignItems: 'center'}}>
+                  <Icon
+                    name="heart"
+                    color={'red'}
+                    size={25}
+                    style={{
+                      position: 'absolute',
+                      zIndex: 2,
+                      top: (SCREEN_WIDTH - 160) / 2,
+                      left: (SCREEN_WIDTH - 160) / 2,
+                    }}
+                  />
                   <Image
                     style={{
                       width: (SCREEN_WIDTH - 70) / 2,
@@ -153,14 +264,18 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   filter: {
-    padding: 10,
+    paddingTop: 10,
+    paddingHorizontal: 10,
     marginVertical: 10,
+    flexDirection: 'row',
   },
   dropdown: {
     borderWidth: 1,
+    marginRight: 10,
     borderColor: 'white',
     borderRadius: 20,
-    width: 100,
+    width: 80,
+    height: 40,
   },
 });
 

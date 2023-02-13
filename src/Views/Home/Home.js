@@ -174,7 +174,8 @@ const Home = ({navigation}) => {
         <ScrollView
           horizontal
           pagingEnabled
-          showsHorizontalScrollIndicator={false}>
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{marginHorizontal: 20}}>
           <View style={styles.recommendADS}>
             <Image
               source={logoImage}
@@ -189,13 +190,13 @@ const Home = ({navigation}) => {
           </View>
           <View style={styles.recommendADS}>
             <Image
-              source={logoImage}
+              source={testBack}
               resizeMode="contain"
               style={{width: '100%'}}></Image>
           </View>
           <View style={styles.recommendADS}>
             <Image
-              source={testBrand}
+              source={testImage}
               resizeMode="contain"
               style={{width: '100%'}}></Image>
           </View>
@@ -235,7 +236,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
     marginVertical: 20,
-    marginLeft: 20,
+    marginRight: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
