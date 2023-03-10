@@ -22,6 +22,7 @@ import {Image} from 'react-native';
 import Login from './Views/auth/Login';
 import Resister from './Views/auth/Resister';
 import Permission from './Views/auth/Permission';
+import AuthPhoto from './Views/auth/AuthPhoto';
 
 import recruitBrand from './Views/Brand/recruitBrand';
 import beforeBrand from './Views/Brand/beforeBrand';
@@ -274,6 +275,16 @@ const HomeStackNavigator = () => {
       />
       <HomeStack.Screen name="ResisterCarInfo" component={ResisterCarInfo} />
       <HomeStack.Screen name="AdsSlide" component={AdsSlide} />
+      <HomeStack.Screen
+        options={{headerShown: false, headerLeft: false}}
+        name="BrandStackNavigator"
+        component={BrandStackNavigator}
+      />
+      <HomeStack.Screen
+        options={{headerShown: false, headerLeft: false}}
+        name="AuthPhoto"
+        component={AuthPhoto}
+      />
     </HomeStack.Navigator>
   );
 };

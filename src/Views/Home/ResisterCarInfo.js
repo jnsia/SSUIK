@@ -110,7 +110,7 @@ const ResisterCarInfo = ({navigation}) => {
         </View>
         <TouchableOpacity
           style={styles.resisterBtn}
-          onPress={() => navigation.push('Home')}>
+          onPress={() => navigation.navigate('Home')}>
           <Text style={{textAlign: 'center', fontSize: 18, fontWeight: 'bold'}}>
             시작하기
           </Text>
