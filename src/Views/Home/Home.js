@@ -194,30 +194,52 @@ const Home = ({navigation}) => {
               source={testImage}
               resizeMode="cover"
               imageStyle={{borderRadius: 20}}
-              style={{...styles.processADS, marginRight: 20}}>
+              style={styles.processADS}>
+              {done ? (
+                <TouchableOpacity
+                  style={{
+                    padding: 10,
+                    backgroundColor: 'white',
+                    borderRadius: 10,
+                    marginVertical: 5,
+                  }}
+                  onPress={() => navigation.push('AuthPhoto')}>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      fontSize: 16,
+                      color: 'black',
+                    }}>
+                    스폰서 인증하기
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      fontFamily: 'Pretendard-Regular',
+                      color: 'lightgrey',
+                    }}>
+                    2023.01.25 ~ 2023.03.23
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 24,
+                      fontFamily: 'Pretendard-Bold',
+                      color: '#FFD550',
+                    }}>
+                    D-21
+                  </Text>
+                </View>
+              )}
               <Text
                 style={{
-                  fontSize: 12,
-                  ...styles.ADStext,
+                  fontSize: 14,
+                  fontFamily: 'Pretendard-Bold',
                   color: 'white',
                 }}>
-                2023.02.05 ~ 2023.04.30
-              </Text>
-              <Text
-                style={{
-                  fontSize: 28,
-                  ...styles.ADStext,
-                  color: 'yellow',
-                }}>
-                D-10
-              </Text>
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: 'white',
-                  ...styles.ADStext,
-                }}>
-                + point 28,000
+                + point 25,000
               </Text>
             </ImageBackground>
           </ScrollView>

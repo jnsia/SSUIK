@@ -9,9 +9,18 @@ import React, {useEffect, useState} from 'react';
 import CheckBox from 'react-native-bouncy-checkbox';
 import Modal from 'react-native-modal';
 import Geolocation from 'react-native-geolocation-service';
+import {Camera} from 'react-native-vision-camera';
+
+// const newMicrophonePermission = await Camera.requestMicrophonePermission();
+
+Camera.requestCameraPermission();
 
 const Permission = ({navigation}) => {
-  let CheckboxRef = null;
+  let CheckboxRef1 = null;
+  let CheckboxRef2 = null;
+  let CheckboxRef3 = null;
+  let CheckboxRef4 = null;
+  let CheckboxRef5 = null;
 
   const [toggleAll, setToggleAll] = useState(false);
   const [modal, setModal] = useState(true);
@@ -37,40 +46,46 @@ const Permission = ({navigation}) => {
           <CheckBox
             style={{paddingVertical: 20, borderBottomWidth: 1}}
             isChecked={toggleAll}
-            onPress={() => CheckboxRef?.onPress()}
+            onPress={() => {
+              CheckboxRef1.onPress();
+              CheckboxRef2.onPress();
+              CheckboxRef3.onPress();
+              CheckboxRef4.onPress();
+              CheckboxRef5.onPress();
+            }}
             text="전체 약관 동의 (필수)"
           />
           <CheckBox
             style={{paddingTop: 20}}
-            ref={ref => (CheckboxRef = ref)}
+            ref={ref => (CheckboxRef1 = ref)}
             isChecked={toggleAll}
             onPress={() => setToggleAll()}
             text="이용 약관 동의 (필수)"
           />
           <CheckBox
             style={{paddingTop: 20}}
-            ref={ref => (CheckboxRef = ref)}
+            ref={ref => (CheckboxRef2 = ref)}
             isChecked={toggleAll}
             onPress={() => setToggleAll()}
             text="개인정보 수집 이용 동의 (필수)"
           />
           <CheckBox
             style={{paddingTop: 20}}
-            ref={ref => (CheckboxRef = ref)}
+            ref={ref => (CheckboxRef3 = ref)}
             isChecked={toggleAll}
             onPress={() => setToggleAll()}
             text="위치기반 서비스 이용 동의 (필수)"
           />
           <CheckBox
             style={{paddingTop: 20}}
-            ref={ref => (CheckboxRef = ref)}
+            ref={ref => (CheckboxRef4 = ref)}
             isChecked={toggleAll}
             onPress={() => setToggleAll()}
             text="개인정보 3자 제공 (필수)"
           />
           <CheckBox
             style={{paddingTop: 20}}
-            ref={ref => (CheckboxRef = ref)}
+            ref={ref => (CheckboxRef5 = ref)}
             isChecked={toggleAll}
             onPress={() => setToggleAll()}
             text="만 18세 이상 확인 (필수)"

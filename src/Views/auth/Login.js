@@ -22,20 +22,26 @@ const Login = ({navigation}) => {
   function checkInfo() {
     const storeData = async () => {
       try {
-        const jsonValue = JSON.stringify(true);
-        await AsyncStorage.setItem('isLogin', jsonValue);
+        const isLoggedIn = JSON.stringify(true);
+        await AsyncStorage.setItem('isLogin', isLoggedIn);
 
-        console.log(jsonValue);
+        console.log(isLoggedIn);
+        navigation.navigate('Main');
       } catch (e) {
         console.log('set error');
       }
     };
 
-    // 아이디 입력 유무 체크
+    if (userID !== 'test') {
+      return alert('아이디가 틀렸습니다.');
+    }
 
-    // 암호 입력 유무 체크
+    if (userPW !== 'test') {
+      return alert('비밀번호가 틀렸습니다.');
+    }
 
     storeData();
+    navigation.push('Main');
   }
 
   return (
@@ -65,7 +71,9 @@ const Login = ({navigation}) => {
             onChangeText={setuserPW}
             secureTextEntry
           />
-          <Text style={{color: 'grey', fontSize: 12, paddingLeft: 10}}>
+          <Text
+            style={{color: 'grey', fontSize: 12, paddingLeft: 10}}
+            onPress={() => navigation.push('Main')}>
             아이디/비밀번호 찾기
           </Text>
         </View>
