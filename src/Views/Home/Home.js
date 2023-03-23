@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   Dimensions,
   ImageBackground,
+  BackHandler,
+  Platform,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 
 import testImage from '../../Images/test.jpg';
@@ -21,6 +23,19 @@ const Home = ({navigation}) => {
   const [carInfo, isCarInfo] = useState(false);
   const [test, isTest] = useState(true);
   const [done, isDone] = useState(false);
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        () => {
+          return true;
+        },
+      );
+
+      return () => backHandler.remove();
+    }
+  }, []);
 
   return (
     <ScrollView style={{flex: 1, backgroundColor: 'black'}}>
@@ -56,7 +71,8 @@ const Home = ({navigation}) => {
           style={{
             width: SCREEN_WIDTH,
             paddingHorizontal: 30,
-            marginVertical: 40,
+            marginTop: 40,
+            marginBottom: 40,
             paddingTop: 40,
             paddingBottom: 30,
           }}
@@ -144,24 +160,6 @@ const Home = ({navigation}) => {
               imageStyle={{borderRadius: 20}}
               style={styles.processADS}>
               {done ? (
-                <TouchableOpacity
-                  style={{
-                    padding: 10,
-                    backgroundColor: 'white',
-                    borderRadius: 10,
-                    marginVertical: 5,
-                  }}
-                  onPress={() => navigation.push('AuthPhoto')}>
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                      fontSize: 16,
-                      color: 'black',
-                    }}>
-                    스폰서 인증하기
-                  </Text>
-                </TouchableOpacity>
-              ) : (
                 <View>
                   <Text
                     style={{
@@ -180,6 +178,24 @@ const Home = ({navigation}) => {
                     D-21
                   </Text>
                 </View>
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    padding: 10,
+                    backgroundColor: 'white',
+                    borderRadius: 10,
+                    marginVertical: 5,
+                  }}
+                  onPress={() => navigation.push('AuthPhoto')}>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      fontSize: 16,
+                      color: 'black',
+                    }}>
+                    완료하고 포인트받기
+                  </Text>
+                </TouchableOpacity>
               )}
               <Text
                 style={{

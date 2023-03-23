@@ -6,8 +6,10 @@ import {
   TextInput,
   TouchableOpacity,
   Dimensions,
+  Platform,
+  BackHandler,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import LogoImage from '../../Images/ssuik-logo.png';
@@ -18,6 +20,19 @@ const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 const Login = ({navigation}) => {
   const [userID, setuserID] = useState('');
   const [userPW, setuserPW] = useState('');
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        () => {
+          return true;
+        },
+      );
+
+      return () => backHandler.remove();
+    }
+  }, []);
 
   function checkInfo() {
     const storeData = async () => {
@@ -32,13 +47,13 @@ const Login = ({navigation}) => {
       }
     };
 
-    if (userID !== 'test') {
-      return alert('아이디가 틀렸습니다.');
-    }
+    // if (userID !== 'test') {
+    //   return alert('아이디가 틀렸습니다.');
+    // }
 
-    if (userPW !== 'test') {
-      return alert('비밀번호가 틀렸습니다.');
-    }
+    // if (userPW !== 'test') {
+    //   return alert('비밀번호가 틀렸습니다.');
+    // }
 
     storeData();
     navigation.push('Main');

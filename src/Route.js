@@ -295,7 +295,7 @@ const HomeStackNavigator = () => {
         component={BrandStackNavigator}
       />
       <HomeStack.Screen
-        options={{headerShown: false, headerLeft: false}}
+        options={{headerShown: true, title: '인증사진 등록'}}
         name="AuthPhoto"
         component={AuthPhoto}
       />
@@ -305,7 +305,9 @@ const HomeStackNavigator = () => {
 
 const PointStackNavigator = () => {
   return (
-    <PointStack.Navigator initialRouteName="Point">
+    <PointStack.Navigator
+      initialRouteName="Point"
+      screenOptions={{headerLeft: false, title: '포인트'}}>
       <PointStack.Screen name="Point" component={Point} />
       <PointStack.Screen name="PointInfo" component={PointInfo} />
       <PointStack.Screen name="Refund" component={Refund} />
@@ -316,7 +318,9 @@ const PointStackNavigator = () => {
 
 const MypageStackNavigator = () => {
   return (
-    <MypageStack.Navigator initialRouteName="Mypage">
+    <MypageStack.Navigator
+      initialRouteName="Mypage"
+      screenOptions={{headerLeft: false, title: '마이페이지'}}>
       <MypageStack.Screen name="Mypage" component={Mypage} />
       <MypageStack.Screen name="UserInfo" component={UserInfo} />
       <MypageStack.Screen name="AdsCollection" component={AdsCollection} />

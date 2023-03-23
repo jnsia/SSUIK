@@ -64,7 +64,9 @@ const My = ({navigation}) => {
         onPress={() => navigation.push('TermsAndPolicy')}>
         <Text>약관 및 정책</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.myPageList} onPress={() => storeData()}>
+      <TouchableOpacity
+        style={styles.myPageList}
+        onPress={() => navigation.pop()}>
         <Text>로그아웃</Text>
       </TouchableOpacity>
     </ScrollView>

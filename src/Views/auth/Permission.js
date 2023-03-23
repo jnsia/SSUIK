@@ -9,11 +9,6 @@ import React, {useEffect, useState} from 'react';
 import CheckBox from 'react-native-bouncy-checkbox';
 import Modal from 'react-native-modal';
 import Geolocation from 'react-native-geolocation-service';
-import {Camera} from 'react-native-vision-camera';
-
-// const newMicrophonePermission = await Camera.requestMicrophonePermission();
-
-Camera.requestCameraPermission();
 
 const Permission = ({navigation}) => {
   let CheckboxRef1 = null;
@@ -24,12 +19,6 @@ const Permission = ({navigation}) => {
 
   const [toggleAll, setToggleAll] = useState(false);
   const [modal, setModal] = useState(true);
-
-  // const [toggleTerm, setToggleTerm] = useState(false);
-  // const [toggleInfoCollect, setToggleInfoCollect] = useState(false);
-  // const [toggleLocation, setToggleLocation] = useState(false);
-  // const [toggleInfoProvide, setToggleInfoProvide] = useState(false);
-  // const [toggleIsAge, setToggleIsAge] = useState(false);
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -153,18 +142,19 @@ const Permission = ({navigation}) => {
               PermissionsAndroid.requestMultiple([
                 PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
                 PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                PermissionsAndroid.PERMISSIONS.CAMERA,
               ]);
 
               Geolocation.getCurrentPosition(
                 position => {
                   console.log(position);
-                  alert(
-                    'Lastitude: ' +
-                      position.coords.latitude +
-                      '\n' +
-                      'Longitude: ' +
-                      position.coords.longitude,
-                  );
+                  // alert(
+                  //   'Lastitude: ' +
+                  //     position.coords.latitude +
+                  //     '\n' +
+                  //     'Longitude: ' +
+                  //     position.coords.longitude,
+                  // );
                 },
                 error => {
                   // See error code charts below.
