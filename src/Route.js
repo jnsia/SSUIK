@@ -65,48 +65,26 @@ const EventStack = createStackNavigator();
 const PointStack = createStackNavigator();
 const MypageStack = createStackNavigator();
 
-/*
-    Stack Navigator
-        - Stack Screen (Login)
-        - Stack Screen (Resister)
+const getIsLogin = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('@isLogin');
+    console.log(jsonValue);
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    console.log('get error');
+  }
+};
 
-    Stack Navigator
-        - Tab Navigator
-            - Tab Screen (Brand)
-            - Tab Screen (Event)
-            - Tab Screen (Home)
-            - Tab Screen (Point)
-            - Tab Screen (Mypage)
-
-*/
+const isLogin = getIsLogin();
+const isPermission = false;
 
 const AuthStackNavigator = () => {
-  const [isLogin, setIsLogin] = useState(false);
-
-  const getIsLogin = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@isLogin');
-
-      if (jsonValue === null) {
-        setIsLogin(false);
-      } else {
-        setIsLogin(true);
-      }
-    } catch (e) {
-      console.log('get error');
-    }
-  };
-
-  useFocusEffect(() => {
-    getIsLogin();
-  });
-
   return (
     <AuthStack.Navigator screenOptions={{headerShown: false}}>
       {isLogin ? (
-        <AuthStack.Screen name="MainTab" component={MainTabNavigator} />
-      ) : (
         <AuthStack.Screen name="LoginStack" component={LoginStackNavigator} />
+      ) : (
+        <AuthStack.Screen name="MainTab" component={MainTabNavigator} />
       )}
     </AuthStack.Navigator>
   );
@@ -120,6 +98,17 @@ const LoginStackNavigator = () => {
       <LoginStack.Screen name="Permission" component={Permission} />
       <LoginStack.Screen name="Login" component={Login} />
       <LoginStack.Screen name="Resister" component={Resister} />
+      <LoginStack.Screen
+        name="SearchUserInfo"
+        component={SearchUserInfo}
+        options={{
+          headerShown: true,
+          headerStyle: {backgroundColor: 'black'},
+          headerTitle: '이메일/비밀번호 찾기',
+          headerTitleStyle: {fontSize: 14, color: 'white'},
+        }}
+      />
+      <LoginStack.Screen name="Main" component={MainTabNavigator} />
     </LoginStack.Navigator>
   );
 };
@@ -331,11 +320,7 @@ const MypageStackNavigator = () => {
 const Route = () => {
   return (
     <RouteStack.Navigator screenOptions={{headerShown: false}}>
-      {isLoggedIn ? (
-        <RouteStack.Screen name="Main" component={MainTabNavigator} />
-      ) : (
-        <RouteStack.Screen name="Auth" component={AuthStackNavigator} />
-      )}
+      <RouteStack.Screen name="Auth" component={AuthStackNavigator} />
     </RouteStack.Navigator>
   );
 };
