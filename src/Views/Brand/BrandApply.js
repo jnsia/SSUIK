@@ -1,8 +1,25 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 사용자 정보 route로 받아오기
 const BrandApply = ({navigation: {navigate}, route}) => {
+  let brandInfo = {
+    brandTitle: route.params.title,
+    brandReward: route.params.reward,
+    brandPeroid: route.params.period,
+  };
+
+  const setBrandApply = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@brandApply', jsonValue);
+      navigate('Home');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={{marginHorizontal: 30, marginTop: 20}}>
@@ -61,7 +78,9 @@ const BrandApply = ({navigation: {navigate}, route}) => {
           </View>
         </View>
       </View>
-      <TouchableOpacity style={styles.adsApplyBtn}>
+      <TouchableOpacity
+        style={styles.adsApplyBtn}
+        onPress={() => setBrandApply(brandInfo)}>
         <Text style={{fontSize: 20, textAlign: 'center'}}>신청하기</Text>
       </TouchableOpacity>
     </View>

@@ -197,7 +197,7 @@ const Brand = ({navigation: {navigate}}) => {
                       backgroundColor: 'white',
                       borderRadius: 20,
                     }}
-                    source={require('../../Images/testBrand.jpg')}
+                    source={require('../../Images/brandSample1.png')}
                   />
                 </View>
                 <View style={styles.brandInfo}>

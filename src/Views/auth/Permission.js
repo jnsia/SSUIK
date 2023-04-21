@@ -9,6 +9,7 @@ import React, {useEffect, useState} from 'react';
 import CheckBox from 'react-native-bouncy-checkbox';
 import Modal from 'react-native-modal';
 import Geolocation from 'react-native-geolocation-service';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Permission = ({navigation}) => {
   let CheckboxRef1 = null;
@@ -17,8 +18,30 @@ const Permission = ({navigation}) => {
   let CheckboxRef4 = null;
   let CheckboxRef5 = null;
 
+  let CheckboxRefAll = null;
+
   const [toggleAll, setToggleAll] = useState(false);
+
+  const [toggle1, setToggle1] = useState(false);
+  const [toggle2, setToggle2] = useState(false);
+  const [toggle3, setToggle3] = useState(false);
+  const [toggle4, setToggle4] = useState(false);
+  const [toggle5, setToggle5] = useState(false);
+
   const [modal, setModal] = useState(true);
+
+  const storePermission = async value => {
+    if (toggleAll === true) {
+      try {
+        await AsyncStorage.setItem('@isPermission', value);
+        navigation.push('Login');
+      } catch (e) {
+        console.log('set error');
+      }
+    } else {
+      alert('이용약관을 모두 체크해주세요.');
+    }
+  };
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -31,52 +54,141 @@ const Permission = ({navigation}) => {
             서비스 이용을 위한 약관동의가 필요합니다.
           </Text>
         </View>
-        <View style={{marginBottom: 40}}>
+        <View style={{marginBottom: 50}}>
           <CheckBox
             style={{paddingVertical: 20, borderBottomWidth: 1}}
+            ref={ref => (CheckboxRefAll = ref)}
+            textStyle={{
+              textDecorationLine: 'none',
+            }}
             isChecked={toggleAll}
             onPress={() => {
-              CheckboxRef1.onPress();
-              CheckboxRef2.onPress();
-              CheckboxRef3.onPress();
-              CheckboxRef4.onPress();
-              CheckboxRef5.onPress();
+              if (toggleAll === false) {
+                setToggleAll(true);
+
+                if (toggle1 === false) {
+                  CheckboxRef1.onPress();
+                }
+
+                if (toggle2 === false) {
+                  CheckboxRef2.onPress();
+                }
+
+                if (toggle3 === false) {
+                  CheckboxRef3.onPress();
+                }
+
+                if (toggle4 === false) {
+                  CheckboxRef4.onPress();
+                }
+
+                if (toggle5 === false) {
+                  CheckboxRef5.onPress();
+                }
+              } else {
+                setToggleAll(false);
+
+                if (toggle1 === true) {
+                  CheckboxRef1.onPress();
+                }
+
+                if (toggle2 === true) {
+                  CheckboxRef2.onPress();
+                }
+
+                if (toggle3 === true) {
+                  CheckboxRef3.onPress();
+                }
+
+                if (toggle4 === true) {
+                  CheckboxRef4.onPress();
+                }
+
+                if (toggle5 === true) {
+                  CheckboxRef5.onPress();
+                }
+              }
             }}
             text="전체 약관 동의 (필수)"
           />
           <CheckBox
             style={{paddingTop: 20}}
             ref={ref => (CheckboxRef1 = ref)}
-            isChecked={toggleAll}
-            onPress={() => setToggleAll()}
+            isChecked={toggle1}
+            textStyle={{
+              textDecorationLine: 'none',
+            }}
+            onPress={() => {
+              if (toggle1 === false) {
+                setToggle1(true);
+              } else {
+                setToggle1(false);
+              }
+            }}
             text="이용 약관 동의 (필수)"
           />
           <CheckBox
             style={{paddingTop: 20}}
             ref={ref => (CheckboxRef2 = ref)}
-            isChecked={toggleAll}
-            onPress={() => setToggleAll()}
+            isChecked={toggle2}
+            textStyle={{
+              textDecorationLine: 'none',
+            }}
+            onPress={() => {
+              if (toggle2 === false) {
+                setToggle2(true);
+              } else {
+                setToggle2(false);
+              }
+            }}
             text="개인정보 수집 이용 동의 (필수)"
           />
           <CheckBox
             style={{paddingTop: 20}}
             ref={ref => (CheckboxRef3 = ref)}
-            isChecked={toggleAll}
-            onPress={() => setToggleAll()}
+            isChecked={toggle3}
+            textStyle={{
+              textDecorationLine: 'none',
+            }}
+            onPress={() => {
+              if (toggle3 === false) {
+                setToggle3(true);
+              } else {
+                setToggle3(false);
+              }
+            }}
             text="위치기반 서비스 이용 동의 (필수)"
           />
           <CheckBox
             style={{paddingTop: 20}}
             ref={ref => (CheckboxRef4 = ref)}
-            isChecked={toggleAll}
-            onPress={() => setToggleAll()}
+            isChecked={toggle4}
+            textStyle={{
+              textDecorationLine: 'none',
+            }}
+            onPress={() => {
+              if (toggle4 === false) {
+                setToggle4(true);
+              } else {
+                setToggle4(false);
+              }
+            }}
             text="개인정보 3자 제공 (필수)"
           />
           <CheckBox
             style={{paddingTop: 20}}
             ref={ref => (CheckboxRef5 = ref)}
-            isChecked={toggleAll}
-            onPress={() => setToggleAll()}
+            isChecked={toggle5}
+            textStyle={{
+              textDecorationLine: 'none',
+            }}
+            onPress={() => {
+              if (toggle5 === false) {
+                setToggle5(true);
+              } else {
+                setToggle5(false);
+              }
+            }}
             text="만 18세 이상 확인 (필수)"
           />
         </View>
@@ -90,7 +202,9 @@ const Permission = ({navigation}) => {
           borderRadius: 20,
           padding: 10,
         }}
-        onPress={() => navigation.push('Login')}>
+        onPress={() => {
+          storePermission('true');
+        }}>
         <Text style={{fontSize: 20, color: 'white'}}>동의하기</Text>
       </TouchableOpacity>
       <Modal style={styles.modal} isVisible={modal}>
@@ -147,7 +261,7 @@ const Permission = ({navigation}) => {
 
               Geolocation.getCurrentPosition(
                 position => {
-                  console.log(position);
+                  // console.log(position);
                   // alert(
                   //   'Lastitude: ' +
                   //     position.coords.latitude +

@@ -48,10 +48,9 @@ import PointUseHistory from './Views/Mypage/PointUseHistory';
 import ServiceCenter from './Views/Mypage/ServiceCenter';
 import Setting from './Views/Mypage/Setting';
 import TermsAndPolicy from './Views/Mypage/TermsAndPolicy';
+import {useFocusEffect} from '@react-navigation/native';
 
 const RouteStack = createStackNavigator();
-
-const PermissionStack = createStackNavigator();
 
 const AuthStack = createStackNavigator();
 const LoginStack = createStackNavigator();
@@ -81,39 +80,33 @@ const MypageStack = createStackNavigator();
 
 */
 
-const getIsLogin = async () => {
-  try {
-    const jsonValue = await AsyncStorage.getItem('isLogin');
-    console.log(jsonValue);
-
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
-  } catch (e) {
-    console.log('get error');
-  }
-};
-
-const isLogin = getIsLogin();
-const isPermission = false;
-
-const PermissionStackNavigator = () => {
-  <PermissionStack.Navigator>
-    {/* <AuthStack.Screen name="Permission" component={Permission} /> */}
-    {/* <AuthStack.Screen name="LoginStack" component={LoginStackNavigator} /> */}
-    <AuthStack.Screen name="LoginStack" component={LoginStackNavigator} />
-  </PermissionStack.Navigator>;
-};
-
 const AuthStackNavigator = () => {
+  const [isLogin, setIsLogin] = useState(false);
+
+  const getIsLogin = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@isLogin');
+
+      if (jsonValue === null) {
+        setIsLogin(false);
+      } else {
+        setIsLogin(true);
+      }
+    } catch (e) {
+      console.log('get error');
+    }
+  };
+
+  useFocusEffect(() => {
+    getIsLogin();
+  });
+
   return (
     <AuthStack.Navigator screenOptions={{headerShown: false}}>
       {isLogin ? (
-        // <AuthStack.Screen
-        //   name="Permission"
-        //   component={PermissionStackNavigator}
-        // />
-        <AuthStack.Screen name="MainTab" component={LoginStackNavigator} />
-      ) : (
         <AuthStack.Screen name="MainTab" component={MainTabNavigator} />
+      ) : (
+        <AuthStack.Screen name="LoginStack" component={LoginStackNavigator} />
       )}
     </AuthStack.Navigator>
   );
@@ -138,7 +131,6 @@ const MainTabNavigator = () => {
       initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
-        // tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: 'black',
         },

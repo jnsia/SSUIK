@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {launchCamera} from 'react-native-image-picker';
-import testBrand from '../../Images/testBrand.jpg';
+import brandSample1 from '../../Images/brandSample1.png';
 
 const AuthPhoto = ({navigation}) => {
   const [sticker, setSticker] = useState();
@@ -37,9 +37,8 @@ const AuthPhoto = ({navigation}) => {
           style={{
             marginTop: 15,
             flexDirection: 'row',
-            // justifyContent: 'space-around',
           }}>
-          <Image source={testBrand} style={{width: 160, height: 80}} />
+          <Image source={brandSample1} style={{width: 160, height: 80}} />
           <View style={{marginHorizontal: 20, justifyContent: 'center'}}>
             <Text
               style={{
