@@ -10,14 +10,14 @@ import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const My = ({navigation}) => {
-  const storeData = async () => {
+  const storeData = () => {
     try {
-      const jsonValue = JSON.stringify(false);
-      await AsyncStorage.setItem('isLogin', jsonValue);
-      console.log(jsonValue);
+      AsyncStorage.removeItem('@isLogin');
     } catch (e) {
       console.log('set error');
     }
+
+    navigation.push('Home');
   };
 
   return (

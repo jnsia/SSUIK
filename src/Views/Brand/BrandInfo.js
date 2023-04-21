@@ -14,7 +14,7 @@ const BrandInfo = ({navigation: {navigate}, route}) => {
       <TouchableOpacity
         style={{
           padding: 10,
-          borderWidth: 3,
+          borderWidth: 1,
           borderRadius: 20,
           margin: 20,
           resizeMode: 'contain',
@@ -25,7 +25,7 @@ const BrandInfo = ({navigation: {navigate}, route}) => {
             height: 150,
             resizeMode: 'contain',
           }}
-          source={require('../../Images/brand-img-test.png')}
+          source={require('../../Images/brandSample1.png')}
         />
       </TouchableOpacity>
       <View style={{marginHorizontal: 30}}>

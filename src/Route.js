@@ -52,8 +52,6 @@ import SearchUserInfo from './Views/auth/SearchUserInfo';
 
 const RouteStack = createStackNavigator();
 
-const PermissionStack = createStackNavigator();
-
 const AuthStack = createStackNavigator();
 const LoginStack = createStackNavigator();
 
@@ -82,27 +80,33 @@ const MypageStack = createStackNavigator();
 
 */
 
-const isPermission = true;
-
-const PermissionStackNavigator = () => {
-  <PermissionStack.Navigator
-    initialRouteName="Login"
-    screenOptions={{headerShown: false}}>
-    <PermissionStack.Screen name="Pemission" component={Permission} />
-    <PermissionStack.Screen name="Login" component={Login} />
-  </PermissionStack.Navigator>;
-};
-
 const AuthStackNavigator = () => {
+  const [isLogin, setIsLogin] = useState(false);
+
+  const getIsLogin = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@isLogin');
+
+      if (jsonValue === null) {
+        setIsLogin(false);
+      } else {
+        setIsLogin(true);
+      }
+    } catch (e) {
+      console.log('get error');
+    }
+  };
+
+  useFocusEffect(() => {
+    getIsLogin();
+  });
+
   return (
     <AuthStack.Navigator screenOptions={{headerShown: false}}>
-      {isPermission ? (
-        <AuthStack.Screen name="LoginStack" component={LoginStackNavigator} />
+      {isLogin ? (
+        <AuthStack.Screen name="MainTab" component={MainTabNavigator} />
       ) : (
-        <AuthStack.Screen
-          name="Permission"
-          component={PermissionStackNavigator}
-        />
+        <AuthStack.Screen name="LoginStack" component={LoginStackNavigator} />
       )}
     </AuthStack.Navigator>
   );
@@ -111,25 +115,11 @@ const AuthStackNavigator = () => {
 const LoginStackNavigator = () => {
   return (
     <LoginStack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Permission"
       screenOptions={{headerShown: false}}>
+      <LoginStack.Screen name="Permission" component={Permission} />
       <LoginStack.Screen name="Login" component={Login} />
       <LoginStack.Screen name="Resister" component={Resister} />
-      <LoginStack.Screen
-        name="SearchUserInfo"
-        component={SearchUserInfo}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: 'black',
-          },
-          headerTitle: '이메일/비밀번호 찾기',
-          headerTitleStyle: {
-            color: 'white',
-            fontSize: 16,
-          },
-        }}
-      />
     </LoginStack.Navigator>
   );
 };
@@ -140,7 +130,6 @@ const MainTabNavigator = () => {
       initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
-        // tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: 'black',
         },
@@ -167,8 +156,8 @@ const MainTabNavigator = () => {
         }}
       />
       <MainTab.Screen
-        name="BrandScreen"
-        component={BrandStackNavigator}
+        name="Event"
+        component={Event}
         options={{
           tabBarLabel: '이벤트',
           tabBarIcon: ({color, size}) => (
@@ -297,7 +286,7 @@ const HomeStackNavigator = () => {
         component={BrandStackNavigator}
       />
       <HomeStack.Screen
-        options={{headerShown: false, headerLeft: false}}
+        options={{headerShown: true, title: '인증사진 등록'}}
         name="AuthPhoto"
         component={AuthPhoto}
       />
@@ -307,7 +296,9 @@ const HomeStackNavigator = () => {
 
 const PointStackNavigator = () => {
   return (
-    <PointStack.Navigator initialRouteName="Point">
+    <PointStack.Navigator
+      initialRouteName="Point"
+      screenOptions={{headerLeft: false, title: '포인트'}}>
       <PointStack.Screen name="Point" component={Point} />
       <PointStack.Screen name="PointInfo" component={PointInfo} />
       <PointStack.Screen name="Refund" component={Refund} />
@@ -318,7 +309,9 @@ const PointStackNavigator = () => {
 
 const MypageStackNavigator = () => {
   return (
-    <MypageStack.Navigator initialRouteName="Mypage">
+    <MypageStack.Navigator
+      initialRouteName="Mypage"
+      screenOptions={{headerLeft: false, title: '마이페이지'}}>
       <MypageStack.Screen name="Mypage" component={Mypage} />
       <MypageStack.Screen name="UserInfo" component={UserInfo} />
       <MypageStack.Screen name="AdsCollection" component={AdsCollection} />
@@ -326,34 +319,22 @@ const MypageStackNavigator = () => {
       <MypageStack.Screen name="ServiceCenter" component={ServiceCenter} />
       <MypageStack.Screen name="Setting" component={Setting} />
       <MypageStack.Screen name="TermsAndPolicy" component={TermsAndPolicy} />
+      <MypageStack.Screen
+        name="Logout"
+        component={AuthStackNavigator}
+        options={{headerShown: false, headerLeft: false}}
+      />
     </MypageStack.Navigator>
   );
 };
 
 const Route = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const getIsLogin = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem('isLogin');
-        setIsLoggedIn(jsonValue);
-        console.log(jsonValue);
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
-      } catch (e) {
-        console.log('get error');
-      }
-    };
-
-    getIsLogin();
-  }, []);
-
   return (
     <RouteStack.Navigator screenOptions={{headerShown: false}}>
       {isLoggedIn ? (
-        <RouteStack.Screen name="Auth" component={AuthStackNavigator} />
-      ) : (
         <RouteStack.Screen name="Main" component={MainTabNavigator} />
+      ) : (
+        <RouteStack.Screen name="Auth" component={AuthStackNavigator} />
       )}
     </RouteStack.Navigator>
   );

@@ -6,57 +6,103 @@ import {
   TouchableOpacity,
   Dimensions,
   ImageBackground,
+  BackHandler,
+  Platform,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
 
-import testImage from '../../Images/test.jpg';
-import testBrand from '../../Images/testBrand.jpg';
-import testBack from '../../Images/testBack.jpg';
 import logoImage from '../../Images/ssuik-logo.png';
+
+import testBack1 from '../../Images/testBack1.jpg';
+import testBack2 from '../../Images/testBack2.jpg';
+
+import brandSample1 from '../../Images/brandSample1.png';
+import brandSample2 from '../../Images/brandSample2.png';
+import brandSample3 from '../../Images/brandSample3.png';
+import brandSample4 from '../../Images/brandSample4.jpg';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 const Home = ({navigation}) => {
-  const [carInfo, isCarInfo] = useState(false);
-  const [test, isTest] = useState(true);
-  const [done, isDone] = useState(false);
+  const [addSupport, setAddSupport] = useState(true);
+  const [done, isDone] = useState(true);
+
+  const getBrandApply = async () => {
+    try {
+      const brandApply = await AsyncStorage.getItem('@brandApply');
+
+      if (brandApply === null) {
+        setAddSupport(true);
+      } else {
+        setAddSupport(false);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const getCarInfo = async () => {
+    try {
+      const isCarInfo = await AsyncStorage.getItem('@carInfo');
+      console.log(isCarInfo);
+      if (isCarInfo === null) {
+        navigation.navigate('ResisterCarInfo');
+      } else {
+        navigation.navigate('BrandStackNavigator');
+      }
+      // return isCarInfo != null ? JSON.parse(isCarInfo) : null;
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const removeValue = async () => {
+    try {
+      await AsyncStorage.removeItem('@carInfo');
+      await AsyncStorage.removeItem('@brandApply');
+      await AsyncStorage.removeItem('@isLogin');
+      await AsyncStorage.removeItem('@isPermission');
+    } catch (e) {
+      console.error(e);
+    }
+
+    console.log('Done.');
+  };
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        () => {
+          return true;
+        },
+      );
+
+      return () => backHandler.remove();
+    }
+  }, []);
+
+  useFocusEffect(() => {
+    getBrandApply();
+  });
 
   return (
     <ScrollView style={{flex: 1, backgroundColor: 'black'}}>
-      {carInfo ? null : (
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'grey',
-            padding: 20,
-            margin: 20,
-            borderRadius: 10,
-          }}
-          onPress={() => {
-            navigation.navigate('ResisterCarInfo');
-            isCarInfo(true);
-          }}>
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: 24,
-              color: 'white',
-            }}>
-            내 차량 및 위치 정보 등록
-          </Text>
-        </TouchableOpacity>
-      )}
       <ScrollView
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={true}
         indicatorStyle={{backgroundColor: 'white', color: 'white'}}>
         <ImageBackground
-          source={testBack}
+          source={testBack2}
           style={{
             width: SCREEN_WIDTH,
             paddingHorizontal: 30,
-            marginVertical: 40,
+            marginTop: 40,
+            marginBottom: 40,
             paddingTop: 40,
             paddingBottom: 30,
           }}
@@ -80,7 +126,7 @@ const Home = ({navigation}) => {
           </View>
           <TouchableOpacity
             style={styles.searchBtn}
-            onPress={() => navigation.push('BrandStackNavigator')}>
+            onPress={() => getCarInfo()}>
             <Text
               style={{
                 textAlign: 'center',
@@ -92,7 +138,7 @@ const Home = ({navigation}) => {
           </TouchableOpacity>
         </ImageBackground>
         <ImageBackground
-          source={testBack}
+          source={testBack1}
           style={{
             width: SCREEN_WIDTH,
             paddingHorizontal: 30,
@@ -136,10 +182,84 @@ const Home = ({navigation}) => {
         <Text style={{color: 'white', fontSize: 14, marginHorizontal: 20}}>
           설인수님이 진행 중인 광고
         </Text>
-        {test ? (
+        {addSupport ? (
+          <TouchableOpacity
+            style={{
+              width: 240,
+              height: 160,
+              borderRadius: 10,
+              padding: 15,
+              marginVertical: 20,
+              marginLeft: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'white',
+            }}
+            onPress={() => navigation.navigate('BrandStackNavigator')}>
+            <Text
+              style={{
+                fontSize: 30,
+                textAlign: 'center',
+              }}>
+              서포터를 추가해주세요
+            </Text>
+          </TouchableOpacity>
+        ) : (
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <ImageBackground
-              source={testBack}
+              source={testBack2}
+              resizeMode="cover"
+              imageStyle={{borderRadius: 20}}
+              style={styles.processADS}>
+              {done ? (
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      fontFamily: 'Pretendard-Regular',
+                      color: 'lightgrey',
+                    }}>
+                    2023.01.25 ~ 2023.03.23
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 24,
+                      fontFamily: 'Pretendard-Bold',
+                      color: '#FFD550',
+                    }}>
+                    D-21
+                  </Text>
+                </View>
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    padding: 10,
+                    backgroundColor: 'white',
+                    borderRadius: 10,
+                    marginVertical: 5,
+                  }}
+                  onPress={() => navigation.push('AuthPhoto')}>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      fontSize: 16,
+                      color: 'black',
+                    }}>
+                    완료하고 포인트받기
+                  </Text>
+                </TouchableOpacity>
+              )}
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontFamily: 'Pretendard-Bold',
+                  color: 'white',
+                }}>
+                + point 25,000
+              </Text>
+            </ImageBackground>
+            <ImageBackground
+              source={brandSample1}
               resizeMode="cover"
               imageStyle={{borderRadius: 20}}
               style={styles.processADS}>
@@ -190,58 +310,7 @@ const Home = ({navigation}) => {
                 + point 25,000
               </Text>
             </ImageBackground>
-            <ImageBackground
-              source={testImage}
-              resizeMode="cover"
-              imageStyle={{borderRadius: 20}}
-              style={{...styles.processADS, marginRight: 20}}>
-              <Text
-                style={{
-                  fontSize: 12,
-                  ...styles.ADStext,
-                  color: 'white',
-                }}>
-                2023.02.05 ~ 2023.04.30
-              </Text>
-              <Text
-                style={{
-                  fontSize: 28,
-                  ...styles.ADStext,
-                  color: 'yellow',
-                }}>
-                D-10
-              </Text>
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: 'white',
-                  ...styles.ADStext,
-                }}>
-                + point 28,000
-              </Text>
-            </ImageBackground>
           </ScrollView>
-        ) : (
-          <View
-            style={{
-              width: 240,
-              height: 160,
-              borderRadius: 10,
-              padding: 15,
-              marginVertical: 20,
-              marginLeft: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: 'white',
-            }}>
-            <Text
-              style={{
-                fontSize: 30,
-                textAlign: 'center',
-              }}>
-              서포터를 추가해주세요
-            </Text>
-          </View>
         )}
       </View>
       <View>
@@ -257,41 +326,32 @@ const Home = ({navigation}) => {
             onPress={() => {
               if (done) {
                 isDone(false);
+                removeValue();
               } else {
                 isDone(true);
               }
             }}>
             <Image
-              source={logoImage}
-              resizeMode="contain"
-              style={{width: '100%'}}></Image>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.recommendADS}
-            onPress={() => {
-              if (test) {
-                isTest(false);
-              } else {
-                isTest(true);
-              }
-            }}>
-            <Image
-              source={testBrand}
-              resizeMode="contain"
-              style={{width: '100%'}}></Image>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.recommendADS}
-            onPress={() => isCarInfo(false)}>
-            <Image
-              source={logoImage}
+              source={brandSample1}
               resizeMode="contain"
               style={{width: '100%'}}></Image>
           </TouchableOpacity>
           <TouchableOpacity style={styles.recommendADS}>
             <Image
-              source={testBrand}
               resizeMode="contain"
+              source={brandSample2}
+              style={{width: '100%'}}></Image>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.recommendADS}>
+            <Image
+              source={brandSample3}
+              resizeMode="contain"
+              style={{width: '100%'}}></Image>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.recommendADS}>
+            <Image
+              resizeMode="contain"
+              source={brandSample4}
               style={{width: '100%'}}></Image>
           </TouchableOpacity>
         </ScrollView>

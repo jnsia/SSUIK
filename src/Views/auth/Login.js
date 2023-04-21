@@ -6,12 +6,17 @@ import {
   TextInput,
   TouchableOpacity,
   Dimensions,
+  Platform,
+  BackHandler,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import LogoImage from '../../Images/ssuik-logo.png';
-import testImage from '../../Images/testBrand.jpg';
+import brandSample1 from '../../Images/brandSample1.png';
+import brandSample2 from '../../Images/brandSample2.png';
+import brandSample3 from '../../Images/brandSample3.png';
+import brandSample4 from '../../Images/brandSample4.jpg';
 
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -19,24 +24,43 @@ const Login = ({navigation}) => {
   const [userID, setuserID] = useState('');
   const [userPW, setuserPW] = useState('');
 
-  function checkInfo() {
-    const storeData = async () => {
-      try {
-        const jsonValue = JSON.stringify(true);
-        await AsyncStorage.setItem('isLogin', jsonValue);
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        () => {
+          return true;
+        },
+      );
 
-        console.log(jsonValue);
-      } catch (e) {
-        console.log('set error');
-      }
-    };
+      return () => backHandler.remove();
+    }
+  }, []);
 
-    // 아이디 입력 유무 체크
+  let loginInfo = {
+    userID: userID,
+    userPW: userPW,
+  };
 
-    // 암호 입력 유무 체크
+  const storeLogin = async value => {
+    try {
+      const isLogin = JSON.stringify(value);
+      await AsyncStorage.setItem('@isLogin', isLogin);
+      console.log(isLogin);
+    } catch (e) {
+      console.log('set error');
+    }
 
-    storeData();
-  }
+    if (userID === '') {
+      return alert('아이디를 입력해 주세요.');
+    }
+
+    if (userPW === '') {
+      return alert('비밀번호를 입력해 주세요.');
+    }
+
+    navigation.push('Main');
+  };
 
   return (
     <View style={styles.container}>
@@ -53,7 +77,7 @@ const Login = ({navigation}) => {
             autoCapitalize={'none'}
             style={styles.input}
             returnKeyType="next"
-            placeholder="아이디"
+            placeholder="이메일"
             value={userID}
             onChangeText={setuserID}
           />
@@ -80,12 +104,14 @@ const Login = ({navigation}) => {
               marginBottom: 40,
               marginTop: 120,
             }}>
-            <Image source={testImage} style={styles.linkageImage} />
-            <Image source={testImage} style={styles.linkageImage} />
-            <Image source={testImage} style={styles.linkageImage} />
-            <Image source={testImage} style={styles.linkageImage} />
+            <Image source={brandSample1} style={styles.linkageImage} />
+            <Image source={brandSample2} style={styles.linkageImage} />
+            <Image source={brandSample3} style={styles.linkageImage} />
+            <Image source={brandSample4} style={styles.linkageImage} />
           </View>
-          <TouchableOpacity style={styles.loginBtn} onPress={checkInfo}>
+          <TouchableOpacity
+            style={styles.loginBtn}
+            onPress={() => storeLogin(loginInfo)}>
             <Text
               style={{
                 textAlign: 'center',
