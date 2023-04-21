@@ -65,7 +65,9 @@ const Login = ({navigation}) => {
             onChangeText={setuserPW}
             secureTextEntry
           />
-          <Text style={{color: 'grey', fontSize: 12, paddingLeft: 10}}>
+          <Text
+            style={{color: 'grey', fontSize: 12, paddingLeft: 10}}
+            onPress={() => navigation.push('SearchUserInfo')}>
             아이디/비밀번호 찾기
           </Text>
         </View>

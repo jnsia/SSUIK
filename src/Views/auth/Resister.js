@@ -4,22 +4,45 @@ import {
   StyleSheet,
   Image,
   TextInput,
-  Button,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
 
 import ProfileDefaultImage from '../../Images/love-img-test.png';
+import axios from 'axios';
 
 const Resister = ({navigation}) => {
   const [userNickname, setuserNickname] = useState('');
-  const [userID, setuserID] = useState('');
-  const [userPW, setuserPW] = useState('');
   const [userEmail, setuserEmail] = useState('');
+  const [userPW, setuserPW] = useState('');
   const [userCheckPW, setuserCheckPW] = useState('');
-  const [userPhoneNumber, setuserPhoneNumber] = useState('');
+  const [userName, setuserName] = useState('');
   const [userBirthday, setuserBirthday] = useState('');
+  const [userPhoneNumber, setuserPhoneNumber] = useState('');
+  const [userSex, setuserSex] = useState('');
+  const [userImage, setuserImage] = useState('');
+  const [userJob, setuserJob] = useState('');
+
+  const resisterSubmit = () => {
+    axios({
+      method: 'post',
+      url: 'https://localhost:8081/auth/resister',
+      data: {
+        email: userEmail,
+        password: userPW,
+        name: userName,
+        birthday: userBirthday,
+        phoneNumber: userPhoneNumber,
+        sex: userSex,
+        image: userImage,
+        nickname: userNickname,
+        job: userJob,
+      },
+    });
+
+    navigation.push('/login');
+  };
 
   return (
     <ScrollView>
@@ -49,8 +72,8 @@ const Resister = ({navigation}) => {
             autoCapitalize={'none'}
             style={styles.input}
             placeholder="아이디"
-            value={userID}
-            onChangeText={setuserID}
+            value={userName}
+            onChangeText={setuserName}
           />
         </View>
         <View style={styles.resisterInputArea}>
@@ -109,7 +132,7 @@ const Resister = ({navigation}) => {
         </View>
         <TouchableOpacity
           style={styles.resisterBtn}
-          onPress={() => navigation.push('Login')}>
+          onPress={() => resisterSubmit()}>
           <Text style={{textAlign: 'center', fontSize: 18, fontWeight: 'bold'}}>
             시작하기
           </Text>

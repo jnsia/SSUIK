@@ -9,6 +9,7 @@ import React, {useEffect, useState} from 'react';
 import CheckBox from 'react-native-bouncy-checkbox';
 import Modal from 'react-native-modal';
 import Geolocation from 'react-native-geolocation-service';
+import Camera from 'react-native-vision-camera';
 
 const Permission = ({navigation}) => {
   let CheckboxRef = null;

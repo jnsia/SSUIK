@@ -48,6 +48,7 @@ import PointUseHistory from './Views/Mypage/PointUseHistory';
 import ServiceCenter from './Views/Mypage/ServiceCenter';
 import Setting from './Views/Mypage/Setting';
 import TermsAndPolicy from './Views/Mypage/TermsAndPolicy';
+import SearchUserInfo from './Views/auth/SearchUserInfo';
 
 const RouteStack = createStackNavigator();
 
@@ -114,6 +115,21 @@ const LoginStackNavigator = () => {
       screenOptions={{headerShown: false}}>
       <LoginStack.Screen name="Login" component={Login} />
       <LoginStack.Screen name="Resister" component={Resister} />
+      <LoginStack.Screen
+        name="SearchUserInfo"
+        component={SearchUserInfo}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+          headerTitle: '이메일/비밀번호 찾기',
+          headerTitleStyle: {
+            color: 'white',
+            fontSize: 16,
+          },
+        }}
+      />
     </LoginStack.Navigator>
   );
 };
@@ -335,9 +351,9 @@ const Route = () => {
   return (
     <RouteStack.Navigator screenOptions={{headerShown: false}}>
       {isLoggedIn ? (
-        <RouteStack.Screen name="Main" component={MainTabNavigator} />
-      ) : (
         <RouteStack.Screen name="Auth" component={AuthStackNavigator} />
+      ) : (
+        <RouteStack.Screen name="Main" component={MainTabNavigator} />
       )}
     </RouteStack.Navigator>
   );
