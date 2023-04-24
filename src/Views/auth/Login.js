@@ -17,6 +17,7 @@ import brandSample1 from '../../Images/brandSample1.png';
 import brandSample2 from '../../Images/brandSample2.png';
 import brandSample3 from '../../Images/brandSample3.png';
 import brandSample4 from '../../Images/brandSample4.jpg';
+import axios from 'axios';
 
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -43,14 +44,6 @@ const Login = ({navigation}) => {
   };
 
   const storeLogin = async value => {
-    try {
-      const isLogin = JSON.stringify(value);
-      await AsyncStorage.setItem('@isLogin', isLogin);
-      console.log(isLogin);
-    } catch (e) {
-      console.log('set error');
-    }
-
     if (userID === '') {
       return alert('아이디를 입력해 주세요.');
     }
@@ -59,7 +52,27 @@ const Login = ({navigation}) => {
       return alert('비밀번호를 입력해 주세요.');
     }
 
-    navigation.push('Main');
+    try {
+      const isLogin = JSON.stringify(value);
+      await AsyncStorage.setItem('@isLogin', isLogin);
+      console.log(isLogin);
+    } catch (e) {
+      console.log('set error');
+    }
+
+    axios
+      .post('http://localhost:8001/auth/login', {
+        email: userID,
+        password: userPW,
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    // navigation.push('Main');
   };
 
   return (

@@ -20,29 +20,32 @@ const Resister = ({navigation}) => {
   const [userName, setuserName] = useState('');
   const [userBirthday, setuserBirthday] = useState('');
   const [userPhoneNumber, setuserPhoneNumber] = useState('');
-  const [userSex, setuserSex] = useState('');
-  const [userImage, setuserImage] = useState('');
-  const [userJob, setuserJob] = useState('');
+  const [userSex, setuserSex] = useState('a');
+  const [userImage, setuserImage] = useState('a');
+  const [userJob, setuserJob] = useState('a');
 
-  const resisterSubmit = () => {
-    axios({
-      method: 'post',
-      url: 'https://localhost:8081/auth/resister',
-      data: {
-        email: userEmail,
-        password: userPW,
-        name: userName,
-        birthday: userBirthday,
-        phoneNumber: userPhoneNumber,
-        sex: userSex,
-        image: userImage,
-        nickname: userNickname,
-        job: userJob,
-      },
-    });
-
-    navigation.push('/login');
+  const resisterSubmit = async () => {
+    try {
+      axios
+        .post('http://localhost:8001/auth/resister', {
+          email: userEmail,
+          password: userPW,
+          name: userName,
+          birthday: userBirthday,
+          phoneNumber: userPhoneNumber,
+          sex: userSex,
+          image: userImage,
+          nickname: userNickname,
+          job: userJob,
+        })
+        .then(alert('회원가입이 완료되었습니다!'))
+        .then(navigation.push('Login'));
+    } catch (error) {
+      return console.log(error);
+    }
   };
+
+  const endPoint = 6;
 
   return (
     <ScrollView>
@@ -123,7 +126,7 @@ const Resister = ({navigation}) => {
           <Text style={{fontWeight: 'bold', padding: 10}}>생년월일 6자리</Text>
           <TextInput
             autoCapitalize={'none'}
-            keyboardType={'email-address'}
+            keyboardType={'number'}
             style={styles.input}
             placeholder="980309"
             value={userBirthday}
