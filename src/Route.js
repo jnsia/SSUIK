@@ -97,7 +97,16 @@ const LoginStackNavigator = () => {
       screenOptions={{headerShown: false}}>
       <LoginStack.Screen name="Permission" component={Permission} />
       <LoginStack.Screen name="Login" component={Login} />
-      <LoginStack.Screen name="Resister" component={Resister} />
+      <LoginStack.Screen
+        name="Resister"
+        component={Resister}
+        options={{
+          headerShown: true,
+          headerStyle: {backgroundColor: 'black'},
+          headerTitle: '회원가입',
+          headerTitleStyle: {fontSize: 14, color: 'white'},
+        }}
+      />
       <LoginStack.Screen
         name="SearchUserInfo"
         component={SearchUserInfo}

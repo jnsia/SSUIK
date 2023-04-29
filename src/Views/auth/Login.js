@@ -66,7 +66,7 @@ const Login = ({navigation}) => {
         password: userPW,
       })
       .then(res => {
-        console.log(res);
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
