@@ -14,6 +14,8 @@ import {Picker} from '@react-native-picker/picker';
 import ProfileDefaultImage from '../../Images/love-img-test.png';
 import axios from 'axios';
 
+import LogoImage from '../../Images/ssuik-logo.png';
+
 const Resister = ({navigation}) => {
   const [step, setStep] = useState(1);
   const [userNickname, setuserNickname] = useState('');
@@ -86,18 +88,34 @@ const Resister = ({navigation}) => {
     <View style={{flex: 1}}>
       {step === 1 && (
         <View style={styles.container}>
-          <View style={{padding: 20}}>
+          <View style={{padding: 20, marginBottom: 40}}>
+            <Image
+              source={LogoImage}
+              resizeMode={'cover'}
+              style={{width: 150, height: 150}}
+            />
             <Text
-              style={{fontSize: 28, fontWeight: '600', paddingVertical: 10}}>
-              SSUIK 이용약관
+              style={{
+                fontSize: 22,
+                fontWeight: 'bold',
+                color: 'white',
+              }}>
+              SSUIK에 오신 것을
             </Text>
-            <Text style={{color: '#FF9500', fontSize: 16}}>
-              서비스 이용을 위한 약관동의가 필요합니다.
+            <Text
+              style={{
+                fontSize: 22,
+                fontWeight: 'bold',
+                color: 'white',
+              }}>
+              환영합니다.
             </Text>
           </View>
-          <View style={{marginBottom: 50}}>
+          <View>
             <CheckBox
-              style={{paddingVertical: 20, borderBottomWidth: 1}}
+              style={{
+                color: '#FFD500',
+              }}
               ref={ref => (CheckboxRefAll = ref)}
               textStyle={{
                 textDecorationLine: 'none',
@@ -234,41 +252,42 @@ const Resister = ({navigation}) => {
             />
           </View>
           <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '60%',
-              backgroundColor: '#FF9500',
-              borderRadius: 20,
-              padding: 10,
-            }}
+            style={styles.resisterBtn}
             onPress={storePermission}>
-            <Text style={{fontSize: 20, color: 'white'}}>계속하기</Text>
+            <Text style={styles.button}>계속하기</Text>
           </TouchableOpacity>
         </View>
       )}
       {step === 2 && (
-        <View>
-          <View style={styles.resisterInputArea}>
-            <Text style={{fontWeight: 'bold', padding: 10}}>이메일</Text>
-            <TextInput
-              autoCapitalize={'none'}
-              keyboardType={'email-address'}
-              style={styles.input}
-              placeholder="이메일"
-              value={userEmail}
-              onChangeText={setuserEmail}
-            />
+        <View style={styles.container}>
+          <View style={{marginTop: 40}}>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 24,
+              }}>
+              브랜드 서포터즈가
+            </Text>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 24,
+              }}>
+              되어볼까요?
+            </Text>
+            <View style={{marginTop: 60}}>
+              <TextInput
+                inputMode="email"
+                style={styles.input}
+                placeholder="이메일"
+                placeholderTextColor={'gray'}
+                value={userEmail}
+                onChangeText={setuserEmail}
+              />
+            </View>
           </View>
           <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '60%',
-              backgroundColor: '#FF9500',
-              borderRadius: 20,
-              padding: 10,
-            }}
+            style={styles.resisterBtn}
             onPress={() => {
               if (userEmail === '') {
                 alert('이메일을 입력해 주세요.');
@@ -276,43 +295,36 @@ const Resister = ({navigation}) => {
                 nextStep();
               }
             }}>
-            <Text style={{fontSize: 20, color: 'white'}}>계속하기</Text>
+            <Text style={styles.button}>계속하기</Text>
           </TouchableOpacity>
         </View>
       )}
       {step === 3 && (
-        <View>
-          <View style={styles.resisterInputArea}>
-            <Text style={{fontWeight: 'bold', padding: 10}}>비밀번호</Text>
+        <View style={styles.container}>
+          <View style={{marginTop: 60}}>
+            <Text style={styles.resisterText}>비밀번호 입력</Text>
             <TextInput
-              autoCapitalize={'none'}
               style={styles.input}
-              placeholder="비밀번호"
+              placeholder="8자리 이상 입력해주세요."
+              placeholderTextColor={'gray'}
               value={userPW}
               onChangeText={setuserPW}
               secureTextEntry
             />
           </View>
-          <View style={styles.resisterInputArea}>
-            <Text style={{fontWeight: 'bold', padding: 10}}>비밀번호 확인</Text>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.resisterText}>비밀번호 확인</Text>
             <TextInput
-              autoCapitalize={'none'}
               style={styles.input}
-              placeholder="비밀번호 확인"
+              placeholder="다시 한번 더 입력해주세요"
+              placeholderTextColor={'gray'}
               value={userCheckPW}
               onChangeText={setuserCheckPW}
               secureTextEntry
             />
           </View>
           <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '60%',
-              backgroundColor: '#FF9500',
-              borderRadius: 20,
-              padding: 10,
-            }}
+            style={styles.resisterBtn}
             onPress={() => {
               if (userPW === '' || userCheckPW === '') {
                 alert('비밀번호을 입력해 주세요.');
@@ -322,81 +334,85 @@ const Resister = ({navigation}) => {
                 nextStep();
               }
             }}>
-            <Text style={{fontSize: 20, color: 'white'}}>계속하기</Text>
+            <Text style={styles.button}>계속하기</Text>
           </TouchableOpacity>
         </View>
       )}
       {step === 4 && (
-        <View>
-          <View style={styles.resisterInputArea}>
-            <Text style={{fontWeight: 'bold', padding: 10}}>이름</Text>
+        <View style={styles.container}>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.resisterText}>이름</Text>
             <TextInput
-              autoCapitalize={'none'}
+              inputMode="text"
               style={styles.input}
-              placeholder="이름"
+              placeholder="실명을 입력해주세요"
+              placeholderTextColor={'gray'}
               value={userName}
               onChangeText={setuserName}
             />
           </View>
-          <View style={styles.resisterInputArea}>
-            <Text style={{fontWeight: 'bold', padding: 10}}>
-              생년월일 6자리
-            </Text>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.resisterText}>생년월일 6자리</Text>
             <TextInput
-              autoCapitalize={'none'}
+              inputMode="numeric"
               keyboardType={'number'}
               style={styles.input}
-              placeholder="000000"
+              placeholder="YYYY/MM/DD"
+              placeholderTextColor={'gray'}
               value={userBirthday}
               onChangeText={setuserBirthday}
             />
           </View>
-          <View style={styles.resisterInputArea}>
-            <Text style={{fontWeight: 'bold', padding: 10}}>전화번호</Text>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.resisterText}>전화번호</Text>
             <TextInput
-              autoCapitalize={'none'}
+              inputMode="numeric"
               style={styles.input}
-              placeholder="01012345678"
+              placeholder="-를 빼고 입력해주세요."
+              placeholderTextColor={'gray'}
               value={userPhoneNumber}
               onChangeText={setuserPhoneNumber}
             />
           </View>
-          <View>
-            <Text style={{fontWeight: 'bold', padding: 10}}>성별 선택</Text>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.resisterText}>성별 선택</Text>
             <View
               style={{
                 flexDirection: 'row',
-                marginBottom: 10,
+                marginVertical: 20,
               }}>
               <TouchableOpacity
                 style={
-                  userSex === '남자'
-                    ? styles.madeCountry
-                    : styles.madeCountryFocus
+                  userSex === '남성' ? styles.userSex : styles.userSexFocus
                 }
-                onPress={() => setuserSex('남자')}>
-                <Text style={styles.madeCountryText}>남자</Text>
+                onPress={() => setuserSex('남성')}>
+                <Text
+                  style={
+                    userSex === '남성'
+                      ? styles.userSexText
+                      : styles.userSexFocusText
+                  }>
+                  남성
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={
-                  userSex === '여자'
-                    ? styles.madeCountry
-                    : styles.madeCountryFocus
+                  userSex === '여성' ? styles.userSex : styles.userSexFocus
                 }
-                onPress={() => setuserSex('여자')}>
-                <Text style={styles.madeCountryText}>여자</Text>
+                onPress={() => setuserSex('여성')}>
+                <Text
+                  style={
+                    userSex === '여성'
+                      ? styles.userSexText
+                      : styles.userSexFocusText
+                  }>
+                  여성
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
           <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '60%',
-              backgroundColor: '#FF9500',
-              borderRadius: 20,
-              padding: 10,
-            }}
+            style={styles.resisterBtn}
             onPress={() => {
               if (userName === '') {
                 alert('이름을 입력해 주세요.');
@@ -410,22 +426,22 @@ const Resister = ({navigation}) => {
                 nextStep();
               }
             }}>
-            <Text style={{fontSize: 20, color: 'white'}}>계속하기</Text>
+            <Text style={styles.button}>계속하기</Text>
           </TouchableOpacity>
         </View>
       )}
       {step === 5 && (
-        <View>
+        <View style={styles.container}>
           <View style={{alignItems: 'center'}}>
-            <Text style={{fontWeight: 'bold'}}>회원정보</Text>
+            <Text style={styles.resisterText}>프로필 이미지 등록</Text>
             <Image
               source={ProfileDefaultImage}
               resizeMode={'contain'}
               style={{width: 50, height: 50, margin: 20}}
             />
           </View>
-          <View style={styles.resisterInputArea}>
-            <Text style={{fontWeight: 'bold', padding: 10}}>닉네임</Text>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.resisterText}>닉네임 입력</Text>
             <TextInput
               autoCapitalize={'none'}
               style={styles.input}
@@ -435,127 +451,52 @@ const Resister = ({navigation}) => {
               returnKeyType="next"
             />
           </View>
-          <View style={styles.resisterInputArea}>
-            <Text style={{fontWeight: 'bold', padding: 10}}>제조사</Text>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.resisterText}>직업 선택</Text>
             <View style={styles.picker}>
               <Picker
                 selectedValue={userJob}
                 onValueChange={(itemValue, itemIndex) => setuserJob(itemValue)}>
                 <Picker.Item
                   style={styles.pickerItem}
-                  label="벤츠"
-                  value="벤츠"
+                  label="근로소득자"
+                  value="근로소득자"
                 />
                 <Picker.Item
                   style={styles.pickerItem}
-                  label="BMW"
-                  value="BMW"
+                  label="자영업자"
+                  value="자영업자"
                 />
                 <Picker.Item
                   style={styles.pickerItem}
-                  label="아우디"
-                  value="아우디"
+                  label="학생"
+                  value="학생"
                 />
                 <Picker.Item
                   style={styles.pickerItem}
-                  label="폭스바겐"
-                  value="폭스바겐"
+                  label="주부"
+                  value="주부"
                 />
                 <Picker.Item
                   style={styles.pickerItem}
-                  label="볼보"
-                  value="볼보"
+                  label="무직"
+                  value="무직"
                 />
                 <Picker.Item
                   style={styles.pickerItem}
-                  label="쉐보레"
-                  value="쉐보레"
+                  label="청년퇴직자"
+                  value="청년퇴직자"
                 />
                 <Picker.Item
                   style={styles.pickerItem}
-                  label="테슬라"
-                  value="테슬라"
+                  label="프리랜서"
+                  value="프리랜서"
                 />
-                <Picker.Item
+                {/* <Picker.Item
                   style={styles.pickerItem}
-                  label="미니"
-                  value="미니"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="렉서스"
-                  value="렉서스"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="닛산"
-                  value="닛산"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="도요타"
-                  value="도요타"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="혼다"
-                  value="혼다"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="인피니티"
-                  value="인피니티"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="마세라티"
-                  value="마세라티"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="람보르기니"
-                  value="람보르기니"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="포드"
-                  value="포드"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="랜드로버"
-                  value="랜드로버"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="링컨"
-                  value="링컨"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="재규어"
-                  value="재규어"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="지프"
-                  value="지프"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="페라리"
-                  value="페라리"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="포르쉐"
-                  value="포르쉐"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="푸조"
-                  value="푸조"
-                />
+                  label="기타(직접입력)"
+                  value="기타(직접입력)"
+                /> */}
               </Picker>
             </View>
           </View>
@@ -569,18 +510,21 @@ const Resister = ({navigation}) => {
               padding: 10,
             }}
             onPress={nextStep}>
-            <Text style={{fontSize: 20, color: 'white'}}>회원가입 완료</Text>
+            <Text style={styles.button}>회원가입 완료</Text>
           </TouchableOpacity>
         </View>
       )}
       {step === 6 && (
-        <TouchableOpacity
-          style={styles.resisterBtn}
-          onPress={() => resisterSubmit()}>
-          <Text style={{textAlign: 'center', fontSize: 18, fontWeight: 'bold'}}>
-            로그인 하기
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={styles.resisterBtn}
+            onPress={() => resisterSubmit()}>
+            <Text
+              style={{textAlign: 'center', fontSize: 18, fontWeight: 'bold'}}>
+              로그인 하기
+            </Text>
+          </TouchableOpacity>
+        </View>
       )}
     </View>
   );
@@ -590,41 +534,62 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'black',
     flex: 1,
+    paddingHorizontal: 20,
   },
   input: {
-    width: '100%',
+    marginTop: 10,
     fontSize: 16,
-    padding: 5,
-    paddingLeft: 15,
+    padding: 10,
+    paddingLeft: 10,
     marginBottom: 10,
     borderRadius: 5,
-    backgroundColor: 'lightgrey',
-  },
-  resisterInputArea: {
-    fontWeight: 'bold',
+    color: 'white',
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
   },
   resisterBtn: {
-    marginTop: 20,
-    marginLeft: 40,
-    marginRight: 40,
-    padding: 5,
-    backgroundColor: '#FF9500',
+    position: 'absolute',
+    marginHorizontal: 20,
+    bottom: 20,
+    width: '100%',
+    padding: 15,
+    backgroundColor: '#FFD500',
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  resisterText: {
+    color: 'white',
+    fontSize: 18,
+    paddingHorizontal: 10,
+  },
+  userSex: {
+    flex: 1,
+    backgroundColor: 'white',
+    marginHorizontal: 20,
+    padding: 10,
     borderRadius: 5,
+  },
+  userSexFocus: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: 'gray',
+    marginHorizontal: 20,
+    padding: 10,
+    borderRadius: 5,
+  },
+  userSexText: {
+    white: 'black',
     textAlign: 'center',
   },
-  madeCountry: {
-    flex: 1,
-    backgroundColor: '#FF9500',
-    marginHorizontal: 20,
-    padding: 10,
-    borderRadius: 5,
+  userSexFocusText: {
+    color: 'gray',
+    textAlign: 'center',
   },
-  madeCountryFocus: {
-    flex: 1,
-    backgroundColor: 'lightgrey',
-    marginHorizontal: 20,
-    padding: 10,
-    borderRadius: 5,
+  button: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
 

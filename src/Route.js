@@ -21,7 +21,6 @@ import {Image} from 'react-native';
 //Screens
 import Login from './Views/auth/Login';
 import Resister from './Views/auth/Resister';
-import Permission from './Views/auth/Permission';
 import AuthPhoto from './Views/auth/AuthPhoto';
 
 import recruitBrand from './Views/Brand/recruitBrand';
@@ -95,7 +94,6 @@ const LoginStackNavigator = () => {
     <LoginStack.Navigator
       initialRouteName="Permission"
       screenOptions={{headerShown: false}}>
-      <LoginStack.Screen name="Permission" component={Permission} />
       <LoginStack.Screen name="Login" component={Login} />
       <LoginStack.Screen
         name="Resister"

@@ -9,9 +9,18 @@ import {
 
 function SearchUserInfo() {
   const [searchemail, setSearchEmail] = useState(true);
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [phoneNumber1, setPhoneNumber1] = useState();
+  const [phoneNumber2, setPhoneNumber2] = useState();
   const [accessNumber, setAccessNumber] = useState();
   const [userEmail, setUserEmail] = useState('');
+
+  const savePhoneNumber1 = e => {
+    if (e.target.value.length) {
+      return false;
+    }
+
+    setPhoneNumber1(e.target.value);
+  };
 
   const email = () => {
     setSearchEmail(true);
@@ -52,17 +61,32 @@ function SearchUserInfo() {
             <TextInput
               style={styles.input}
               placeholder="-를 빼고 입력해주세요."
-              value={phoneNumber}
-              onChangeText={setPhoneNumber}></TextInput>
+              placeholderTextColor={'gray'}
+              inputMode="numeric"
+              maxLength={11}
+              value={phoneNumber1}
+              onChangeText={setPhoneNumber1}></TextInput>
+            <TouchableOpacity
+              style={{
+                borderColor: 'white',
+                borderWidth: 0.5,
+                borderRadius: 20,
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                marginVertical: 10,
+                justifyContent: 'center',
+              }}>
+              <Text style={{color: 'white', fontSize: 10}}>인증번호 받기</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity>
-            <Text>인증번호 받기</Text>
-          </TouchableOpacity>
           <Text style={styles.text}>인증번호 입력</Text>
           <View style={styles.inputBox}>
             <TextInput
               style={styles.input}
               placeholder="문자로 온 인증번호를 입력해주세요."
+              placeholderTextColor={'gray'}
+              inputMode="numeric"
+              maxLength={6}
               value={accessNumber}
               onChangeText={setAccessNumber}></TextInput>
           </View>
@@ -78,6 +102,8 @@ function SearchUserInfo() {
               <TextInput
                 style={styles.input}
                 placeholder="이메일을 입력해주세요."
+                placeholderTextColor={'gray'}
+                inputMode="email"
                 value={userEmail}
                 onChangeText={setUserEmail}></TextInput>
             </View>
@@ -88,8 +114,11 @@ function SearchUserInfo() {
               <TextInput
                 style={styles.input}
                 placeholder="-를 빼고 입력해주세요."
-                value={phoneNumber}
-                onChangeText={setPhoneNumber}></TextInput>
+                placeholderTextColor={'gray'}
+                inputMode="numeric"
+                maxLength={11}
+                value={phoneNumber2}
+                onChangeText={setPhoneNumber2}></TextInput>
             </View>
           </View>
           <TouchableOpacity>
@@ -116,13 +145,21 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   text: {
+    marginTop: 40,
     color: 'white',
     fontSize: 20,
   },
   inputBox: {
+    marginVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
     color: 'lightgray',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  input: {
+    color: 'white',
+    paddingBottom: 0,
   },
 });
 
