@@ -9,131 +9,84 @@ import {
 } from 'react-native';
 import React from 'react';
 
+const userInfo = {
+  nickname: '최고 서포터',
+  email: 'ssuik@naver.com',
+  password: '●●●●●●●●',
+  phoneNumber: '01096943994',
+};
+
 const UserInfo = () => {
   return (
-    <ScrollView>
-      <View
-        style={{backgroundColor: 'white', paddingTop: 40, marginBottom: 10}}>
-        <TouchableOpacity style={styles.myInfo}>
-          <Image
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 20,
-              backgroundColor: '#FF9500',
-              resizeMode: 'contain',
-            }}
-            source={require('../../Images/my-img-test.png')}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={{padding: 20}}>
-          <Text style={{fontSize: 18, fontWeight: 'bold', textAlign: 'center'}}>
-            파란눈사람
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          backgroundColor: 'white',
-          marginVertical: 10,
-          paddingVertical: 10,
-        }}>
-        <View style={styles.userInfo}>
-          <Text style={styles.userInfoText}>이메일</Text>
-          <TextInput
-            style={styles.userInfoInputText}
-            autoCapitalize="none"
-            placeholder="kia54682@gmail.com"
-          />
-        </View>
-        <View style={styles.userInfo}>
-          <Text style={styles.userInfoText}>현재 비밀번호</Text>
-          <TextInput
-            style={styles.userInfoInputText}
-            autoCapitalize="none"
-            placeholder="kia54682@gmail.com"
-          />
-        </View>
-        <View style={styles.userInfo}>
-          <Text style={styles.userInfoText}>신규 비밀번호</Text>
-          <TextInput
-            style={styles.userInfoInputText}
-            autoCapitalize="none"
-            placeholder="kia54682@gmail.com"
-          />
-        </View>
-        <TouchableOpacity
+    <ScrollView style={styles.container}>
+      <View style={{marginVertical: 20}}>
+        <View
           style={{
             backgroundColor: 'black',
-            marginVertical: 10,
-            marginHorizontal: 60,
-            paddingVertical: 5,
-            paddingHorizontal: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
           }}>
-          <Text
-            style={{
-              color: 'white',
-              fontSize: 18,
-              fontWeight: '500',
-              textAlign: 'center',
-            }}>
-            변경
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          marginVertical: 10,
-          paddingHorizontal: 20,
-          paddingVertical: 20,
-          backgroundColor: 'white',
-        }}>
-        <Text style={{fontSize: 20, fontWeight: 'bold', paddingLeft: 10}}>
-          휴대폰 인증
-        </Text>
-        <View style={{flexDirection: 'row', marginTop: 15}}>
-          {/* picker 쓰자 */}
-          <TextInput
-            style={{
-              flex: 1,
-              backgroundColor: 'lightgrey',
-              marginHorizontal: 5,
-              paddingVertical: 5,
-              paddingHorizontal: 10,
-            }}
-            autoCapitalize="none"
-            placeholder="통신사"
-          />
-          <TextInput
-            style={{
-              flex: 2,
-              backgroundColor: 'lightgrey',
-              marginHorizontal: 5,
-              paddingVertical: 5,
-              paddingHorizontal: 10,
-            }}
-            autoCapitalize="none"
-            placeholder="010-0000-0000"
-            keyborardType="numeric"
-          />
-          <TouchableOpacity
-            style={{
-              flex: 2,
-              backgroundColor: 'black',
-              marginHorizontal: 5,
-              paddingVertical: 5,
-              paddingHorizontal: 10,
-            }}>
-            <Text
+          <TouchableOpacity style={styles.myInfo}>
+            <Image
               style={{
-                color: 'white',
-                fontSize: 14,
-                fontWeight: '500',
-                textAlign: 'center',
-              }}>
-              인증번호 전송
-            </Text>
+                width: 100,
+                height: 100,
+                borderRadius: 20,
+                borderColor: 'white',
+                borderWidth: 1,
+                backgroundColor: 'white',
+                resizeMode: 'contain',
+              }}
+              source={require('../../Images/my-img-test.png')}
+            />
           </TouchableOpacity>
+        </View>
+        <View style={{marginHorizontal: 20, marginBottom: 10}}>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.title}>닉네임 입력</Text>
+            <View style={styles.border}>
+              <Text style={styles.text}>{userInfo.nickname}</Text>
+              <TouchableOpacity style={styles.alterBtn}>
+                <Text style={{...styles.text, color: '#FFC500', fontSize: 12}}>
+                  변경
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.title}>이메일</Text>
+            <View style={styles.border}>
+              <Text style={styles.text}>{userInfo.email}</Text>
+              <TouchableOpacity style={styles.alterBtn}>
+                <Text style={{...styles.text, color: '#FFC500', fontSize: 12}}>
+                  변경
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.title}>비밀번호</Text>
+            <View style={styles.border}>
+              <Text style={styles.text}>{userInfo.password}</Text>
+              <TouchableOpacity style={styles.alterBtn}>
+                <Text style={{...styles.text, color: '#FFC500', fontSize: 12}}>
+                  변경
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={{marginTop: 40}}>
+            <Text style={styles.title}>전화번호</Text>
+            <View style={styles.border}>
+              <Text style={styles.text}>{userInfo.phoneNumber}</Text>
+              <TouchableOpacity style={styles.alterBtn}>
+                <Text style={{...styles.text, color: '#FFC500', fontSize: 12}}>
+                  변경
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -141,29 +94,36 @@ const UserInfo = () => {
 };
 
 const styles = StyleSheet.create({
-  myInfo: {
+  container: {
     flex: 1,
-    alignItems: 'center',
+    backgroundColor: 'black',
   },
-  userInfo: {
+  title: {
+    color: 'white',
+    fontSize: 18,
+    fontFamily: 'Pretendard-Regular',
+    marginBottom: 10,
+  },
+  border: {
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
-    paddingHorizontal: 20,
   },
-  userInfoText: {
-    flex: 1,
-    fontSize: 16,
-    fontWeight: 'bold',
+  text: {
+    fontSize: 14,
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    color: 'white',
+    fontFamily: 'Pretendard-Regular',
   },
-  userInfoInputText: {
-    flex: 2,
-    padding: 0,
-    marginHorizontal: 10,
-    paddingLeft: 10,
-    backgroundColor: 'lightgrey',
-    fontSize: 16,
+  alterBtn: {
+    borderRadius: 20,
+    borderWidth: 0.5,
+    borderColor: '#FFC500',
+    paddingHorizontal: 10,
+    marginVertical: 10,
   },
 });
 

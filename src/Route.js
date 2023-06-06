@@ -6,7 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import {Image} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 // import logoImage from './Images/ssuik-logo.png';
 
 // function logo() {
@@ -34,11 +34,9 @@ import Event from './Views/Event/Event';
 import Home from './Views/Home/Home';
 import ResisterCarInfo from './Views/Home/ResisterCarInfo';
 import AdsSlide from './Views/Home/AdsSlide';
+import Notice from './Views/Home/Notice';
 
 import Point from './Views/Point/Point';
-import PointInfo from './Views/Point/PointInfo';
-import Refund from './Views/Point/Refund';
-import Goods from './Views/Point/Goods';
 
 import Mypage from './Views/Mypage/Mypage';
 import UserInfo from './Views/Mypage/UserInfo';
@@ -128,8 +126,15 @@ const MainTabNavigator = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: 'black',
+          height: 70,
+          paddingTop: 10,
+          paddingBottom: 10,
+          borderWidth: 0,
         },
-        tabBarActiveTintColor: 'white',
+        tabBarLabelStyle: {
+          fontSize: 10,
+        },
+        tabBarActiveTintColor: '#FFC500',
       }}>
       <MainTab.Screen
         name="HomeScreen"
@@ -137,7 +142,7 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: '홈',
           tabBarIcon: ({color, size}) => (
-            <Icon name="home" color={color} size={size} />
+            <Icon name="home" color={color} size={25} />
           ),
         }}
       />
@@ -147,7 +152,7 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: '포인트',
           tabBarIcon: ({color, size}) => (
-            <Icon name="credit" color={color} size={size} />
+            <Icon name="credit" color={color} size={25} />
           ),
         }}
       />
@@ -157,7 +162,7 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: '이벤트',
           tabBarIcon: ({color, size}) => (
-            <Icon name="calendar" color={color} size={size} />
+            <Icon name="calendar" color={color} size={25} />
           ),
         }}
       />
@@ -168,7 +173,7 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: '마이페이지',
           tabBarIcon: ({color, size}) => (
-            <Icon name="user" color={color} size={size} />
+            <Icon name="user" color={color} size={25} />
           ),
         }}
       />
@@ -245,7 +250,7 @@ const BrandTopTabNavigator = () => {
   );
 };
 
-const HomeStackNavigator = () => {
+const HomeStackNavigator = ({navigation}) => {
   return (
     <HomeStack.Navigator initialRouteName="Home">
       <HomeStack.Screen
@@ -257,7 +262,7 @@ const HomeStackNavigator = () => {
           // headerTitle: logo,
           headerStyle: {
             backgroundColor: 'black',
-            height: 65,
+            height: 75,
           },
           headerTintColor: 'white',
           headerTitleStyle: {
@@ -265,12 +270,17 @@ const HomeStackNavigator = () => {
           },
           headerLeft: false,
           headerRight: () => (
-            <Icon
-              name="menu"
-              color={'white'}
-              size={25}
-              style={{marginRight: 20}}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.push('Notice');
+              }}>
+              <Icon
+                name="bell"
+                color={'white'}
+                size={25}
+                style={{marginRight: 20}}
+              />
+            </TouchableOpacity>
           ),
         }}
       />
@@ -286,6 +296,23 @@ const HomeStackNavigator = () => {
         name="AuthPhoto"
         component={AuthPhoto}
       />
+      <HomeStack.Screen
+        options={{
+          headerShown: true,
+          title: '알림',
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontSize: 16,
+            fontFamily: 'BlackHanSans-Regular',
+          },
+        }}
+        name="Notice"
+        component={Notice}
+      />
     </HomeStack.Navigator>
   );
 };
@@ -295,21 +322,78 @@ const PointStackNavigator = () => {
     <PointStack.Navigator
       initialRouteName="Point"
       screenOptions={{headerLeft: false, title: '포인트'}}>
-      <PointStack.Screen name="Point" component={Point} />
-      <PointStack.Screen name="PointInfo" component={PointInfo} />
-      <PointStack.Screen name="Refund" component={Refund} />
-      <PointStack.Screen name="Goods" component={Goods} />
+      <PointStack.Screen
+        name="Point"
+        component={Point}
+        options={{
+          title: 'POINT',
+          headerBackTitleVisible: false,
+          // headerTitle: logo,
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerLeft: false,
+        }}
+      />
     </PointStack.Navigator>
   );
 };
 
-const MypageStackNavigator = () => {
+const MypageStackNavigator = ({navigation}) => {
   return (
     <MypageStack.Navigator
       initialRouteName="Mypage"
-      screenOptions={{headerLeft: false, title: '마이페이지'}}>
-      <MypageStack.Screen name="Mypage" component={Mypage} />
-      <MypageStack.Screen name="UserInfo" component={UserInfo} />
+      screenOptions={{title: '마이페이지'}}>
+      <MypageStack.Screen
+        name="Mypage"
+        component={Mypage}
+        options={{
+          title: 'MY PAGE',
+          headerBackTitleVisible: false,
+          // headerTitle: logo,
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerLeft: false,
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.push('Notice');
+              }}>
+              <Icon
+                name="bell"
+                color={'white'}
+                size={25}
+                style={{marginRight: 20}}
+              />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <MypageStack.Screen
+        name="UserInfo"
+        component={UserInfo}
+        options={{
+          title: '나의 정보 수정',
+          headerBackTitleVisible: false,
+          // headerTitle: logo,
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+        }}
+      />
       <MypageStack.Screen name="AdsCollection" component={AdsCollection} />
       <MypageStack.Screen name="PointUseHistory" component={PointUseHistory} />
       <MypageStack.Screen name="ServiceCenter" component={ServiceCenter} />

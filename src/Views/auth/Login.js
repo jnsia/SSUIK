@@ -77,7 +77,10 @@ const Login = ({navigation}) => {
         console.log(err);
       });
 
-    // navigation.push('Main');
+    setuserID('');
+    setuserPW('');
+
+    navigation.push('Main');
   };
 
   return (

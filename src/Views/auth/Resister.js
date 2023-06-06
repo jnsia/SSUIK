@@ -11,7 +11,6 @@ import CheckBox from 'react-native-bouncy-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-picker/picker';
 
-import ProfileDefaultImage from '../../Images/love-img-test.png';
 import axios from 'axios';
 
 import LogoImage from '../../Images/ssuik-logo.png';
@@ -26,7 +25,6 @@ const Resister = ({navigation}) => {
   const [userBirthday, setuserBirthday] = useState('');
   const [userPhoneNumber, setuserPhoneNumber] = useState('');
   const [userSex, setuserSex] = useState('a');
-  const [userImage, setuserImage] = useState('a');
   const [userJob, setuserJob] = useState('a');
 
   let CheckboxRef1 = null;
@@ -73,7 +71,6 @@ const Resister = ({navigation}) => {
           birthday: userBirthday,
           phoneNumber: userPhoneNumber,
           sex: userSex,
-          image: userImage,
           nickname: userNickname,
           job: userJob,
         })
@@ -432,14 +429,6 @@ const Resister = ({navigation}) => {
       )}
       {step === 5 && (
         <View style={styles.container}>
-          <View style={{alignItems: 'center'}}>
-            <Text style={styles.resisterText}>프로필 이미지 등록</Text>
-            <Image
-              source={ProfileDefaultImage}
-              resizeMode={'contain'}
-              style={{width: 50, height: 50, margin: 20}}
-            />
-          </View>
           <View style={{marginTop: 40}}>
             <Text style={styles.resisterText}>닉네임 입력</Text>
             <TextInput

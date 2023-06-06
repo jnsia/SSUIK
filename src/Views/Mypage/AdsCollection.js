@@ -8,6 +8,12 @@ import {
 } from 'react-native';
 import React from 'react';
 
+const collectionInfo = [
+  {
+    title: 'Bad Blue',
+  },
+];
+
 const AdsCollection = () => {
   return (
     <ScrollView style={styles.container}>
