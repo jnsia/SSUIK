@@ -76,7 +76,7 @@ const AdsCollection = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: 'white'},
+  container: {flex: 1, backgroundColor: 'black'},
   adsCollectionFilter: {
     flexDirection: 'row',
     justifyContent: 'space-between',

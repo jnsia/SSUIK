@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import Icon from 'react-native-vector-icons/Entypo';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {createStackNavigator} from '@react-navigation/stack';
@@ -142,7 +144,7 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: '홈',
           tabBarIcon: ({color, size}) => (
-            <Icon name="home" color={color} size={25} />
+            <EntypoIcon name="home" color={color} size={25} />
           ),
         }}
       />
@@ -152,7 +154,7 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: '포인트',
           tabBarIcon: ({color, size}) => (
-            <Icon name="credit" color={color} size={25} />
+            <EntypoIcon name="credit" color={color} size={25} />
           ),
         }}
       />
@@ -162,7 +164,7 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: '이벤트',
           tabBarIcon: ({color, size}) => (
-            <Icon name="calendar" color={color} size={25} />
+            <EntypoIcon name="calendar" color={color} size={25} />
           ),
         }}
       />
@@ -173,7 +175,7 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: '마이페이지',
           tabBarIcon: ({color, size}) => (
-            <Icon name="user" color={color} size={25} />
+            <EntypoIcon name="user" color={color} size={25} />
           ),
         }}
       />
@@ -195,7 +197,7 @@ const BrandStackNavigator = () => {
             height: 65,
           },
           headerRight: () => (
-            <Icon
+            <EntypoIcon
               name="magnifying-glass"
               color={'white'}
               size={25}
@@ -274,7 +276,7 @@ const HomeStackNavigator = ({navigation}) => {
               onPress={() => {
                 navigation.push('Notice');
               }}>
-              <Icon
+              <EntypoIcon
                 name="bell"
                 color={'white'}
                 size={25}
@@ -365,19 +367,6 @@ const MypageStackNavigator = ({navigation}) => {
             fontWeight: 'bold',
           },
           headerLeft: false,
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.push('Notice');
-              }}>
-              <Icon
-                name="bell"
-                color={'white'}
-                size={25}
-                style={{marginRight: 20}}
-              />
-            </TouchableOpacity>
-          ),
         }}
       />
       <MypageStack.Screen
