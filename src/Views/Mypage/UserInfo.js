@@ -25,7 +25,7 @@ const UserInfo = () => {
             backgroundColor: 'black',
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: 20,
+            marginVertical: 15,
           }}>
           <TouchableOpacity style={styles.myInfo}>
             <Image
@@ -43,7 +43,7 @@ const UserInfo = () => {
           </TouchableOpacity>
         </View>
         <View style={{marginHorizontal: 20, marginBottom: 10}}>
-          <View style={{marginTop: 40}}>
+          <View style={{marginTop: 30}}>
             <Text style={styles.title}>닉네임 입력</Text>
             <View style={styles.border}>
               <Text style={styles.text}>{userInfo.nickname}</Text>
@@ -54,7 +54,7 @@ const UserInfo = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{marginTop: 40}}>
+          <View style={{marginTop: 30}}>
             <Text style={styles.title}>이메일</Text>
             <View style={styles.border}>
               <Text style={styles.text}>{userInfo.email}</Text>
@@ -65,7 +65,7 @@ const UserInfo = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{marginTop: 40}}>
+          <View style={{marginTop: 30}}>
             <Text style={styles.title}>비밀번호</Text>
             <View style={styles.border}>
               <Text style={styles.text}>{userInfo.password}</Text>
@@ -76,7 +76,7 @@ const UserInfo = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{marginTop: 40}}>
+          <View style={{marginTop: 30}}>
             <Text style={styles.title}>전화번호</Text>
             <View style={styles.border}>
               <Text style={styles.text}>{userInfo.phoneNumber}</Text>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontFamily: 'Pretendard-Regular',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   border: {
     borderBottomColor: 'white',

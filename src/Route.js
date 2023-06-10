@@ -35,7 +35,6 @@ import Event from './Views/Event/Event';
 
 import Home from './Views/Home/Home';
 import ResisterCarInfo from './Views/Home/ResisterCarInfo';
-import AdsSlide from './Views/Home/AdsSlide';
 import Notice from './Views/Home/Notice';
 
 import Point from './Views/Point/Point';
@@ -43,7 +42,6 @@ import Point from './Views/Point/Point';
 import Mypage from './Views/Mypage/Mypage';
 import UserInfo from './Views/Mypage/UserInfo';
 import AdsCollection from './Views/Mypage/AdsCollection';
-import PointUseHistory from './Views/Mypage/PointUseHistory';
 import ServiceCenter from './Views/Mypage/ServiceCenter';
 import Setting from './Views/Mypage/Setting';
 import TermsAndPolicy from './Views/Mypage/TermsAndPolicy';
@@ -287,7 +285,6 @@ const HomeStackNavigator = ({navigation}) => {
         }}
       />
       <HomeStack.Screen name="ResisterCarInfo" component={ResisterCarInfo} />
-      <HomeStack.Screen name="AdsSlide" component={AdsSlide} />
       <HomeStack.Screen
         options={{headerShown: false, headerLeft: false}}
         name="BrandStackNavigator"
@@ -383,8 +380,20 @@ const MypageStackNavigator = ({navigation}) => {
           headerTintColor: 'white',
         }}
       />
-      <MypageStack.Screen name="AdsCollection" component={AdsCollection} />
-      <MypageStack.Screen name="PointUseHistory" component={PointUseHistory} />
+      <MypageStack.Screen
+        name="AdsCollection"
+        component={AdsCollection}
+        options={{
+          title: '나의 광고 컬렉션',
+          headerBackTitleVisible: false,
+          // headerTitle: logo,
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+        }}
+      />
       <MypageStack.Screen name="ServiceCenter" component={ServiceCenter} />
       <MypageStack.Screen name="Setting" component={Setting} />
       <MypageStack.Screen name="TermsAndPolicy" component={TermsAndPolicy} />

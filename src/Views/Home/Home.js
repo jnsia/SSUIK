@@ -188,21 +188,20 @@ const Home = ({navigation}) => {
               width: 240,
               height: 160,
               borderRadius: 10,
-              padding: 15,
               marginVertical: 20,
               marginLeft: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: 'white',
             }}
             onPress={() => navigation.navigate('BrandStackNavigator')}>
-            <Text
-              style={{
-                fontSize: 30,
-                textAlign: 'center',
-              }}>
-              서포터를 추가해주세요
-            </Text>
+            <ImageBackground source={testBack1} resizeMode="contain" style={{}}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: 'white',
+                  textAlign: 'center',
+                }}>
+                서포터를 추가해주세요
+              </Text>
+            </ImageBackground>
           </TouchableOpacity>
         ) : (
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>

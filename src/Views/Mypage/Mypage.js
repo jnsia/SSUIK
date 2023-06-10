@@ -79,12 +79,6 @@ const My = ({navigation}) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.myPageList}
-        onPress={() => navigation.push('PointUseHistory')}>
-        <Text style={styles.text}>포인트 사용 내역</Text>
-        <Icon name="chevron-right" color={'white'} size={25} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.myPageList}
         onPress={() => navigation.push('Setting')}>
         <Text style={styles.text}>알림설정</Text>
         <Icon name="chevron-right" color={'white'} size={25} />
