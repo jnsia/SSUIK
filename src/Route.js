@@ -26,8 +26,6 @@ import Resister from './Views/auth/Resister';
 import AuthPhoto from './Views/auth/AuthPhoto';
 
 import recruitBrand from './Views/Brand/recruitBrand';
-import beforeBrand from './Views/Brand/beforeBrand';
-import afterBrand from './Views/Brand/afterBrand';
 import BrandInfo from './Views/Brand/BrandInfo';
 import BrandApply from './Views/Brand/BrandApply';
 
@@ -53,8 +51,6 @@ const AuthStack = createStackNavigator();
 const LoginStack = createStackNavigator();
 
 const MainTab = createBottomTabNavigator();
-
-const BrandTopTab = createMaterialTopTabNavigator();
 
 const HomeStack = createStackNavigator();
 const BrandStack = createStackNavigator();
@@ -186,14 +182,15 @@ const BrandStackNavigator = () => {
     <BrandStack.Navigator initialRouteName="Brand">
       <BrandStack.Screen
         name="Brand"
-        component={BrandTopTabNavigator}
+        component={recruitBrand}
         options={{
-          title: 'SSUIK',
-          headerTitleStyle: {color: 'white', fontWeight: 'bold'},
+          title: '스폰서',
+          headerTitleStyle: {color: 'white'},
           headerStyle: {
             backgroundColor: 'black',
-            height: 65,
+            height: 75,
           },
+          headerTintColor: 'white',
           headerRight: () => (
             <EntypoIcon
               name="magnifying-glass"
@@ -204,49 +201,25 @@ const BrandStackNavigator = () => {
           ),
         }}
       />
-      <BrandStack.Screen name="BrandInfo" component={BrandInfo} />
-      <BrandStack.Screen name="BrandApply" component={BrandApply} />
-    </BrandStack.Navigator>
-  );
-};
-
-const BrandTopTabNavigator = () => {
-  return (
-    <BrandTopTab.Navigator
-      initialRouteName="recruitBrand"
-      screenOptions={{
-        tabBarStyle: {
-          backgroundColor: 'black',
-        },
-        tabBarActiveTintColor: '#FFD500',
-        tabBarInactiveTintColor: 'grey',
-        tabBarPressColor: '#FFD500',
-        tabBarLabelStyle: {fontSize: 16, fontWeight: '700'},
-        swipeEnabled: false,
-        tabBarIndicatorStyle: {
-          backgroundColor: '#FFD500',
-          height: 3,
-          borderRadius: 20,
-        },
-      }}>
-      <BrandTopTab.Screen
-        name="recruitBrand"
-        component={recruitBrand}
+      <BrandStack.Screen
+        name="BrandInfo"
+        component={BrandInfo}
         options={{
-          title: '모집중',
+          headerShown: true,
+          title: '스폰서 정보',
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontSize: 16,
+            fontFamily: 'BlackHanSans-Regular',
+          },
         }}
       />
-      <BrandTopTab.Screen
-        name="beforeBrand"
-        component={beforeBrand}
-        options={{title: '모집 예정'}}
-      />
-      <BrandTopTab.Screen
-        name="afterBrand"
-        component={afterBrand}
-        options={{title: '모집 마감'}}
-      />
-    </BrandTopTab.Navigator>
+      <BrandStack.Screen name="BrandApply" component={BrandApply} />
+    </BrandStack.Navigator>
   );
 };
 
@@ -291,11 +264,21 @@ const HomeStackNavigator = ({navigation}) => {
         component={BrandStackNavigator}
       />
       <HomeStack.Screen
-        options={{headerShown: true, title: '인증사진 등록'}}
         name="AuthPhoto"
         component={AuthPhoto}
+        options={{
+          title: '인증하기',
+          headerBackTitleVisible: false,
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+        }}
       />
       <HomeStack.Screen
+        name="Notice"
+        component={Notice}
         options={{
           headerShown: true,
           title: '알림',
@@ -309,8 +292,6 @@ const HomeStackNavigator = ({navigation}) => {
             fontFamily: 'BlackHanSans-Regular',
           },
         }}
-        name="Notice"
-        component={Notice}
       />
     </HomeStack.Navigator>
   );

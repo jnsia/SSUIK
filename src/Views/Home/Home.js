@@ -28,16 +28,30 @@ const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 const Home = ({navigation}) => {
   const [addSupport, setAddSupport] = useState(true);
-  const [done, isDone] = useState(true);
+  const [done, setDone] = useState(true);
 
   const getBrandApply = async () => {
     try {
       const brandApply = await AsyncStorage.getItem('@brandApply');
 
       if (brandApply === null) {
-        setAddSupport(true);
-      } else {
         setAddSupport(false);
+      } else {
+        setAddSupport(true);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const getAuthPhoto = async () => {
+    try {
+      const authPhoto = await AsyncStorage.getItem('@authPhoto');
+
+      if (authPhoto === null) {
+        setDone(false);
+      } else {
+        setDone(true);
       }
     } catch (e) {
       console.error(e);
@@ -65,6 +79,7 @@ const Home = ({navigation}) => {
       await AsyncStorage.removeItem('@brandApply');
       await AsyncStorage.removeItem('@isLogin');
       await AsyncStorage.removeItem('@isPermission');
+      await AsyncStorage.removeItem('@authPhoto');
     } catch (e) {
       console.error(e);
     }
@@ -87,6 +102,7 @@ const Home = ({navigation}) => {
 
   useFocusEffect(() => {
     getBrandApply();
+    getAuthPhoto();
   });
 
   return (
@@ -182,27 +198,31 @@ const Home = ({navigation}) => {
         <Text style={{color: 'white', fontSize: 14, marginHorizontal: 20}}>
           설인수님이 진행 중인 광고
         </Text>
-        {addSupport ? (
-          <TouchableOpacity
-            style={{
-              width: 240,
-              height: 160,
-              borderRadius: 10,
-              marginVertical: 20,
-              marginLeft: 20,
-            }}
-            onPress={() => navigation.navigate('BrandStackNavigator')}>
-            <ImageBackground source={testBack1} resizeMode="contain" style={{}}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: 'white',
-                  textAlign: 'center',
-                }}>
-                서포터를 추가해주세요
-              </Text>
+        {addSupport === false ? (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <ImageBackground
+              source={testBack2}
+              resizeMode="cover"
+              imageStyle={{borderRadius: 20}}
+              style={styles.processADS}>
+              <TouchableOpacity
+                style={{padding: 10, width: 240, height: 160}}
+                onPress={() => getCarInfo()}>
+                <Text
+                  style={{
+                    color: 'white',
+                  }}>
+                  서포터를
+                </Text>
+                <Text
+                  style={{
+                    color: 'white',
+                  }}>
+                  추가해주세요!
+                </Text>
+              </TouchableOpacity>
             </ImageBackground>
-          </TouchableOpacity>
+          </ScrollView>
         ) : (
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <ImageBackground
@@ -210,59 +230,7 @@ const Home = ({navigation}) => {
               resizeMode="cover"
               imageStyle={{borderRadius: 20}}
               style={styles.processADS}>
-              {done ? (
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 10,
-                      fontFamily: 'Pretendard-Regular',
-                      color: 'lightgrey',
-                    }}>
-                    2023.01.25 ~ 2023.03.23
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 24,
-                      fontFamily: 'Pretendard-Bold',
-                      color: '#FFD550',
-                    }}>
-                    D-21
-                  </Text>
-                </View>
-              ) : (
-                <TouchableOpacity
-                  style={{
-                    padding: 10,
-                    backgroundColor: 'white',
-                    borderRadius: 10,
-                    marginVertical: 5,
-                  }}
-                  onPress={() => navigation.push('AuthPhoto')}>
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                      fontSize: 16,
-                      color: 'black',
-                    }}>
-                    완료하고 포인트받기
-                  </Text>
-                </TouchableOpacity>
-              )}
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontFamily: 'Pretendard-Bold',
-                  color: 'white',
-                }}>
-                + point 25,000
-              </Text>
-            </ImageBackground>
-            <ImageBackground
-              source={brandSample1}
-              resizeMode="cover"
-              imageStyle={{borderRadius: 20}}
-              style={styles.processADS}>
-              {done ? (
+              {done === false ? (
                 <TouchableOpacity
                   style={{
                     padding: 10,
@@ -309,6 +277,28 @@ const Home = ({navigation}) => {
                 + point 25,000
               </Text>
             </ImageBackground>
+            <ImageBackground
+              source={testBack2}
+              resizeMode="cover"
+              imageStyle={{borderRadius: 20}}
+              style={styles.processADS}>
+              <TouchableOpacity
+                style={{padding: 10, width: 240, height: 160}}
+                onPress={() => getCarInfo()}>
+                <Text
+                  style={{
+                    color: 'white',
+                  }}>
+                  서포터를
+                </Text>
+                <Text
+                  style={{
+                    color: 'white',
+                  }}>
+                  추가해주세요!
+                </Text>
+              </TouchableOpacity>
+            </ImageBackground>
           </ScrollView>
         )}
       </View>
@@ -323,12 +313,8 @@ const Home = ({navigation}) => {
           <TouchableOpacity
             style={styles.recommendADS}
             onPress={() => {
-              if (done) {
-                isDone(false);
-                removeValue();
-              } else {
-                isDone(true);
-              }
+              setDone(false);
+              removeValue();
             }}>
             <Image
               source={brandSample1}

@@ -15,6 +15,8 @@ const BrandApply = ({navigation: {navigate}, route}) => {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem('@brandApply', jsonValue);
       navigate('Home');
+
+      console.log(jsonValue);
     } catch (e) {
       console.error(e);
     }

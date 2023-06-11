@@ -10,45 +10,114 @@ import {
 import React, {useState} from 'react';
 import {launchCamera} from 'react-native-image-picker';
 import brandSample1 from '../../Images/brandSample1.png';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AuthPhoto = ({navigation}) => {
-  const [sticker, setSticker] = useState();
-  const [dashboard, setDashboard] = useState();
+  const [sticker, setSticker] = useState('');
+  const [backside, setBackside] = useState('');
+  const [dashboard, setDashboard] = useState('');
 
   const [modal, setModal] = useState(false);
 
+  let authPhotoInfo = {
+    sticker: sticker,
+    backside: backside,
+    dashboard: dashboard,
+  };
+
+  const setAuthPhoto = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@authPhoto', jsonValue);
+      navigation.push('Home');
+
+      console.log(jsonValue);
+
+      setSticker('');
+      setBackside('');
+      setDashboard('');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <View
         style={{
           paddingHorizontal: 20,
-          paddingVertical: 15,
-          backgroundColor: 'white',
+          paddingVertical: 20,
+          backgroundColor: 'black',
         }}>
         <Text
           style={{
+            ...styles.text,
             fontSize: 18,
-            fontFamily: 'Pretendard-Bold',
-            color: 'black',
           }}>
-          신청스폰서 정보
+          광고 상품 정보
         </Text>
         <View
           style={{
-            marginTop: 15,
+            flex: 1,
             flexDirection: 'row',
+            marginVertical: 10,
           }}>
-          <Image source={brandSample1} style={{width: 160, height: 80}} />
-          <View style={{marginHorizontal: 20, justifyContent: 'center'}}>
+          <Image
+            source={brandSample1}
+            style={{flex: 1, width: 75, height: 75, resizeMode: 'contain'}}
+          />
+          <View
+            style={{marginHorizontal: 20, justifyContent: 'center', flex: 2}}>
             <Text
               style={{
-                fontSize: 18,
-                fontFamily: 'Pretendard',
-                fontWeight: 'bold',
+                ...styles.text,
+                fontSize: 16,
               }}>
-              광고소재(내지)
+              Bad Blue
             </Text>
-            <Text style={{fontFamily: 'Pretendard'}}>Covernat</Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: 10,
+              }}>
+              <Text
+                style={{
+                  ...styles.text,
+                }}>
+                광고 소재
+              </Text>
+              <Text
+                style={{
+                  ...styles.text,
+                  color: 'gray',
+                }}>
+                내지
+              </Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  ...styles.text,
+                }}>
+                포인트 혜택
+              </Text>
+              <Text
+                style={{
+                  ...styles.text,
+                  color: 'gray',
+                }}>
+                25,000 POINT
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -56,84 +125,210 @@ const AuthPhoto = ({navigation}) => {
         style={{
           marginTop: 10,
           paddingVertical: 20,
-          backgroundColor: 'white',
+          paddingHorizontal: 20,
+          backgroundColor: 'black',
         }}>
         <View
-          style={{
+          stlye={{
+            flexDirection: 'row',
             paddingHorizontal: 20,
           }}>
           <Text
             style={{
-              fontFamily: 'Pretendard-Bold',
-              fontSize: 20,
-              color: 'black',
+              ...styles.text,
+              fontSize: 18,
+              paddingBottom: 5,
             }}>
-            스티커 부착상태
+            인증 사진 촬영
           </Text>
-          <TouchableOpacity
-            style={styles.resisterImage}
-            onPress={async () => {
-              const result = await launchCamera({
-                mediaType: 'photo',
-                cameraType: 'back',
-              });
-
-              if (result.didCancel) {
-                return null;
-              }
-
-              const localUri = result.assets[0].uri;
-              const uriPath = localUri.split('//').pop();
-              // const imageName = localUri.split('/').pop();
-              setSticker('file://' + uriPath);
+          <Text
+            style={{
+              ...styles.text,
+              fontSize: 12,
             }}>
-            {sticker ? (
-              <Image
-                source={{uri: sticker}}
-                style={{
-                  width: 240,
-                  height: 160,
-                  resizeMode: 'contain',
-                }}
-              />
-            ) : (
-              <View
-                style={{
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  height: 120,
-                }}>
-                <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 14}}>
-                  터치하여 촬영해주세요
-                </Text>
-                <Text
+            각각 터치하여 촬영해주세요.
+          </Text>
+          <View style={{flex: 1, flexDirection: 'row', marginVertical: 10}}>
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                height: 160,
+                borderRadius: 20,
+                marginRight: 5,
+              }}
+              onPress={async () => {
+                const result = await launchCamera({
+                  mediaType: 'photo',
+                  cameraType: 'back',
+                });
+
+                if (result.didCancel) {
+                  return null;
+                }
+
+                const localUri = result.assets[0].uri;
+                const uriPath = localUri.split('//').pop();
+                // const imageName = localUri.split('/').pop();
+                setSticker('file://' + uriPath);
+              }}>
+              {sticker !== '' ? (
+                <View
                   style={{
-                    fontFamily: 'Pretendard',
-                    fontSize: 12,
-                    color: 'red',
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}>
-                  스티커와 번호판이 함께 보이도록 촬영해주세요
-                </Text>
-              </View>
-            )}
-          </TouchableOpacity>
+                  <Image
+                    source={{uri: sticker}}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      resizeMode: 'contain',
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
+              ) : (
+                <View
+                  style={{
+                    height: 160,
+                    padding: 15,
+                    backgroundColor: '#444444',
+                    borderRadius: 20,
+                  }}>
+                  <View style={{marginBottom: 10}}>
+                    <Text
+                      style={{
+                        ...styles.text,
+                        color: '#FFC500',
+                        fontWeight: 'bold',
+                        fontSize: 18,
+                      }}>
+                      01
+                    </Text>
+                    <Text
+                      style={{
+                        ...styles.text,
+                        fontWeight: 'bold',
+                        fontSize: 16,
+                      }}>
+                      스티커 부착상태
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      color: '#FFC500',
+                      fontSize: 12,
+                    }}>
+                    스티커 전체가 보이도록
+                  </Text>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      color: '#FFC500',
+                      fontSize: 12,
+                    }}>
+                    촬영해주세요.
+                  </Text>
+                  <View></View>
+                </View>
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                height: 160,
+                borderRadius: 20,
+                marginLeft: 5,
+              }}
+              onPress={async () => {
+                const result = await launchCamera({
+                  mediaType: 'photo',
+                  cameraType: 'back',
+                });
+
+                if (result.didCancel) {
+                  return null;
+                }
+
+                const localUri = result.assets[0].uri;
+                const uriPath = localUri.split('//').pop();
+                // const imageName = localUri.split('/').pop();
+                setBackside('file://' + uriPath);
+              }}>
+              {backside !== '' ? (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                    source={{uri: backside}}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      resizeMode: 'contain',
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
+              ) : (
+                <View
+                  style={{
+                    height: 160,
+                    padding: 15,
+                    backgroundColor: '#444444',
+                    borderRadius: 20,
+                  }}>
+                  <View style={{marginBottom: 10}}>
+                    <Text
+                      style={{
+                        ...styles.text,
+                        color: '#FFC500',
+                        fontWeight: 'bold',
+                        fontSize: 18,
+                      }}>
+                      02
+                    </Text>
+                    <Text
+                      style={{
+                        ...styles.text,
+                        fontWeight: 'bold',
+                        fontSize: 16,
+                      }}>
+                      차량 후면
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      color: '#FFC500',
+                      fontSize: 12,
+                    }}>
+                    스티커와 번호판이 함께
+                  </Text>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      color: '#FFC500',
+                      fontSize: 12,
+                    }}>
+                    보이도록 촬영해주세요.
+                  </Text>
+                  <View></View>
+                </View>
+              )}
+            </TouchableOpacity>
+          </View>
         </View>
-        <View
-          style={{
-            marginTop: 20,
-            paddingHorizontal: 20,
-            backgroundColor: 'white',
-          }}>
-          <Text
-            style={{
-              fontFamily: 'Pretendard-Bold',
-              fontSize: 20,
-              color: 'black',
-            }}>
-            차량 계기판
-          </Text>
+        <View stlye={{flex: 1, flexDirection: 'row'}}>
           <TouchableOpacity
-            style={styles.resisterImage}
+            style={{
+              flex: 1,
+              height: 160,
+            }}
             onPress={async () => {
               const result = await launchCamera({
                 mediaType: 'photo',
@@ -149,65 +344,112 @@ const AuthPhoto = ({navigation}) => {
               // const imageName = localUri.split('/').pop();
               setDashboard('file://' + uriPath);
             }}>
-            {dashboard ? (
-              <Image
-                source={{uri: dashboard}}
-                style={{width: 240, height: 160, resizeMode: 'contain'}}
-              />
+            {dashboard !== '' ? (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Image
+                  source={{uri: backside}}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    resizeMode: 'contain',
+                    borderRadius: 10,
+                  }}
+                />
+              </View>
             ) : (
               <View
                 style={{
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  height: 120,
+                  height: 160,
+                  padding: 15,
+                  backgroundColor: '#444444',
+                  borderRadius: 20,
                 }}>
-                <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 14}}>
-                  터치하여 촬영해주세요
+                <View style={{marginBottom: 10}}>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      color: '#FFC500',
+                      fontWeight: 'bold',
+                      fontSize: 18,
+                    }}>
+                    03
+                  </Text>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      fontWeight: 'bold',
+                      fontSize: 16,
+                    }}>
+                    차량 계기판
+                  </Text>
+                </View>
+                <Text
+                  style={{
+                    ...styles.text,
+                    color: '#FFC500',
+                    fontSize: 12,
+                  }}>
+                  주행거리가 잘 보이도록
                 </Text>
                 <Text
                   style={{
-                    fontFamily: 'Pretendard',
+                    ...styles.text,
+                    color: '#FFC500',
                     fontSize: 12,
-                    color: 'red',
                   }}>
-                  주행거리가 잘 보이도록 촬영해주세요
+                  촬영해주세요.
                 </Text>
+                <View></View>
               </View>
             )}
           </TouchableOpacity>
-          <View style={{alignItems: 'center', marginTop: 20}}>
+        </View>
+        <View
+          style={{
+            marginTop: 20,
+          }}>
+          {sticker !== '' && backside !== '' && dashboard !== '' ? (
             <TouchableOpacity
               style={{
-                justifyContent: 'center',
                 alignItems: 'center',
-                paddingVertical: 15,
-                width: 200,
+                paddingVertical: 10,
                 borderRadius: 10,
-                backgroundColor: 'black',
+                backgroundColor: '#FFC500',
               }}
               onPress={() => {
-                if (sticker) {
-                  alert('스티커 부착상태 사진을 촬영해주세요.');
-                  return;
-                }
-
-                if (dashboard) {
-                  alert('차량 계기판 사진을 촬영해주세요.');
-                  return;
-                }
-
                 setModal(true);
+                setAuthPhoto(authPhotoInfo);
               }}>
               <Text
                 style={{
-                  color: 'white',
-                  fontSize: 18,
-                  fontFamily: 'Pretendard-Bold',
+                  ...styles.text,
+                  fontSize: 16,
                 }}>
-                업로드
+                업로드 하기
               </Text>
             </TouchableOpacity>
-          </View>
+          ) : (
+            <View
+              style={{
+                alignItems: 'center',
+                paddingVertical: 10,
+                borderRadius: 10,
+                backgroundColor: 'gray',
+              }}>
+              <Text
+                style={{
+                  ...styles.text,
+                  fontSize: 16,
+                }}>
+                업로드 하기
+              </Text>
+            </View>
+          )}
         </View>
       </View>
       <Modal visible={modal} transparent={true} animationType={'fade'}>
@@ -277,6 +519,15 @@ const AuthPhoto = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'gray',
+  },
+  text: {
+    fontFamily: 'Pretendard-Regular',
+    color: 'white',
+    fontSize: 14,
+  },
   resisterImage: {
     marginTop: 20,
     height: 160,

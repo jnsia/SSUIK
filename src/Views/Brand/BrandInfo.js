@@ -5,103 +5,141 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+
+const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 const BrandInfo = ({navigation: {navigate}, route}) => {
   return (
-    <ScrollView style={styles.container}>
-      <TouchableOpacity
-        style={{
-          padding: 10,
-          borderWidth: 1,
-          borderRadius: 20,
-          margin: 20,
-          resizeMode: 'contain',
-        }}>
-        <Image
+    <View style={styles.container}>
+      <ScrollView style={{paddingHorizontal: 20, backgroundColor: 'black'}}>
+        <View
           style={{
-            width: '100%',
-            height: 150,
-            resizeMode: 'contain',
-          }}
-          source={require('../../Images/brandSample1.png')}
-        />
-      </TouchableOpacity>
-      <View style={{marginHorizontal: 30}}>
-        <View style={styles.adsInfo}>
-          <Text style={styles.adsInfoTitle}>광고주 </Text>
-          <Text style={styles.adsInfoText}>{route.params.title}</Text>
+            marginVertical: 20,
+          }}>
+          <Image
+            style={{
+              width: SCREEN_WIDTH - 40,
+              height: SCREEN_WIDTH - 40,
+              resizeMode: 'contain',
+              borderRadius: 10,
+            }}
+            source={require('../../Images/brandSample1.png')}
+          />
         </View>
-        <View style={styles.adsInfo}>
-          <Text style={styles.adsInfoTitle}>광고이름</Text>
-          <Text style={styles.adsInfoText}>{route.params.title}</Text>
-        </View>
-        <View style={styles.adsInfo}>
-          <Text style={styles.adsInfoTitle}>부착기간</Text>
-          <Text style={styles.adsInfoText}>
-            배송 후 {route.params.period}일
+        <View style={{marginBottom: 40}}>
+          <Text style={{...styles.text, fontSize: 18, fontWeight: 'bold'}}>
+            {route.params.title}
           </Text>
-        </View>
-        <View style={styles.adsInfo}>
-          <Text style={styles.adsInfoTitle}>지역</Text>
-          <Text style={styles.adsInfoText}>{route.params.location}</Text>
-        </View>
-        <View style={styles.adsInfo}>
-          <Text style={styles.adsInfoTitle}>적립포인트</Text>
           <Text
             style={{
-              flex: 1.5,
-              fontSize: 16,
-              color: 'coral',
-              fontWeight: 'bold',
+              ...styles.text,
+              color: '#FFC500',
             }}>
-            {route.params.reward.toLocaleString('ko-KR')} 포인트 적립
+            {route.params.reward.toLocaleString('ko-KR')}Point/
+            {route.params.period}일
           </Text>
         </View>
-        <View style={styles.adsInfo}>
-          <Text style={styles.adsInfoTitle}>광고설명</Text>
-          <Text style={styles.adsInfoText}>
-            {route.params.description} || 광고 설명 테스트용 텍스트 그리고 위의
-            예제들은 아래와 같이 Number 타입의 toLocaleString() 함수를 사용하는
-            것이기 때문에, 문자열 타입 객체에 toLocaleString()를 호출해도 콤마가
-            입력되지 않습니다.
-          </Text>
+        <View style={{flexDirection: 'row', marginTop: 20}}>
+          <View
+            style={{
+              ...styles.infoBox,
+            }}>
+            <Text style={{...styles.text, fontSize: 12, color: '#FFC500'}}>
+              {route.params.reward.toLocaleString('ko-KR')}POINT
+            </Text>
+          </View>
+          <View
+            style={{
+              ...styles.infoBox,
+            }}>
+            <Text style={{...styles.text, fontSize: 12, color: '#FFC500'}}>
+              배송 후 {route.params.period}일 부착
+            </Text>
+          </View>
+          <View
+            style={{
+              ...styles.infoBox,
+            }}>
+            <Text style={{...styles.text, fontSize: 12, color: '#FFC500'}}>
+              {route.params.location}
+            </Text>
+          </View>
         </View>
+        <View style={{flexDirection: 'row'}}>
+          <View
+            style={{
+              ...styles.infoBox,
+            }}>
+            <Text style={{...styles.text, fontSize: 12}}>스트릿</Text>
+          </View>
+          <View
+            style={{
+              ...styles.infoBox,
+            }}>
+            <Text style={{...styles.text, fontSize: 12}}>패션</Text>
+          </View>
+        </View>
+        <View
+          style={{backgroundColor: 'white', height: 500, marginTop: 80}}></View>
+      </ScrollView>
+      <View
+        style={{
+          backgroundColor: 'black',
+          padding: 5,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <TouchableOpacity
+          style={{marginHorizontal: 20}}
+          onPress={() => navigate('BrandApply', route.params)}>
+          <EntypoIcon name="heart" color={'red'} size={30} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.adsApplyBtn}
+          onPress={() => navigate('BrandApply', route.params)}>
+          <Text
+            style={{
+              ...styles.text,
+              color: 'black',
+              fontSize: 18,
+              textAlign: 'center',
+            }}>
+            스폰서 신청
+          </Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.adsApplyBtn}
-        onPress={() => navigate('BrandApply', route.params)}>
-        <Text style={{fontSize: 20, textAlign: 'center'}}>신청하기</Text>
-      </TouchableOpacity>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'gray',
   },
-  adsInfo: {
-    padding: 10,
-    flexDirection: 'row',
+  text: {
+    fontFamily: 'Pretendard-regular',
+    color: 'white',
   },
-  adsInfoTitle: {
-    flex: 1,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  adsInfoText: {
-    flex: 1.5,
-    fontSize: 16,
+  infoBox: {
+    borderWidth: 0.5,
+    borderColor: '#FFC500',
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginRight: 5,
   },
   adsApplyBtn: {
-    backgroundColor: '#FF9500',
-    marginVertical: 20,
-    marginHorizontal: 40,
+    backgroundColor: '#FFC500',
     borderRadius: 10,
-    padding: 5,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginHorizontal: 10,
   },
 });
 
