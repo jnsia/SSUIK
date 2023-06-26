@@ -1,9 +1,20 @@
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from 'react-native';
+import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Picker} from '@react-native-picker/picker';
 
 // 사용자 정보 route로 받아오기
 const BrandApply = ({navigation: {navigate}, route}) => {
+  const [select, setSelect] = useState('home');
+  const [request, setrequest] = useState('본인');
+
   let brandInfo = {
     brandTitle: route.params.title,
     brandReward: route.params.reward,
@@ -24,67 +35,157 @@ const BrandApply = ({navigation: {navigate}, route}) => {
 
   return (
     <View style={styles.container}>
-      <View style={{marginHorizontal: 30, marginTop: 20}}>
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>신청광고물 정보</Text>
-      </View>
+      <ScrollView>
+        <View style={{marginHorizontal: 20, marginVertical: 40}}>
+          <Text style={{...styles.text, fontWeight: 'bold', fontSize: 18}}>
+            배송지
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingVertical: 20,
+            }}>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                style={{
+                  ...styles.infoBox,
+                  borderColor: select == 'home' ? '#FFC500' : 'white',
+                }}
+                onPress={() => setSelect('home')}>
+                <Text
+                  style={{
+                    ...styles.text,
+                    fontSize: 12,
+                    color: select == 'home' ? '#FFC500' : 'white',
+                  }}>
+                  집
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  ...styles.infoBox,
+                  borderColor: select == 'home' ? 'white' : '#FFC500',
+                }}
+                onPress={() => setSelect('office')}>
+                <Text
+                  style={{
+                    ...styles.text,
+                    fontSize: 12,
+                    color: select == 'home' ? 'white' : '#FFC500',
+                  }}>
+                  직장
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity style={{}} onPress={() => navigate('Brand')}>
+              <Text style={{fontSize: 14, ...styles.text, color: '#FFC500'}}>
+                배송지 변경
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{marginTop: 10}}>
+            <Text style={{...styles.text, fontSize: 16}}>홍길동</Text>
+            <View style={{paddingVertical: 20}}>
+              <Text style={{...styles.text, color: 'gray'}}>010-2345-6789</Text>
+              <Text style={{...styles.text, color: 'gray'}}>
+                대구 달서구 호산동로 34길 21-4 행복빌 203호
+              </Text>
+            </View>
+            <View style={styles.picker}>
+              <Picker
+                selectedValue={request}
+                onValueChange={(itemValue, itemIndex) => setrequest(itemValue)}
+                placeholder="배송 시 요청사항을 선택해주세요."
+                dropdownIconColor="gray"
+                selectionColor="gray">
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="배송 시 요청사항을 선택해주세요."
+                  value=""
+                />
+              </Picker>
+            </View>
+          </View>
+        </View>
+        <View style={{marginHorizontal: 20}}>
+          <Text style={{fontSize: 18, ...styles.text, fontWeight: 'bold'}}>
+            광고 상품 정보
+          </Text>
+        </View>
+        <View
+          style={{
+            padding: 20,
+            flexDirection: 'row',
+          }}>
+          <View style={{flex: 1}}>
+            <Image
+              style={{
+                width: '100%',
+                height: 100,
+                resizeMode: 'contain',
+                borderRadius: 20,
+              }}
+              source={require('../../Images/brandSample1.png')}
+            />
+          </View>
+          <View
+            style={{flex: 2, paddingHorizontal: 20, justifyContent: 'center'}}>
+            <View>
+              <Text style={{...styles.text, fontSize: 16}}>
+                {route.params.title}
+              </Text>
+            </View>
+            <View
+              style={{
+                marginTop: 20,
+              }}>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                }}>
+                <Text style={{...styles.text, flex: 1}}>광고 소재</Text>
+                <Text style={{...styles.text, flex: 1, color: 'gray'}}>
+                  내지
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                }}>
+                <Text style={{...styles.text, flex: 1}}>포인트 혜택</Text>
+                <Text style={{...styles.text, flex: 1, color: 'gray'}}>
+                  {route.params.reward.toLocaleString('kr')} POINT
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
       <View
         style={{
-          padding: 10,
-          margin: 20,
+          backgroundColor: 'black',
+          padding: 5,
           flexDirection: 'row',
+          justifyContent: 'flex-end',
         }}>
-        <Image
-          style={{
-            width: '50%',
-            height: 100,
-            resizeMode: 'contain',
-          }}
-          source={require('../../Images/brand-img-test.png')}
-        />
-        <View style={{justifyContent: 'center', padding: 10}}>
-          <Text style={{fontWeight: 'bold'}}>광고 소재 (내지)</Text>
-          <Text>SSUIK</Text>
-        </View>
+        <TouchableOpacity
+          style={styles.adsApplyBtn}
+          onPress={() => setBrandApply(brandInfo)}>
+          <Text
+            style={{
+              ...styles.text,
+              color: 'black',
+              fontSize: 18,
+              textAlign: 'center',
+            }}>
+            주문하기
+          </Text>
+        </TouchableOpacity>
       </View>
-      <View style={{marginHorizontal: 30, marginTop: 20}}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={{fontSize: 18, fontWeight: 'bold'}}>배송지 정보</Text>
-          <TouchableOpacity style={{}} onPress={() => navigate('Brand')}>
-            <Text style={{fontSize: 14, fontWeight: 'bold'}}>변경</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{marginTop: 20}}>
-          <View style={styles.adsInfo}>
-            <Text style={styles.adsInfoTitle}>수령인</Text>
-            <Text style={styles.adsInfoText}>{route.params.title}</Text>
-          </View>
-          <View style={styles.adsInfo}>
-            <Text style={styles.adsInfoTitle}>연락처</Text>
-            <Text style={styles.adsInfoText}>{route.params.title}</Text>
-          </View>
-          <View style={styles.adsInfo}>
-            <Text style={styles.adsInfoTitle}>배송지</Text>
-            <Text style={styles.adsInfoText}>{route.params.location}</Text>
-          </View>
-          <View style={styles.adsInfo}>
-            <Text style={styles.adsInfoTitle}>상세주소</Text>
-            <Text
-              style={{
-                flex: 1.5,
-                fontSize: 16,
-                color: 'coral',
-                fontWeight: 'bold',
-              }}>
-              {route.params.reward.toLocaleString('ko-KR')} 포인트 적립
-            </Text>
-          </View>
-        </View>
-      </View>
-      <TouchableOpacity
-        style={styles.adsApplyBtn}
-        onPress={() => setBrandApply(brandInfo)}>
-        <Text style={{fontSize: 20, textAlign: 'center'}}>신청하기</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -92,27 +193,44 @@ const BrandApply = ({navigation: {navigate}, route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
+  },
+  text: {
+    fontFamily: 'Pretendard-regular',
+    color: 'white',
   },
   adsInfo: {
     padding: 10,
     flexDirection: 'row',
   },
-  adsInfoTitle: {
-    flex: 1,
-    fontSize: 16,
-    fontWeight: 'bold',
+  infoBox: {
+    borderWidth: 0.5,
+    borderColor: '#FFC500',
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginRight: 5,
   },
-  adsInfoText: {
-    flex: 1.5,
-    fontSize: 16,
+  picker: {
+    justifyContent: 'center',
+    borderRadius: 20,
+    paddingLeft: 5,
+    borderWidth: 1,
+    borderColor: 'gray',
+    backgroundColor: 'black',
+    height: 30,
+  },
+  pickerItem: {
+    fontSize: 14,
+    color: 'gray',
   },
   adsApplyBtn: {
-    backgroundColor: '#FF9500',
-    marginVertical: 20,
-    marginHorizontal: 40,
+    width: '40%',
+    backgroundColor: '#FFC500',
     borderRadius: 10,
-    padding: 5,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginHorizontal: 10,
   },
 });
 

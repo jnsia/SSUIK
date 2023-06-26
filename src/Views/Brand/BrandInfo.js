@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 const BrandInfo = ({navigation: {navigate}, route}) => {
+  const [favorite, setFavorite] = useState(false);
+
   return (
     <View style={styles.container}>
       <ScrollView style={{paddingHorizontal: 20, backgroundColor: 'black'}}>
@@ -43,7 +45,7 @@ const BrandInfo = ({navigation: {navigate}, route}) => {
             {route.params.period}일
           </Text>
         </View>
-        <View style={{flexDirection: 'row', marginTop: 20}}>
+        <View style={{flexDirection: 'row', marginTop: 20, marginBottom: 10}}>
           <View
             style={{
               ...styles.infoBox,
@@ -83,8 +85,79 @@ const BrandInfo = ({navigation: {navigate}, route}) => {
             <Text style={{...styles.text, fontSize: 12}}>패션</Text>
           </View>
         </View>
-        <View
-          style={{backgroundColor: 'white', height: 500, marginTop: 80}}></View>
+        <View style={{marginTop: 80}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginVertical: 20,
+            }}>
+            <Text style={{...styles.text, flex: 1}}>광고주</Text>
+            <Text style={{...styles.text, flex: 2, color: 'lightgray'}}>
+              {route.params.title}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginVertical: 20,
+            }}>
+            <Text style={{...styles.text, flex: 1}}>광고이름</Text>
+            <Text style={{...styles.text, flex: 2, color: 'lightgray'}}>
+              {route.params.title}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginVertical: 20,
+            }}>
+            <Text style={{...styles.text, flex: 1}}>부착기간</Text>
+            <Text style={{...styles.text, flex: 2, color: 'lightgray'}}>
+              배송 후 {route.params.period}일 동안 부착
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginVertical: 20,
+            }}>
+            <Text style={{...styles.text, flex: 1}}>지역</Text>
+            <Text style={{...styles.text, flex: 2, color: 'lightgray'}}>
+              {route.params.location}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginVertical: 20,
+            }}>
+            <Text style={{...styles.text, flex: 1}}>적립 포인트</Text>
+            <Text style={{...styles.text, flex: 2, color: '#FFC500'}}>
+              {route.params.reward} POINT 적립
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginVertical: 20,
+            }}>
+            <View style={{flex: 1}}>
+              <Text style={{...styles.text, flex: 1}}>광고 설명</Text>
+            </View>
+            <Text style={{...styles.text, flex: 2, color: 'lightgray'}}>
+              Bad Blue의 귀엽고 힙한 캐릭터를 나타낸 스티커를 차량에
+              부착해주시면 서포터 분들께 포인트를 드립니다.
+            </Text>
+          </View>
+        </View>
+        {/* <View
+          style={{backgroundColor: 'white', height: 500, marginTop: 80}}></View> */}
       </ScrollView>
       <View
         style={{
@@ -96,8 +169,12 @@ const BrandInfo = ({navigation: {navigate}, route}) => {
         }}>
         <TouchableOpacity
           style={{marginHorizontal: 20}}
-          onPress={() => navigate('BrandApply', route.params)}>
-          <EntypoIcon name="heart" color={'red'} size={30} />
+          onPress={() => (favorite ? setFavorite(false) : setFavorite(true))}>
+          <EntypoIcon
+            name="heart"
+            color={favorite ? 'red' : 'gray'}
+            size={30}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.adsApplyBtn}
@@ -135,6 +212,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   adsApplyBtn: {
+    width: '40%',
     backgroundColor: '#FFC500',
     borderRadius: 10,
     paddingHorizontal: 20,

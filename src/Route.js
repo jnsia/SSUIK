@@ -96,7 +96,8 @@ const LoginStackNavigator = () => {
           headerShown: true,
           headerStyle: {backgroundColor: 'black'},
           headerTitle: '회원가입',
-          headerTitleStyle: {fontSize: 14, color: 'white'},
+          headerTitleStyle: {fontSize: 16, color: 'white'},
+          headerTintColor: 'white',
         }}
       />
       <LoginStack.Screen
@@ -106,7 +107,8 @@ const LoginStackNavigator = () => {
           headerShown: true,
           headerStyle: {backgroundColor: 'black'},
           headerTitle: '이메일/비밀번호 찾기',
-          headerTitleStyle: {fontSize: 14, color: 'white'},
+          headerTitleStyle: {fontSize: 16, color: 'white'},
+          headerTintColor: 'white',
         }}
       />
       <LoginStack.Screen name="Main" component={MainTabNavigator} />
@@ -153,8 +155,8 @@ const MainTabNavigator = () => {
         }}
       />
       <MainTab.Screen
-        name="Event"
-        component={Event}
+        name="EventScreen"
+        component={EventStackNavigator}
         options={{
           tabBarLabel: '이벤트',
           tabBarIcon: ({color, size}) => (
@@ -218,8 +220,45 @@ const BrandStackNavigator = () => {
           },
         }}
       />
-      <BrandStack.Screen name="BrandApply" component={BrandApply} />
+      <BrandStack.Screen
+        name="BrandApply"
+        component={BrandApply}
+        options={{
+          headerShown: true,
+          title: '신청서 작성',
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontSize: 16,
+            fontFamily: 'BlackHanSans-Regular',
+          },
+        }}
+      />
     </BrandStack.Navigator>
+  );
+};
+
+const EventStackNavigator = ({navigation}) => {
+  return (
+    <EventStack.Navigator initialRouteName="Event">
+      <EventStack.Screen
+        name="Event"
+        component={Event}
+        options={{
+          title: 'EVENT',
+          headerBackTitleVisible: false,
+          headerLeft: false,
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+        }}
+      />
+    </EventStack.Navigator>
   );
 };
 
@@ -257,7 +296,23 @@ const HomeStackNavigator = ({navigation}) => {
           ),
         }}
       />
-      <HomeStack.Screen name="ResisterCarInfo" component={ResisterCarInfo} />
+      <HomeStack.Screen
+        name="ResisterCarInfo"
+        component={ResisterCarInfo}
+        options={{
+          headerShown: true,
+          title: '차량 정보 등록',
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontSize: 16,
+            fontFamily: 'BlackHanSans-Regular',
+          },
+        }}
+      />
       <HomeStack.Screen
         options={{headerShown: false, headerLeft: false}}
         name="BrandStackNavigator"

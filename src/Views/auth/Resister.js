@@ -13,7 +13,7 @@ import {Picker} from '@react-native-picker/picker';
 
 import axios from 'axios';
 
-import LogoImage from '../../Images/ssuik-logo.png';
+import LogoImage from '../../Images/logo.jpg';
 
 const Resister = ({navigation}) => {
   const [step, setStep] = useState(1);
@@ -82,13 +82,18 @@ const Resister = ({navigation}) => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: 'black'}}>
       {step === 1 && (
         <View style={styles.container}>
-          <View style={{padding: 20, marginBottom: 40}}>
+          <View
+            style={{
+              paddingVertical: 20,
+              paddingHorizontal: 10,
+              marginBottom: 40,
+            }}>
             <Image
               source={LogoImage}
-              resizeMode={'cover'}
+              resizeMode={'contain'}
               style={{width: 150, height: 150}}
             />
             <Text
@@ -111,12 +116,13 @@ const Resister = ({navigation}) => {
           <View>
             <CheckBox
               style={{
-                color: '#FFD500',
+                color: '#FFC500',
               }}
               ref={ref => (CheckboxRefAll = ref)}
               textStyle={{
                 textDecorationLine: 'none',
               }}
+              fillColor="#FFC500"
               isChecked={toggleAll}
               onPress={() => {
                 if (toggleAll === false) {
@@ -174,6 +180,7 @@ const Resister = ({navigation}) => {
               textStyle={{
                 textDecorationLine: 'none',
               }}
+              fillColor="#FFC500"
               onPress={() => {
                 if (toggle1 === false) {
                   setToggle1(true);
@@ -190,6 +197,7 @@ const Resister = ({navigation}) => {
               textStyle={{
                 textDecorationLine: 'none',
               }}
+              fillColor="#FFC500"
               onPress={() => {
                 if (toggle2 === false) {
                   setToggle2(true);
@@ -206,6 +214,7 @@ const Resister = ({navigation}) => {
               textStyle={{
                 textDecorationLine: 'none',
               }}
+              fillColor="#FFC500"
               onPress={() => {
                 if (toggle3 === false) {
                   setToggle3(true);
@@ -222,6 +231,7 @@ const Resister = ({navigation}) => {
               textStyle={{
                 textDecorationLine: 'none',
               }}
+              fillColor="#FFC500"
               onPress={() => {
                 if (toggle4 === false) {
                   setToggle4(true);
@@ -238,6 +248,7 @@ const Resister = ({navigation}) => {
               textStyle={{
                 textDecorationLine: 'none',
               }}
+              fillColor="#FFC500"
               onPress={() => {
                 if (toggle5 === false) {
                   setToggle5(true);
@@ -504,12 +515,44 @@ const Resister = ({navigation}) => {
         </View>
       )}
       {step === 6 && (
-        <View style={styles.container}>
+        <View
+          style={{
+            flex: 1,
+            paddingHorizontal: 20,
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <View style={{marginTop: 80, alignItems: 'center'}}>
+            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 20}}>
+              브랜드 서포터가 되신걸 축하합니다!
+            </Text>
+          </View>
+          <View>
+            <Image
+              source={require('../../Images/fireworks.png')}
+              style={{width: 200, height: 200}}
+            />
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 20}}>
+              내가 좋아하는 브랜드를
+            </Text>
+            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 20}}>
+              서포트 해볼까요?
+            </Text>
+          </View>
           <TouchableOpacity
-            style={styles.resisterBtn}
+            style={{
+              borderColor: '#FFC500',
+              borderWidth: 1,
+              borderRadius: 20,
+              marginBottom: 80,
+              paddingVertical: 5,
+              paddingHorizontal: 20,
+            }}
             onPress={() => resisterSubmit()}>
             <Text
-              style={{textAlign: 'center', fontSize: 18, fontWeight: 'bold'}}>
+              style={{...styles.text, textAlign: 'center', color: '#FFC500'}}>
               로그인 하기
             </Text>
           </TouchableOpacity>
@@ -524,6 +567,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     flex: 1,
     paddingHorizontal: 20,
+  },
+  text: {
+    fontFamily: 'BlackHanSans-Regular',
+    color: 'white',
   },
   input: {
     marginTop: 10,

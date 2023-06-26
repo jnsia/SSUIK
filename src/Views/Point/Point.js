@@ -43,7 +43,7 @@ const pointHistory = [
 ];
 
 const Point = ({navigation}) => {
-  const [withdraw, setWithdraw] = useState(true);
+  const [withdraw, setWithdraw] = useState(false);
   const [history, setHistory] = useState('전체');
   const [apply, setApply] = useState(true);
 

@@ -17,8 +17,8 @@ import Geolocation from 'react-native-geolocation-service';
 import Icon from 'react-native-vector-icons/Entypo';
 import axios from 'axios';
 
-import LogoImage from '../../Images/ssuik-logo.png';
-import brandSample1 from '../../Images/brandSample1.png';
+import LogoImage from '../../Images/logo.jpg';
+import brandSample1 from '../../Images/kakaotalk.png';
 import brandSample2 from '../../Images/brandSample2.png';
 import brandSample3 from '../../Images/brandSample3.png';
 import brandSample4 from '../../Images/brandSample4.jpg';
@@ -86,11 +86,11 @@ const Login = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={{marginHorizontal: 20, justifyContent: 'center', flex: 1}}>
-        <View>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <Image
             source={LogoImage}
-            resizeMode={'cover'}
-            style={{width: '100%', height: 250}}
+            resizeMode={'contain'}
+            style={{width: '75%', height: 250}}
           />
         </View>
         <View>
@@ -125,7 +125,11 @@ const Login = ({navigation}) => {
               marginBottom: 40,
               marginTop: 120,
             }}>
-            <Image source={brandSample1} style={styles.linkageImage} />
+            <Image
+              source={brandSample1}
+              style={styles.linkageImage}
+              resizeMode="contain"
+            />
             <Image source={brandSample2} style={styles.linkageImage} />
             <Image source={brandSample3} style={styles.linkageImage} />
             <Image source={brandSample4} style={styles.linkageImage} />
