@@ -7,8 +7,7 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/Entypo';
+import React, {useEffect, useState} from 'react';
 
 import testDB from '../../testDB.json';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -71,6 +70,12 @@ const Brand = ({navigation: {navigate}}) => {
   const [isFocus, setIsFocus] = useState(false);
 
   const brands = testDB.brand;
+
+  const logo = {
+    SSUIK: require('../../Images/logo.jpg'),
+    BadBlue: require('../../Images/BadBlue-logo.jpg'),
+    CIcon: require('../../Images/brandSample1.png'),
+  };
 
   return (
     <View style={styles.container}>
@@ -261,17 +266,6 @@ const Brand = ({navigation: {navigate}}) => {
                   style={styles.brand}
                   onPress={() => navigate('BrandInfo', brand)}>
                   <View style={{alignItems: 'center'}}>
-                    <Icon
-                      name="heart"
-                      color={'red'}
-                      size={25}
-                      style={{
-                        position: 'absolute',
-                        zIndex: 2,
-                        top: (SCREEN_WIDTH - 160) / 2,
-                        left: (SCREEN_WIDTH - 160) / 2,
-                      }}
-                    />
                     <Image
                       style={{
                         width: (SCREEN_WIDTH - 70) / 2,
@@ -280,7 +274,7 @@ const Brand = ({navigation: {navigate}}) => {
                         backgroundColor: 'white',
                         borderRadius: 20,
                       }}
-                      source={require('../../Images/brandSample1.png')}
+                      source={logo.BadBlue}
                     />
                   </View>
                   <View style={styles.brandInfo}>

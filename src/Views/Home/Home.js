@@ -16,13 +16,12 @@ import {useFocusEffect} from '@react-navigation/native';
 
 import logoImage from '../../Images/ssuik-logo.png';
 
-import testBack1 from '../../Images/testBack1.jpg';
 import testBack2 from '../../Images/testBack2.jpg';
 
 import brandSample1 from '../../Images/brandSample1.png';
 import brandSample2 from '../../Images/brandSample2.png';
 import brandSample3 from '../../Images/brandSample3.png';
-import brandSample4 from '../../Images/brandSample4.jpg';
+import brandSample4 from '../../Images/BadBlue-logo.jpg';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
@@ -80,6 +79,7 @@ const Home = ({navigation}) => {
       await AsyncStorage.removeItem('@isLogin');
       await AsyncStorage.removeItem('@isPermission');
       await AsyncStorage.removeItem('@authPhoto');
+      await AsyncStorage.removeItem('@location');
     } catch (e) {
       console.error(e);
     }
@@ -113,30 +113,30 @@ const Home = ({navigation}) => {
         showsHorizontalScrollIndicator={true}
         indicatorStyle={{backgroundColor: 'white', color: 'white'}}>
         <ImageBackground
-          source={testBack2}
+          source={require('../../Images/home-top1.png')}
           style={{
             width: SCREEN_WIDTH,
             paddingHorizontal: 30,
-            marginTop: 40,
-            marginBottom: 40,
+            marginTop: 20,
+            marginBottom: 20,
             paddingTop: 40,
-            paddingBottom: 30,
+            paddingBottom: 20,
           }}
           imageStyle={{
             borderRadius: 10,
           }}>
-          <View style={{paddingVertical: 10}}>
+          <View style={{paddingVertical: 10, marginTop: 20}}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 18,
                 color: 'white',
-                fontFamily: 'Pretendard-Regular',
+                fontFamily: 'Pretendard-regular',
                 textAlignVertical: 'bottom',
               }}>
               나도 이제부터 브랜드 서포터즈?
             </Text>
           </View>
-          <View style={{marginBottom: 80}}>
+          <View style={{marginBottom: 40}}>
             <Text style={styles.HomeText}>나의 스폰서를</Text>
             <Text style={styles.HomeText}>찾아주세요</Text>
           </View>
@@ -153,70 +153,37 @@ const Home = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </ImageBackground>
-        <ImageBackground
-          source={testBack1}
-          style={{
-            width: SCREEN_WIDTH,
-            paddingHorizontal: 30,
-            marginVertical: 40,
-            paddingTop: 40,
-            paddingBottom: 30,
-          }}
-          imageStyle={{
-            borderRadius: 10,
-          }}>
-          <View style={{paddingVertical: 10}}>
-            <Text
-              style={{
-                fontSize: 16,
-                color: 'white',
-                fontFamily: 'Pretendard-Regular',
-                textAlignVertical: 'bottom',
-              }}>
-              나도 이제부터 브랜드 서포터즈?
-            </Text>
-          </View>
-          <View style={{marginBottom: 80}}>
-            <Text style={styles.HomeText}>나의 스폰서를</Text>
-            <Text style={styles.HomeText}>찾아주세요</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.searchBtn}
-            onPress={() => navigation.push('ResisterCarInfo')}>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 12,
-                color: 'white',
-              }}>
-              스폰서 찾기
-            </Text>
-          </TouchableOpacity>
-        </ImageBackground>
       </ScrollView>
-      <View style={{marginBottom: 20}}>
-        <Text style={{color: 'white', fontSize: 14, marginHorizontal: 20}}>
+      <View style={{marginBottom: 0}}>
+        <Text style={{color: 'white', fontSize: 16, marginHorizontal: 20}}>
           설인수님이 진행 중인 광고
         </Text>
         {addSupport === false ? (
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <ImageBackground
-              source={testBack2}
+              source={require('../../Images/ProAds-left1.png')}
               resizeMode="cover"
               imageStyle={{borderRadius: 20}}
               style={styles.processADS}>
               <TouchableOpacity
-                style={{padding: 10, width: 240, height: 160}}
+                style={{
+                  flex: 1,
+                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                  borderRadius: 20,
+                  padding: 15,
+                }}
                 onPress={() => getCarInfo()}>
                 <Text
                   style={{
                     color: 'white',
+                    fontSize: 12,
                   }}>
                   서포터를
                 </Text>
                 <Text
                   style={{
                     color: 'white',
+                    fontSize: 12,
                   }}>
                   추가해주세요!
                 </Text>
@@ -278,22 +245,29 @@ const Home = ({navigation}) => {
               </Text>
             </ImageBackground>
             <ImageBackground
-              source={testBack2}
+              source={require('../../Images/ProAds-left1.png')}
               resizeMode="cover"
               imageStyle={{borderRadius: 20}}
               style={styles.processADS}>
               <TouchableOpacity
-                style={{padding: 10, width: 240, height: 160}}
+                style={{
+                  flex: 1,
+                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                  borderRadius: 20,
+                  padding: 15,
+                }}
                 onPress={() => getCarInfo()}>
                 <Text
                   style={{
                     color: 'white',
+                    fontSize: 12,
                   }}>
                   서포터를
                 </Text>
                 <Text
                   style={{
                     color: 'white',
+                    fontSize: 12,
                   }}>
                   추가해주세요!
                 </Text>
@@ -303,13 +277,19 @@ const Home = ({navigation}) => {
         )}
       </View>
       <View>
-        <Text style={{color: 'white', fontSize: 14, marginHorizontal: 20}}>
+        <Text style={{color: 'white', fontSize: 16, marginHorizontal: 20}}>
           설인수님을 위한 추천광고
         </Text>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{marginHorizontal: 20}}>
+          <TouchableOpacity style={styles.recommendADS}>
+            <Image
+              resizeMode="cover"
+              source={brandSample4}
+              style={{width: '100%'}}></Image>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.recommendADS}
             onPress={() => {
@@ -331,12 +311,6 @@ const Home = ({navigation}) => {
             <Image
               source={brandSample3}
               resizeMode="contain"
-              style={{width: '100%'}}></Image>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.recommendADS}>
-            <Image
-              resizeMode="contain"
-              source={brandSample4}
               style={{width: '100%'}}></Image>
           </TouchableOpacity>
         </ScrollView>
@@ -361,10 +335,9 @@ const styles = StyleSheet.create({
     textAlignVertical: 'bottom',
   },
   processADS: {
-    width: 240,
-    height: 160,
+    width: 220,
+    height: 130,
     borderRadius: 10,
-    padding: 15,
     marginVertical: 20,
     marginLeft: 20,
   },

@@ -44,7 +44,6 @@ const ResisterCarInfo = ({navigation}) => {
   const storeCarInfo = async value => {
     for (let i = 0; i < states.length; i++) {
       if (states[i] === '') {
-        alert('정보 입력 부탁드립니다.');
         break;
       } else {
         try {
@@ -464,17 +463,17 @@ const ResisterCarInfo = ({navigation}) => {
             alignItems: 'center',
           }}>
           <View style={{marginTop: 80, alignItems: 'center'}}>
-            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 20}}>
+            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 24}}>
               브랜드 서포터가 될
             </Text>
-            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 20}}>
+            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 24}}>
               모든 준비가 완료되었습니다!
             </Text>
           </View>
           <View>
             <Image
-              source={require('../../Images/fireworks.png')}
-              style={{width: 200, height: 200}}
+              source={require('../../Images/stickers.png')}
+              style={{width: 250, height: 250}}
             />
           </View>
           <TouchableOpacity
@@ -491,7 +490,12 @@ const ResisterCarInfo = ({navigation}) => {
               console.log(carInfo);
             }}>
             <Text
-              style={{...styles.text, textAlign: 'center', color: '#FFC500'}}>
+              style={{
+                ...styles.text,
+                textAlign: 'center',
+                color: '#FFC500',
+                fontSize: 16,
+              }}>
               시작하기
             </Text>
           </TouchableOpacity>

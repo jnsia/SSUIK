@@ -22,13 +22,39 @@ import brandSample1 from '../../Images/kakaotalk.png';
 import brandSample2 from '../../Images/brandSample2.png';
 import brandSample3 from '../../Images/brandSample3.png';
 import brandSample4 from '../../Images/brandSample4.jpg';
+import {useFocusEffect} from '@react-navigation/native';
 
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 const Login = ({navigation}) => {
   const [userID, setuserID] = useState('');
   const [userPW, setuserPW] = useState('');
-  const [permission, setPermission] = useState(true);
+  const [permission, setPermission] = useState(false);
+
+  const getPermission = async () => {
+    try {
+      const location = await AsyncStorage.getItem('@location');
+
+      if (location === null) {
+        setPermission(false);
+      } else {
+        setPermission(true);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const setLocation = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@location', jsonValue);
+
+      console.log(jsonValue);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -42,6 +68,10 @@ const Login = ({navigation}) => {
       return () => backHandler.remove();
     }
   }, []);
+
+  useFocusEffect(() => {
+    getPermission();
+  });
 
   let loginInfo = {
     userID: userID,
@@ -164,7 +194,7 @@ const Login = ({navigation}) => {
           </View>
         </View>
       </View>
-      <Modal visible={permission} transparent={true}>
+      <Modal visible={!permission} transparent={true}>
         <View
           style={{
             backgroundColor: 'white',
@@ -236,8 +266,6 @@ const Login = ({navigation}) => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              setPermission(false);
-
               PermissionsAndroid.requestMultiple([
                 PermissionsAndroid.PERMISSIONS.CAMERA,
                 PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
@@ -247,6 +275,9 @@ const Login = ({navigation}) => {
               Geolocation.getCurrentPosition(
                 position => {
                   console.log(position);
+
+                  setPermission(true);
+                  setLocation(position);
                 },
                 error => {
                   console.log(error.code, error.message);

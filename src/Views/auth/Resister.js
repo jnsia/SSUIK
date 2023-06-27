@@ -24,7 +24,7 @@ const Resister = ({navigation}) => {
   const [userName, setuserName] = useState('');
   const [userBirthday, setuserBirthday] = useState('');
   const [userPhoneNumber, setuserPhoneNumber] = useState('');
-  const [userSex, setuserSex] = useState('a');
+  const [userSex, setuserSex] = useState('');
   const [userJob, setuserJob] = useState('a');
 
   let CheckboxRef1 = null;
@@ -55,6 +55,12 @@ const Resister = ({navigation}) => {
     } else {
       alert('이용약관을 모두 체크해주세요.');
     }
+  };
+
+  const validateEmail = email => {
+    const regex =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    return regex.test(email);
   };
 
   const nextStep = () => {
@@ -121,6 +127,7 @@ const Resister = ({navigation}) => {
               ref={ref => (CheckboxRefAll = ref)}
               textStyle={{
                 textDecorationLine: 'none',
+                color: '#FFC500',
               }}
               fillColor="#FFC500"
               isChecked={toggleAll}
@@ -179,6 +186,7 @@ const Resister = ({navigation}) => {
               isChecked={toggle1}
               textStyle={{
                 textDecorationLine: 'none',
+                color: 'white',
               }}
               fillColor="#FFC500"
               onPress={() => {
@@ -196,6 +204,7 @@ const Resister = ({navigation}) => {
               isChecked={toggle2}
               textStyle={{
                 textDecorationLine: 'none',
+                color: 'white',
               }}
               fillColor="#FFC500"
               onPress={() => {
@@ -213,6 +222,7 @@ const Resister = ({navigation}) => {
               isChecked={toggle3}
               textStyle={{
                 textDecorationLine: 'none',
+                color: 'white',
               }}
               fillColor="#FFC500"
               onPress={() => {
@@ -230,6 +240,7 @@ const Resister = ({navigation}) => {
               isChecked={toggle4}
               textStyle={{
                 textDecorationLine: 'none',
+                color: 'white',
               }}
               fillColor="#FFC500"
               onPress={() => {
@@ -247,6 +258,7 @@ const Resister = ({navigation}) => {
               isChecked={toggle5}
               textStyle={{
                 textDecorationLine: 'none',
+                color: 'white',
               }}
               fillColor="#FFC500"
               onPress={() => {
@@ -285,7 +297,7 @@ const Resister = ({navigation}) => {
             </Text>
             <View style={{marginTop: 60}}>
               <TextInput
-                inputMode="email"
+                keyboardType="email-address"
                 style={styles.input}
                 placeholder="이메일"
                 placeholderTextColor={'gray'}
@@ -300,7 +312,9 @@ const Resister = ({navigation}) => {
               if (userEmail === '') {
                 alert('이메일을 입력해 주세요.');
               } else {
-                nextStep();
+                validateEmail(userEmail)
+                  ? nextStep()
+                  : alert('이메일 형식으로 작성해주세요.');
               }
             }}>
             <Text style={styles.button}>계속하기</Text>
@@ -330,13 +344,24 @@ const Resister = ({navigation}) => {
               onChangeText={setuserCheckPW}
               secureTextEntry
             />
+            {userPW === userCheckPW && userPW !== '' ? (
+              <View style={{paddingLeft: 10}}>
+                <Text style={{...styles.text, fontSize: 12, color: '#FFC500'}}>
+                  비밀번호가 일치합니다!
+                </Text>
+              </View>
+            ) : (
+              <View>
+                <Text></Text>
+              </View>
+            )}
           </View>
           <TouchableOpacity
             style={styles.resisterBtn}
             onPress={() => {
-              if (userPW === '' || userCheckPW === '') {
-                alert('비밀번호을 입력해 주세요.');
-              } else if (userPW === userCheckPW) {
+              if (userPW.length < 8 || userCheckPW < 8) {
+                alert('비밀번호을 8자리 이상 입력해 주세요.');
+              } else if (userPW !== userCheckPW) {
                 alert('일치하지 않습니다.');
               } else {
                 nextStep();
@@ -357,32 +382,36 @@ const Resister = ({navigation}) => {
               placeholderTextColor={'gray'}
               value={userName}
               onChangeText={setuserName}
+              returnKeyType="next"
             />
           </View>
-          <View style={{marginTop: 40}}>
-            <Text style={styles.resisterText}>생년월일 6자리</Text>
+          <View style={{marginTop: 20}}>
+            <Text style={styles.resisterText}>생년월일 8자리</Text>
             <TextInput
-              inputMode="numeric"
-              keyboardType={'number'}
+              keyboardType="number-pad"
               style={styles.input}
               placeholder="YYYY/MM/DD"
               placeholderTextColor={'gray'}
               value={userBirthday}
               onChangeText={setuserBirthday}
+              maxLength={8}
+              returnKeyType="next"
             />
           </View>
-          <View style={{marginTop: 40}}>
+          <View style={{marginTop: 20}}>
             <Text style={styles.resisterText}>전화번호</Text>
             <TextInput
-              inputMode="numeric"
+              keyboardType="number-pad"
               style={styles.input}
               placeholder="-를 빼고 입력해주세요."
               placeholderTextColor={'gray'}
               value={userPhoneNumber}
               onChangeText={setuserPhoneNumber}
+              returnKeyType="next"
+              maxLength={11}
             />
           </View>
-          <View style={{marginTop: 40}}>
+          <View style={{marginTop: 20}}>
             <Text style={styles.resisterText}>성별 선택</Text>
             <View
               style={{
@@ -424,10 +453,13 @@ const Resister = ({navigation}) => {
             onPress={() => {
               if (userName === '') {
                 alert('이름을 입력해 주세요.');
-              } else if (userBirthday === '') {
-                alert('생년월일을 입력해 주세요.');
-              } else if (userPhoneNumber === '') {
-                alert('전화번호를 입력해 주세요.');
+              } else if (userBirthday === '' || userBirthday.length !== 8) {
+                alert('생년월일을 정확히 입력해 주세요.');
+              } else if (
+                userPhoneNumber === '' ||
+                userPhoneNumber.length < 10
+              ) {
+                alert('전화번호를 정확히 입력해 주세요.');
               } else if (userSex === '') {
                 alert('성별을 선택해 주세요.');
               } else {
@@ -445,7 +477,8 @@ const Resister = ({navigation}) => {
             <TextInput
               autoCapitalize={'none'}
               style={styles.input}
-              placeholder="닉네임"
+              placeholder="SSUIK에서 사용될 이름을 입력해주세요."
+              placeholderTextColor={'gray'}
               value={userNickname}
               onChangeText={setuserNickname}
               returnKeyType="next"
@@ -456,7 +489,9 @@ const Resister = ({navigation}) => {
             <View style={styles.picker}>
               <Picker
                 selectedValue={userJob}
-                onValueChange={(itemValue, itemIndex) => setuserJob(itemValue)}>
+                onValueChange={(itemValue, itemIndex) => setuserJob(itemValue)}
+                dropdownIconColor="gray"
+                selectionColor="gray">
                 <Picker.Item
                   style={styles.pickerItem}
                   label="근로소득자"
@@ -500,16 +535,7 @@ const Resister = ({navigation}) => {
               </Picker>
             </View>
           </View>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '60%',
-              backgroundColor: '#FF9500',
-              borderRadius: 20,
-              padding: 10,
-            }}
-            onPress={nextStep}>
+          <TouchableOpacity style={styles.resisterBtn} onPress={nextStep}>
             <Text style={styles.button}>회원가입 완료</Text>
           </TouchableOpacity>
         </View>
@@ -626,6 +652,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
+  },
+  picker: {
+    marginTop: 20,
+    borderRadius: 10,
+    marginBottom: 10,
+    paddingLeft: 5,
+    borderWidth: 1,
+    borderColor: 'gray',
+    backgroundColor: 'black',
+    height: 40,
+    justifyContent: 'center',
+  },
+  pickerItem: {
+    fontSize: 14,
+    color: 'gray',
   },
 });
 
