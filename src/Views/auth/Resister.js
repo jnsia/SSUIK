@@ -5,6 +5,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import CheckBox from 'react-native-bouncy-checkbox';
@@ -53,7 +54,7 @@ const Resister = ({navigation}) => {
         console.log('set error');
       }
     } else {
-      alert('이용약관을 모두 체크해주세요.');
+      Alert.alert('회원가입', '이용약관을 모두 체크해주세요.');
     }
   };
 
@@ -80,7 +81,7 @@ const Resister = ({navigation}) => {
           nickname: userNickname,
           job: userJob,
         })
-        .then(alert('회원가입이 완료되었습니다!'))
+        .then(Alert.alert('회원가입', '회원가입이 완료되었습니다!'))
         .then(navigation.push('Login'));
     } catch (error) {
       return console.log(error);
@@ -310,11 +311,11 @@ const Resister = ({navigation}) => {
             style={styles.resisterBtn}
             onPress={() => {
               if (userEmail === '') {
-                alert('이메일을 입력해 주세요.');
+                Alert.alert('회원가입', '이메일을 입력해 주세요.');
               } else {
                 validateEmail(userEmail)
                   ? nextStep()
-                  : alert('이메일 형식으로 작성해주세요.');
+                  : Alert.alert('회원가입', '이메일 형식으로 작성해주세요.');
               }
             }}>
             <Text style={styles.button}>계속하기</Text>
@@ -360,9 +361,9 @@ const Resister = ({navigation}) => {
             style={styles.resisterBtn}
             onPress={() => {
               if (userPW.length < 8 || userCheckPW < 8) {
-                alert('비밀번호을 8자리 이상 입력해 주세요.');
+                Alert.alert('회원가입', '비밀번호을 8자리 이상 입력해 주세요.');
               } else if (userPW !== userCheckPW) {
-                alert('일치하지 않습니다.');
+                Alert.alert('회원가입', '일치하지 않습니다.');
               } else {
                 nextStep();
               }
@@ -452,16 +453,16 @@ const Resister = ({navigation}) => {
             style={styles.resisterBtn}
             onPress={() => {
               if (userName === '') {
-                alert('이름을 입력해 주세요.');
+                Alert.alert('회원가입', '이름을 입력해 주세요.');
               } else if (userBirthday === '' || userBirthday.length !== 8) {
-                alert('생년월일을 정확히 입력해 주세요.');
+                Alert.alert('회원가입', '생년월일을 정확히 입력해 주세요.');
               } else if (
                 userPhoneNumber === '' ||
                 userPhoneNumber.length < 10
               ) {
-                alert('전화번호를 정확히 입력해 주세요.');
+                Alert.alert('회원가입', '전화번호를 정확히 입력해 주세요.');
               } else if (userSex === '') {
-                alert('성별을 선택해 주세요.');
+                Alert.alert('회원가입', '성별을 선택해 주세요.');
               } else {
                 nextStep();
               }

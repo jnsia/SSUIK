@@ -10,6 +10,7 @@ import {
   BackHandler,
   Modal,
   PermissionsAndroid,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -80,11 +81,11 @@ const Login = ({navigation}) => {
 
   const storeLogin = async value => {
     if (userID === '') {
-      return alert('아이디를 입력해 주세요.');
+      return Alert.alert('로그인', '아이디를 입력해 주세요.');
     }
 
     if (userPW === '') {
-      return alert('비밀번호를 입력해 주세요.');
+      return Alert.alert('로그인', '비밀번호를 입력해 주세요.');
     }
 
     try {

@@ -4,7 +4,7 @@ import React from 'react';
 const ServiceCenter = () => {
   return (
     <View>
-      <Text>ServiceCenter</Text>
+      <Text>이메일로 문의하기</Text>
     </View>
   );
 };
