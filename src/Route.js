@@ -41,6 +41,7 @@ import Mypage from './Views/Mypage/Mypage';
 import UserInfo from './Views/Mypage/UserInfo';
 import AdsCollection from './Views/Mypage/AdsCollection';
 import ServiceCenter from './Views/Mypage/ServiceCenter';
+import Inquire from './Views/Mypage/Inquire';
 import Setting from './Views/Mypage/Setting';
 import TermsAndPolicy from './Views/Mypage/TermsAndPolicy';
 import SearchUserInfo from './Views/auth/SearchUserInfo';
@@ -193,14 +194,6 @@ const BrandStackNavigator = () => {
             height: 75,
           },
           headerTintColor: 'white',
-          headerRight: () => (
-            <EntypoIcon
-              name="magnifying-glass"
-              color={'white'}
-              size={25}
-              style={{marginRight: 20}}
-            />
-          ),
         }}
       />
       <BrandStack.Screen
@@ -430,7 +423,32 @@ const MypageStackNavigator = ({navigation}) => {
           headerTintColor: 'white',
         }}
       />
-      <MypageStack.Screen name="ServiceCenter" component={ServiceCenter} />
+      <MypageStack.Screen
+        name="ServiceCenter"
+        component={ServiceCenter}
+        options={{
+          title: 'FAQ / 1:1 문의',
+          headerBackTitleVisible: false,
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+        }}
+      />
+      <MypageStack.Screen
+        name="Inquire"
+        component={Inquire}
+        options={{
+          title: '1:1 문의',
+          headerBackTitleVisible: false,
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+        }}
+      />
       <MypageStack.Screen name="Setting" component={Setting} />
       <MypageStack.Screen name="TermsAndPolicy" component={TermsAndPolicy} />
       <MypageStack.Screen

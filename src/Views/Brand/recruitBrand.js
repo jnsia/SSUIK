@@ -10,64 +10,64 @@ import {
 import React, {useEffect, useState} from 'react';
 
 import testDB from '../../testDB.json';
-import {Dropdown} from 'react-native-element-dropdown';
+// import {Dropdown} from 'react-native-element-dropdown';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
-const option_data = [
-  {
-    value: 'normal',
-    lable: '기본순',
-  },
-  {
-    value: 'close',
-    lable: '가까운순',
-  },
-  {
-    value: 'point',
-    lable: '포인트\n높은순',
-  },
-];
+// const option_data = [
+//   {
+//     value: 'normal',
+//     lable: '기본순',
+//   },
+//   {
+//     value: 'close',
+//     lable: '가까운순',
+//   },
+//   {
+//     value: 'point',
+//     lable: '포인트\n높은순',
+//   },
+// ];
 
-const location_data = [
-  {
-    value: 'seoul',
-    lable: '서울',
-  },
-  {
-    value: 'gyunggi',
-    lable: '경기',
-  },
-  {
-    value: 'daegu',
-    lable: '대구',
-  },
-];
+// const location_data = [
+//   {
+//     value: 'seoul',
+//     lable: '서울',
+//   },
+//   {
+//     value: 'gyunggi',
+//     lable: '경기',
+//   },
+//   {
+//     value: 'daegu',
+//     lable: '대구',
+//   },
+// ];
 
-const etc_data = [
-  {
-    value: 'etc',
-    lable: '기타',
-  },
-  {
-    value: '2',
-    lable: 'Item 2',
-  },
-  {
-    value: '3',
-    lable: 'Item 3',
-  },
-];
+// const etc_data = [
+//   {
+//     value: 'etc',
+//     lable: '기타',
+//   },
+//   {
+//     value: '2',
+//     lable: 'Item 2',
+//   },
+//   {
+//     value: '3',
+//     lable: 'Item 3',
+//   },
+// ];
 
 const Brand = ({navigation: {navigate}}) => {
   const [recruit, setRecruit] = useState('');
 
-  const [option, setOption] = useState('기본순');
-  const [location, setLocation] = useState('지역');
-  const [etc, setEtc] = useState('기타');
+  // const [option, setOption] = useState('기본순');
+  // const [location, setLocation] = useState('지역');
+  // const [etc, setEtc] = useState('기타');
 
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
+  // const [value, setValue] = useState(null);
+  // const [isFocus, setIsFocus] = useState(false);
 
   const brands = testDB.brand;
 
@@ -159,8 +159,8 @@ const Brand = ({navigation: {navigate}}) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={{marginHorizontal: 20}}>
-        <View style={styles.filter}>
+      <View style={{marginHorizontal: 20, marginVertical: 20}}>
+        {/* <View style={styles.filter}>
           <Dropdown
             style={{...styles.dropdown, isFocus}}
             selectedTextStyle={{
@@ -248,7 +248,7 @@ const Brand = ({navigation: {navigate}}) => {
               setEtc(e.value);
             }}
           />
-        </View>
+        </View> */}
         <ScrollView>
           {recruit === '' && (
             <View
@@ -258,7 +258,7 @@ const Brand = ({navigation: {navigate}}) => {
                 flexWrap: 'wrap',
                 width: SCREEN_WIDTH - 40,
                 justifyContent: 'center',
-                paddingBottom: 150,
+                paddingBottom: 50,
               }}>
               {brands.map((brand, index) => (
                 <TouchableOpacity

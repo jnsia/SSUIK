@@ -121,7 +121,7 @@ const Login = ({navigation}) => {
           <Image
             source={LogoImage}
             resizeMode={'contain'}
-            style={{width: '75%', height: 250}}
+            style={{width: '70%', height: 250}}
           />
         </View>
         <View>
@@ -144,7 +144,7 @@ const Login = ({navigation}) => {
           <Text
             style={{color: 'grey', fontSize: 12, paddingLeft: 10}}
             onPress={() => navigation.push('SearchUserInfo')}>
-            아이디/비밀번호 찾기
+            이메일/비밀번호 찾기
           </Text>
         </View>
         <View>
@@ -273,11 +273,12 @@ const Login = ({navigation}) => {
                 PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
               ]);
 
+              setPermission(true);
+
               Geolocation.getCurrentPosition(
                 position => {
                   console.log(position);
 
-                  setPermission(true);
                   setLocation(position);
                 },
                 error => {

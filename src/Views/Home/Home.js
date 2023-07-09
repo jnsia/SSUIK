@@ -244,7 +244,7 @@ const Home = ({navigation}) => {
                 + point 25,000
               </Text>
             </ImageBackground>
-            <ImageBackground
+            {/* <ImageBackground
               source={require('../../Images/ProAds-left1.png')}
               resizeMode="cover"
               imageStyle={{borderRadius: 20}}
@@ -272,7 +272,7 @@ const Home = ({navigation}) => {
                   추가해주세요!
                 </Text>
               </TouchableOpacity>
-            </ImageBackground>
+            </ImageBackground> */}
           </ScrollView>
         )}
       </View>

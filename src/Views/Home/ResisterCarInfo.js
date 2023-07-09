@@ -77,7 +77,7 @@ const ResisterCarInfo = ({navigation}) => {
             <TextInput
               autoCapitalize={'none'}
               style={styles.input}
-              placeholder="차량 번호를 입력해주세요"
+              placeholder="123가4567"
               placeholderTextColor={'gray'}
               value={userCarNumber}
               onChangeText={setuserCarNumber}
@@ -330,6 +330,11 @@ const ResisterCarInfo = ({navigation}) => {
                             label="푸조"
                             value="푸조"
                           />
+                          <Picker.Item
+                            style={styles.pickerItem}
+                            label="기타(직접입력)"
+                            value="?"
+                          />
                         </Picker>
                       )}
                     </View>
@@ -435,6 +440,11 @@ const ResisterCarInfo = ({navigation}) => {
                   style={styles.pickerItem}
                   label="형제/자매"
                   value="형제/자매"
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="기타(직접입력)"
+                  value="?"
                 />
               </Picker>
             </View>

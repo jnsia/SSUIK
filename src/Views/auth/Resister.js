@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import CheckBox from 'react-native-bouncy-checkbox';
@@ -26,7 +27,7 @@ const Resister = ({navigation}) => {
   const [userBirthday, setuserBirthday] = useState('');
   const [userPhoneNumber, setuserPhoneNumber] = useState('');
   const [userSex, setuserSex] = useState('');
-  const [userJob, setuserJob] = useState('a');
+  const [userJob, setuserJob] = useState('');
 
   let CheckboxRef1 = null;
   let CheckboxRef2 = null;
@@ -61,7 +62,27 @@ const Resister = ({navigation}) => {
   const validateEmail = email => {
     const regex =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
     return regex.test(email);
+  };
+
+  const validateName = name => {
+    const regex = /^[가-힣]{2,4}$/;
+
+    return regex.test(name);
+  };
+
+  const validateBirthday = birthday => {
+    const regex =
+      /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+
+    return regex.test(birthday);
+  };
+
+  const validatePhoneNumber = phoneNumber => {
+    const regex = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;
+
+    return regex.test(phoneNumber);
   };
 
   const nextStep = () => {
@@ -82,7 +103,7 @@ const Resister = ({navigation}) => {
           job: userJob,
         })
         .then(Alert.alert('회원가입', '회원가입이 완료되었습니다!'))
-        .then(navigation.push('Login'));
+        .then(navigation.pop());
     } catch (error) {
       return console.log(error);
     }
@@ -94,7 +115,7 @@ const Resister = ({navigation}) => {
         <View style={styles.container}>
           <View
             style={{
-              paddingVertical: 20,
+              paddingVertical: 10,
               paddingHorizontal: 10,
               marginBottom: 40,
             }}>
@@ -119,8 +140,13 @@ const Resister = ({navigation}) => {
               }}>
               환영합니다.
             </Text>
+            <View style={{marginTop: 20}}>
+              <Text style={{...styles.text, fontSize: 12, color: '#FFC500'}}>
+                서비스 이용을 위한 약관동의가 필요합니다.
+              </Text>
+            </View>
           </View>
-          <View>
+          <View style={{marginHorizontal: 10}}>
             <CheckBox
               style={{
                 color: '#FFC500',
@@ -179,7 +205,7 @@ const Resister = ({navigation}) => {
                   }
                 }
               }}
-              text="전체 약관 동의 (필수)"
+              text="전체 약관 동의"
             />
             <CheckBox
               style={{paddingTop: 20}}
@@ -281,22 +307,16 @@ const Resister = ({navigation}) => {
       )}
       {step === 2 && (
         <View style={styles.container}>
-          <View style={{marginTop: 40}}>
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 24,
-              }}>
-              브랜드 서포터즈가
-            </Text>
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 24,
-              }}>
-              되어볼까요?
-            </Text>
-            <View style={{marginTop: 60}}>
+          <ScrollView style={{marginTop: 40}}>
+            <View>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 18,
+                  paddingHorizontal: 10,
+                }}>
+                이메일 입력
+              </Text>
               <TextInput
                 keyboardType="email-address"
                 style={styles.input}
@@ -304,75 +324,81 @@ const Resister = ({navigation}) => {
                 placeholderTextColor={'gray'}
                 value={userEmail}
                 onChangeText={setuserEmail}
+                returnKeyType="next"
               />
             </View>
-          </View>
-          <TouchableOpacity
-            style={styles.resisterBtn}
-            onPress={() => {
-              if (userEmail === '') {
-                Alert.alert('회원가입', '이메일을 입력해 주세요.');
-              } else {
-                validateEmail(userEmail)
-                  ? nextStep()
-                  : Alert.alert('회원가입', '이메일 형식으로 작성해주세요.');
-              }
-            }}>
-            <Text style={styles.button}>계속하기</Text>
-          </TouchableOpacity>
+            <View style={{marginTop: 40}}>
+              <Text style={styles.resisterText}>비밀번호 입력</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="8자리 이상 입력해주세요."
+                placeholderTextColor={'gray'}
+                value={userPW}
+                onChangeText={setuserPW}
+                returnKeyType="next"
+                secureTextEntry
+              />
+            </View>
+            <View style={{marginTop: 40}}>
+              <Text style={styles.resisterText}>비밀번호 확인</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="다시 한번 더 입력해주세요"
+                placeholderTextColor={'gray'}
+                value={userCheckPW}
+                onChangeText={setuserCheckPW}
+                secureTextEntry
+              />
+              {userPW === userCheckPW && userPW !== '' ? (
+                <View style={{paddingLeft: 10}}>
+                  <Text
+                    style={{...styles.text, fontSize: 12, color: '#FFC500'}}>
+                    비밀번호가 일치합니다!
+                  </Text>
+                </View>
+              ) : (
+                <View>
+                  <Text></Text>
+                </View>
+              )}
+            </View>
+          </ScrollView>
+          {validateEmail(userEmail) && userPW.length > 7 ? (
+            <TouchableOpacity
+              style={{...styles.resisterBtn, backgroundColor: '#FFC500'}}
+              onPress={() => {
+                if (userEmail === '') {
+                  Alert.alert('회원가입', '이메일을 입력해 주세요.');
+                } else if (!validateEmail(userEmail)) {
+                  Alert.alert('회원가입', '이메일 형식으로 작성해주세요.');
+                } else {
+                  if (userPW.length < 8 || userCheckPW < 8) {
+                    Alert.alert(
+                      '회원가입',
+                      '비밀번호을 8자리 이상 입력해 주세요.',
+                    );
+                  } else if (userPW !== userCheckPW) {
+                    Alert.alert(
+                      '회원가입',
+                      '비밀번호가 서로 일치하지 않습니다.',
+                    );
+                  } else {
+                    nextStep();
+                  }
+                }
+              }}>
+              <Text style={{...styles.button, color: 'black'}}>계속하기</Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={{...styles.resisterBtn, backgroundColor: 'gray'}}>
+              <Text style={{...styles.button, color: 'white', fontSize: 16}}>
+                계속하기
+              </Text>
+            </View>
+          )}
         </View>
       )}
       {step === 3 && (
-        <View style={styles.container}>
-          <View style={{marginTop: 60}}>
-            <Text style={styles.resisterText}>비밀번호 입력</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="8자리 이상 입력해주세요."
-              placeholderTextColor={'gray'}
-              value={userPW}
-              onChangeText={setuserPW}
-              secureTextEntry
-            />
-          </View>
-          <View style={{marginTop: 40}}>
-            <Text style={styles.resisterText}>비밀번호 확인</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="다시 한번 더 입력해주세요"
-              placeholderTextColor={'gray'}
-              value={userCheckPW}
-              onChangeText={setuserCheckPW}
-              secureTextEntry
-            />
-            {userPW === userCheckPW && userPW !== '' ? (
-              <View style={{paddingLeft: 10}}>
-                <Text style={{...styles.text, fontSize: 12, color: '#FFC500'}}>
-                  비밀번호가 일치합니다!
-                </Text>
-              </View>
-            ) : (
-              <View>
-                <Text></Text>
-              </View>
-            )}
-          </View>
-          <TouchableOpacity
-            style={styles.resisterBtn}
-            onPress={() => {
-              if (userPW.length < 8 || userCheckPW < 8) {
-                Alert.alert('회원가입', '비밀번호을 8자리 이상 입력해 주세요.');
-              } else if (userPW !== userCheckPW) {
-                Alert.alert('회원가입', '일치하지 않습니다.');
-              } else {
-                nextStep();
-              }
-            }}>
-            <Text style={styles.button}>계속하기</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-      {step === 4 && (
         <View style={styles.container}>
           <View style={{marginTop: 40}}>
             <Text style={styles.resisterText}>이름</Text>
@@ -449,29 +475,36 @@ const Resister = ({navigation}) => {
               </TouchableOpacity>
             </View>
           </View>
-          <TouchableOpacity
-            style={styles.resisterBtn}
-            onPress={() => {
-              if (userName === '') {
-                Alert.alert('회원가입', '이름을 입력해 주세요.');
-              } else if (userBirthday === '' || userBirthday.length !== 8) {
-                Alert.alert('회원가입', '생년월일을 정확히 입력해 주세요.');
-              } else if (
-                userPhoneNumber === '' ||
-                userPhoneNumber.length < 10
-              ) {
-                Alert.alert('회원가입', '전화번호를 정확히 입력해 주세요.');
-              } else if (userSex === '') {
-                Alert.alert('회원가입', '성별을 선택해 주세요.');
-              } else {
-                nextStep();
-              }
-            }}>
-            <Text style={styles.button}>계속하기</Text>
-          </TouchableOpacity>
+          {userName !== '' &&
+          userBirthday !== '' &&
+          (userPhoneNumber !== '') & (userSex !== '') ? (
+            <TouchableOpacity
+              style={{...styles.resisterBtn, backgroundColor: '#FFC500'}}
+              onPress={() => {
+                if (!validateName(userName)) {
+                  Alert.alert('회원가입', '이름을 정확히 입력해 주세요.');
+                } else if (!validateBirthday(userBirthday)) {
+                  Alert.alert('회원가입', '생년월일을 정확히 입력해 주세요.');
+                } else if (!validatePhoneNumber(userPhoneNumber)) {
+                  Alert.alert('회원가입', '전화번호를 정확히 입력해 주세요.');
+                } else if (userSex === '') {
+                  Alert.alert('회원가입', '성별을 선택해 주세요.');
+                } else {
+                  nextStep();
+                }
+              }}>
+              <Text style={{...styles.button, color: 'black'}}>계속하기</Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={{...styles.resisterBtn, backgroundColor: 'gray'}}>
+              <Text style={{...styles.button, color: 'white', fontSize: 16}}>
+                계속하기
+              </Text>
+            </View>
+          )}
         </View>
       )}
-      {step === 5 && (
+      {step === 4 && (
         <View style={styles.container}>
           <View style={{marginTop: 40}}>
             <Text style={styles.resisterText}>닉네임 입력</Text>
@@ -493,6 +526,11 @@ const Resister = ({navigation}) => {
                 onValueChange={(itemValue, itemIndex) => setuserJob(itemValue)}
                 dropdownIconColor="gray"
                 selectionColor="gray">
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="선택해주세요."
+                  value=""
+                />
                 <Picker.Item
                   style={styles.pickerItem}
                   label="근로소득자"
@@ -528,20 +566,32 @@ const Resister = ({navigation}) => {
                   label="프리랜서"
                   value="프리랜서"
                 />
-                {/* <Picker.Item
+                <Picker.Item
                   style={styles.pickerItem}
-                  label="기타(직접입력)"
-                  value="기타(직접입력)"
-                /> */}
+                  label="기타"
+                  value="기타"
+                />
               </Picker>
             </View>
           </View>
-          <TouchableOpacity style={styles.resisterBtn} onPress={nextStep}>
-            <Text style={styles.button}>회원가입 완료</Text>
-          </TouchableOpacity>
+          {userJob !== '' && userNickname !== '' ? (
+            <TouchableOpacity
+              style={{...styles.resisterBtn, backgroundColor: '#FFC500'}}
+              onPress={() => nextStep()}>
+              <Text style={{...styles.button, color: 'black'}}>
+                회원가입 완료
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={{...styles.resisterBtn, backgroundColor: 'gray'}}>
+              <Text style={{...styles.button, color: 'white', fontSize: 16}}>
+                회원가입 완료
+              </Text>
+            </View>
+          )}
         </View>
       )}
-      {step === 6 && (
+      {step === 5 && (
         <View
           style={{
             flex: 1,

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -15,6 +15,7 @@ import {
 import testBack2 from '../../Images/testBack2.jpg';
 import PointInfo from '../../Components/PointInfo';
 import {Picker} from '@react-native-picker/picker';
+import {useFocusEffect} from '@react-navigation/native';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
@@ -52,7 +53,7 @@ const Point = ({navigation}) => {
   const [bank, setBank] = useState('');
 
   const plusAmount = num => {
-    setAmount(num);
+    setAmount(amount + num);
   };
 
   useEffect(() => {
@@ -60,8 +61,6 @@ const Point = ({navigation}) => {
       const backHandler = BackHandler.addEventListener(
         'hardwareBackPress',
         () => {
-          setWithdraw(false);
-
           return true;
         },
       );
@@ -69,6 +68,15 @@ const Point = ({navigation}) => {
       return () => backHandler.remove();
     }
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      setWithdraw(false);
+      setAmount(0);
+      setAccount('');
+      setBank('');
+    }, []),
+  );
 
   return (
     <View style={styles.container}>
@@ -203,21 +211,27 @@ const Point = ({navigation}) => {
                       keyboardType="number-pad"
                       maxLength={10}
                       value={amount}
-                      onChangeText={setAmount}></TextInput>
+                      onChange={() => setAmount()}></TextInput>
                   </View>
                   <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity
                       style={styles.amountBtn}
-                      onPress={() => plusAmount(1000)}>
+                      onPress={() => console.log(amount)}>
                       <Text style={{color: 'white', fontSize: 10}}>+ 1천</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.amountBtn}>
+                    <TouchableOpacity
+                      style={styles.amountBtn}
+                      onPress={() => plusAmount(10000)}>
                       <Text style={{color: 'white', fontSize: 10}}>+ 1만</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.amountBtn}>
+                    <TouchableOpacity
+                      style={styles.amountBtn}
+                      onPress={() => plusAmount(50000)}>
                       <Text style={{color: 'white', fontSize: 10}}>+ 5만</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.amountBtn}>
+                    <TouchableOpacity
+                      style={styles.amountBtn}
+                      onPress={() => plusAmount(100000)}>
                       <Text style={{color: 'white', fontSize: 10}}>+ 10만</Text>
                     </TouchableOpacity>
                   </View>

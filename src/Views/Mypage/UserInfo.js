@@ -58,11 +58,6 @@ const UserInfo = () => {
             <Text style={styles.title}>이메일</Text>
             <View style={styles.border}>
               <Text style={styles.text}>{userInfo.email}</Text>
-              <TouchableOpacity style={styles.alterBtn}>
-                <Text style={{...styles.text, color: '#FFC500', fontSize: 12}}>
-                  변경
-                </Text>
-              </TouchableOpacity>
             </View>
           </View>
           <View style={{marginTop: 30}}>
@@ -80,11 +75,6 @@ const UserInfo = () => {
             <Text style={styles.title}>전화번호</Text>
             <View style={styles.border}>
               <Text style={styles.text}>{userInfo.phoneNumber}</Text>
-              <TouchableOpacity style={styles.alterBtn}>
-                <Text style={{...styles.text, color: '#FFC500', fontSize: 12}}>
-                  변경
-                </Text>
-              </TouchableOpacity>
             </View>
           </View>
         </View>

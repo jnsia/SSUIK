@@ -35,43 +35,10 @@ const collectionInfo = [
 ];
 
 const AdsCollection = () => {
-  const [collectionRank, setCollectionRank] = useState('최신순');
-
   return (
     <View style={styles.container}>
       <View style={styles.collectionFilter}>
-        <Text style={styles.text}>컬렉션 {collectionInfo.length}개</Text>
-        <View
-          style={{
-            width: 120,
-            borderWidth: 0.5,
-            borderColor: '#FFC500',
-            borderRadius: 10,
-            justifyContent: 'center',
-          }}>
-          <Picker
-            style={{
-              color: '#FFC500',
-              height: 0,
-            }}
-            dropdownIconColor="#FFC500"
-            selectionColor="#FFC500"
-            selectedValue={collectionRank}
-            onValueChange={(itemValue, itemIndex) =>
-              setCollectionRank(itemValue)
-            }>
-            <Picker.Item
-              style={styles.pickerItem}
-              label="최신순"
-              value="최신순"
-            />
-            <Picker.Item
-              style={styles.pickerItem}
-              label="포인트순"
-              value="포인트순"
-            />
-          </Picker>
-        </View>
+        <Text style={styles.text}>찜하기 {collectionInfo.length}개</Text>
       </View>
       <ScrollView style={{marginHorizontal: 20, marginVertical: 20}}>
         {collectionInfo.map((info, k) => (

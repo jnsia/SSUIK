@@ -60,29 +60,6 @@ function SearchUserInfo() {
           <View style={styles.inputBox}>
             <TextInput
               style={styles.input}
-              placeholder="-를 빼고 입력해주세요."
-              placeholderTextColor={'gray'}
-              inputMode="numeric"
-              maxLength={11}
-              value={phoneNumber1}
-              onChangeText={setPhoneNumber1}></TextInput>
-            <TouchableOpacity
-              style={{
-                borderColor: 'white',
-                borderWidth: 0.5,
-                borderRadius: 20,
-                paddingHorizontal: 10,
-                paddingVertical: 5,
-                marginVertical: 10,
-                justifyContent: 'center',
-              }}>
-              <Text style={{color: 'white', fontSize: 10}}>인증번호 받기</Text>
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.text}>인증번호 입력</Text>
-          <View style={styles.inputBox}>
-            <TextInput
-              style={styles.input}
               placeholder="문자로 온 인증번호를 입력해주세요."
               placeholderTextColor={'gray'}
               inputMode="numeric"
@@ -122,7 +99,14 @@ function SearchUserInfo() {
             </View>
           </View>
           <TouchableOpacity>
-            <Text>비밀번호 찾기</Text>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: '600',
+                color: searchemail ? 'grey' : '#FFC550',
+              }}>
+              비밀번호 찾기
+            </Text>
           </TouchableOpacity>
         </View>
       )}
