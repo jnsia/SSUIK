@@ -80,6 +80,7 @@ const Home = ({navigation}) => {
       await AsyncStorage.removeItem('@isPermission');
       await AsyncStorage.removeItem('@authPhoto');
       await AsyncStorage.removeItem('@location');
+      await AsyncStorage.removeItem('@userAddress');
     } catch (e) {
       console.error(e);
     }

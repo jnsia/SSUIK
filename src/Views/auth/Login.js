@@ -22,7 +22,6 @@ import LogoImage from '../../Images/logo.jpg';
 import brandSample1 from '../../Images/kakaotalk.png';
 import brandSample2 from '../../Images/brandSample2.png';
 import brandSample3 from '../../Images/brandSample3.png';
-import brandSample4 from '../../Images/brandSample4.jpg';
 import {useFocusEffect} from '@react-navigation/native';
 
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
@@ -163,7 +162,6 @@ const Login = ({navigation}) => {
             />
             <Image source={brandSample2} style={styles.linkageImage} />
             <Image source={brandSample3} style={styles.linkageImage} />
-            <Image source={brandSample4} style={styles.linkageImage} />
           </View>
           <TouchableOpacity
             style={styles.loginBtn}

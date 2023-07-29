@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import {Image, TouchableOpacity} from 'react-native';
 // import logoImage from './Images/ssuik-logo.png';
@@ -28,6 +27,7 @@ import AuthPhoto from './Views/auth/AuthPhoto';
 import recruitBrand from './Views/Brand/recruitBrand';
 import BrandInfo from './Views/Brand/BrandInfo';
 import BrandApply from './Views/Brand/BrandApply';
+import AddAdress from './Views/Brand/AddAdress';
 
 import Event from './Views/Event/Event';
 
@@ -219,6 +219,23 @@ const BrandStackNavigator = () => {
         options={{
           headerShown: true,
           title: '신청서 작성',
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontSize: 16,
+            fontFamily: 'BlackHanSans-Regular',
+          },
+        }}
+      />
+      <BrandStack.Screen
+        name="AddAdress"
+        component={AddAdress}
+        options={{
+          headerShown: true,
+          title: '배송지 추가',
           headerStyle: {
             backgroundColor: 'black',
             height: 75,
