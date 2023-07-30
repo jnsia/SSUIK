@@ -17,6 +17,12 @@ const BrandApply = ({navigation: {navigate}, route}) => {
   const [request, setrequest] = useState('본인');
   const [isUserAddress, setIsUserAddress] = useState(false);
 
+  const [userName, setUserName] = useState('홍길동');
+  const [userPhoneNumber, setUserPhoneNumber] = useState('010-2345-6789');
+  const [userAddress, setUserAddress] = useState(
+    '대구 달서구 호산동로 34길 21-4 행복빌 203호',
+  );
+
   let userInfo = {
     userName: '홍길동',
     userPhoneNumber: '010-2345-6789',
@@ -58,11 +64,16 @@ const BrandApply = ({navigation: {navigate}, route}) => {
   const getUserAddress = async () => {
     try {
       const isUserAddress = await AsyncStorage.getItem('@userAddress');
+      const data = JSON.parse(isUserAddress);
       console.log(isUserAddress);
       if (isUserAddress === null) {
         setIsUserAddress(false);
       } else {
         setIsUserAddress(true);
+
+        setUserName(data.recipient);
+        setUserPhoneNumber(data.phoneNumber);
+        setUserAddress(data.address + ', ' + data.detailAdress);
       }
     } catch (e) {
       console.error(e);
@@ -121,22 +132,22 @@ const BrandApply = ({navigation: {navigate}, route}) => {
                   </Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity style={{}} onPress={() => navigate('Brand')}>
+              <TouchableOpacity
+                style={{}}
+                onPress={() => navigate('AddAdress', route.params)}>
                 <Text style={{fontSize: 14, ...styles.text, color: '#FFC500'}}>
                   배송지 변경
                 </Text>
               </TouchableOpacity>
             </View>
             <View style={{marginTop: 10}}>
-              <Text style={{...styles.text, fontSize: 16}}>
-                {userInfo.userName}
-              </Text>
+              <Text style={{...styles.text, fontSize: 16}}>{userName}</Text>
               <View style={{paddingVertical: 20}}>
                 <Text style={{...styles.text, color: 'gray'}}>
-                  {userInfo.userPhoneNumber}
+                  {userPhoneNumber}
                 </Text>
                 <Text style={{...styles.text, color: 'gray'}}>
-                  {userInfo.userAddress}
+                  {userAddress}
                 </Text>
               </View>
               <View style={styles.picker}>
