@@ -10,7 +10,6 @@ import {
 import React from 'react';
 
 const userInfo = {
-  nickname: '최고 서포터',
   email: 'ssuik@naver.com',
   password: '●●●●●●●●',
   phoneNumber: '01096943994',
@@ -26,34 +25,8 @@ const UserInfo = () => {
             justifyContent: 'center',
             alignItems: 'center',
             marginVertical: 15,
-          }}>
-          <TouchableOpacity style={styles.myInfo}>
-            <Image
-              style={{
-                width: 100,
-                height: 100,
-                borderRadius: 20,
-                borderColor: 'white',
-                borderWidth: 1,
-                backgroundColor: 'white',
-                resizeMode: 'contain',
-              }}
-              source={require('../../Images/my-img-test.png')}
-            />
-          </TouchableOpacity>
-        </View>
+          }}></View>
         <View style={{marginHorizontal: 20, marginBottom: 10}}>
-          <View style={{marginTop: 30}}>
-            <Text style={styles.title}>닉네임 입력</Text>
-            <View style={styles.border}>
-              <Text style={styles.text}>{userInfo.nickname}</Text>
-              <TouchableOpacity style={styles.alterBtn}>
-                <Text style={{...styles.text, color: '#FFC500', fontSize: 12}}>
-                  변경
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
           <View style={{marginTop: 30}}>
             <Text style={styles.title}>이메일</Text>
             <View style={styles.border}>

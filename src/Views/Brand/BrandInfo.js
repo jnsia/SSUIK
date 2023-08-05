@@ -162,7 +162,7 @@ const BrandInfo = ({navigation: {navigate}, route}) => {
       <View
         style={{
           backgroundColor: 'black',
-          padding: 5,
+          padding: 10,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -183,10 +183,10 @@ const BrandInfo = ({navigation: {navigate}, route}) => {
             style={{
               ...styles.text,
               color: 'black',
-              fontSize: 18,
+              fontSize: 16,
               textAlign: 'center',
             }}>
-            스폰서 신청
+            브랜드 캠페인 참여
           </Text>
         </TouchableOpacity>
       </View>
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   adsApplyBtn: {
-    width: '40%',
+    width: '50%',
     backgroundColor: '#FFC500',
     borderRadius: 10,
     paddingHorizontal: 20,

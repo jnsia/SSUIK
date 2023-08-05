@@ -443,7 +443,7 @@ const Resister = ({navigation}) => {
             <View
               style={{
                 flexDirection: 'row',
-                marginVertical: 20,
+                marginTop: 20,
               }}>
               <TouchableOpacity
                 style={
@@ -475,50 +475,7 @@ const Resister = ({navigation}) => {
               </TouchableOpacity>
             </View>
           </View>
-          {userName !== '' &&
-          userBirthday !== '' &&
-          (userPhoneNumber !== '') & (userSex !== '') ? (
-            <TouchableOpacity
-              style={{...styles.resisterBtn, backgroundColor: '#FFC500'}}
-              onPress={() => {
-                if (!validateName(userName)) {
-                  Alert.alert('회원가입', '이름을 정확히 입력해 주세요.');
-                } else if (!validateBirthday(userBirthday)) {
-                  Alert.alert('회원가입', '생년월일을 정확히 입력해 주세요.');
-                } else if (!validatePhoneNumber(userPhoneNumber)) {
-                  Alert.alert('회원가입', '전화번호를 정확히 입력해 주세요.');
-                } else if (userSex === '') {
-                  Alert.alert('회원가입', '성별을 선택해 주세요.');
-                } else {
-                  nextStep();
-                }
-              }}>
-              <Text style={{...styles.button, color: 'black'}}>계속하기</Text>
-            </TouchableOpacity>
-          ) : (
-            <View style={{...styles.resisterBtn, backgroundColor: 'gray'}}>
-              <Text style={{...styles.button, color: 'white', fontSize: 16}}>
-                계속하기
-              </Text>
-            </View>
-          )}
-        </View>
-      )}
-      {step === 4 && (
-        <View style={styles.container}>
-          <View style={{marginTop: 40}}>
-            <Text style={styles.resisterText}>닉네임 입력</Text>
-            <TextInput
-              autoCapitalize={'none'}
-              style={styles.input}
-              placeholder="SSUIK에서 사용될 이름을 입력해주세요."
-              placeholderTextColor={'gray'}
-              value={userNickname}
-              onChangeText={setuserNickname}
-              returnKeyType="next"
-            />
-          </View>
-          <View style={{marginTop: 40}}>
+          <View style={{marginTop: 20}}>
             <Text style={styles.resisterText}>직업 선택</Text>
             <View style={styles.picker}>
               <Picker
@@ -574,10 +531,26 @@ const Resister = ({navigation}) => {
               </Picker>
             </View>
           </View>
-          {userJob !== '' && userNickname !== '' ? (
+          {userName !== '' &&
+          userBirthday !== '' &&
+          userJob !== '' &&
+          userPhoneNumber !== '' &&
+          userSex !== '' ? (
             <TouchableOpacity
               style={{...styles.resisterBtn, backgroundColor: '#FFC500'}}
-              onPress={() => nextStep()}>
+              onPress={() => {
+                if (!validateName(userName)) {
+                  Alert.alert('회원가입', '이름을 정확히 입력해 주세요.');
+                } else if (!validateBirthday(userBirthday)) {
+                  Alert.alert('회원가입', '생년월일을 정확히 입력해 주세요.');
+                } else if (!validatePhoneNumber(userPhoneNumber)) {
+                  Alert.alert('회원가입', '전화번호를 정확히 입력해 주세요.');
+                } else if (userSex === '') {
+                  Alert.alert('회원가입', '성별을 선택해 주세요.');
+                } else {
+                  nextStep();
+                }
+              }}>
               <Text style={{...styles.button, color: 'black'}}>
                 회원가입 완료
               </Text>
@@ -591,7 +564,7 @@ const Resister = ({navigation}) => {
           )}
         </View>
       )}
-      {step === 5 && (
+      {step === 4 && (
         <View
           style={{
             flex: 1,
@@ -600,8 +573,8 @@ const Resister = ({navigation}) => {
             alignItems: 'center',
           }}>
           <View style={{marginTop: 80, alignItems: 'center'}}>
-            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 20}}>
-              브랜드 서포터가 되신걸 축하합니다!
+            <Text style={{...styles.text, fontSize: 20}}>
+              가입이 완료되었습니다.
             </Text>
           </View>
           <View>
@@ -611,11 +584,11 @@ const Resister = ({navigation}) => {
             />
           </View>
           <View style={{alignItems: 'center'}}>
-            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 20}}>
-              내가 좋아하는 브랜드를
+            <Text style={{...styles.text, fontSize: 17}}>
+              브랜드 캠페인 참여를 위해서
             </Text>
-            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 20}}>
-              서포트 해볼까요?
+            <Text style={{...styles.text, fontSize: 17, marginTop: 5}}>
+              추가적으로 차량정보 등록이 필요합니다.
             </Text>
           </View>
           <TouchableOpacity
@@ -657,7 +630,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 5,
     color: 'white',
-    borderBottomColor: 'white',
+    borderBottomColor: 'gray',
     borderBottomWidth: 1,
   },
   resisterBtn: {
@@ -707,7 +680,6 @@ const styles = StyleSheet.create({
   picker: {
     marginTop: 20,
     borderRadius: 10,
-    marginBottom: 10,
     paddingLeft: 5,
     borderWidth: 1,
     borderColor: 'gray',

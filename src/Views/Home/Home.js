@@ -8,6 +8,7 @@ import {
   ImageBackground,
   BackHandler,
   Platform,
+  Modal,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -28,6 +29,7 @@ const {width: SCREEN_WIDTH} = Dimensions.get('window');
 const Home = ({navigation}) => {
   const [addSupport, setAddSupport] = useState(true);
   const [done, setDone] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const getBrandApply = async () => {
     try {
@@ -62,7 +64,7 @@ const Home = ({navigation}) => {
       const isCarInfo = await AsyncStorage.getItem('@carInfo');
       console.log(isCarInfo);
       if (isCarInfo === null) {
-        navigation.navigate('ResisterCarInfo');
+        setModal(true);
       } else {
         navigation.navigate('BrandStackNavigator');
       }
@@ -138,7 +140,7 @@ const Home = ({navigation}) => {
             </Text>
           </View>
           <View style={{marginBottom: 40}}>
-            <Text style={styles.HomeText}>나의 스폰서를</Text>
+            <Text style={styles.HomeText}>나의 브랜드 캠페인을</Text>
             <Text style={styles.HomeText}>찾아주세요</Text>
           </View>
           <TouchableOpacity
@@ -150,14 +152,55 @@ const Home = ({navigation}) => {
                 fontSize: 12,
                 color: 'white',
               }}>
-              스폰서 찾기
+              브랜드 리스트
+            </Text>
+          </TouchableOpacity>
+        </ImageBackground>
+        <ImageBackground
+          source={require('../../Images/ProAds-left1.png')}
+          style={{
+            width: SCREEN_WIDTH,
+            paddingHorizontal: 30,
+            marginTop: 20,
+            marginBottom: 20,
+            paddingTop: 40,
+            paddingBottom: 20,
+          }}
+          imageStyle={{
+            borderRadius: 10,
+          }}>
+          <View style={{paddingVertical: 10, marginTop: 20}}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: 'white',
+                fontFamily: 'Pretendard-regular',
+                textAlignVertical: 'bottom',
+              }}>
+              나도 이제부터 브랜드 서포터즈?
+            </Text>
+          </View>
+          <View style={{marginBottom: 40}}>
+            <Text style={styles.HomeText}>나의 브랜드 캠페인을</Text>
+            <Text style={styles.HomeText}>찾아주세요</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.searchBtn}
+            onPress={() => getCarInfo()}>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 12,
+                color: 'white',
+              }}>
+              브랜드 리스트
             </Text>
           </TouchableOpacity>
         </ImageBackground>
       </ScrollView>
       <View style={{marginBottom: 0}}>
         <Text style={{color: 'white', fontSize: 16, marginHorizontal: 20}}>
-          설인수님이 진행 중인 광고
+          설인수님이 진행 중인 브랜드 캠페인
         </Text>
         {addSupport === false ? (
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -179,7 +222,7 @@ const Home = ({navigation}) => {
                     color: 'white',
                     fontSize: 12,
                   }}>
-                  서포터를
+                  브랜드 캠페인을
                 </Text>
                 <Text
                   style={{
@@ -194,26 +237,36 @@ const Home = ({navigation}) => {
         ) : (
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <ImageBackground
-              source={testBack2}
+              source={require('../../Images/ProAds-left1.png')}
               resizeMode="cover"
               imageStyle={{borderRadius: 20}}
               style={styles.processADS}>
               {done === false ? (
                 <TouchableOpacity
                   style={{
-                    padding: 10,
-                    backgroundColor: 'white',
-                    borderRadius: 10,
-                    marginVertical: 5,
+                    flex: 1,
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    justifyContent: 'center',
+                    borderRadius: 20,
                   }}
                   onPress={() => navigation.push('AuthPhoto')}>
                   <Text
                     style={{
                       textAlign: 'center',
-                      fontSize: 16,
-                      color: 'black',
+                      fontSize: 14,
+                      color: '#FFC500',
+                      lineHeight: 20,
                     }}>
-                    스폰서 인증하기
+                    인증하면 찐서포터로 임명!
+                  </Text>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      fontSize: 12,
+                      color: 'white',
+                      lineHeight: 20,
+                    }}>
+                    차량에 붙인 스티커를 인증해주세요.
                   </Text>
                 </TouchableOpacity>
               ) : (
@@ -234,18 +287,18 @@ const Home = ({navigation}) => {
                     }}>
                     D-21
                   </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontFamily: 'Pretendard-Bold',
+                      color: 'white',
+                    }}>
+                    + point 25,000
+                  </Text>
                 </View>
               )}
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontFamily: 'Pretendard-Bold',
-                  color: 'white',
-                }}>
-                + point 25,000
-              </Text>
             </ImageBackground>
-            {/* <ImageBackground
+            <ImageBackground
               source={require('../../Images/ProAds-left1.png')}
               resizeMode="cover"
               imageStyle={{borderRadius: 20}}
@@ -263,23 +316,23 @@ const Home = ({navigation}) => {
                     color: 'white',
                     fontSize: 12,
                   }}>
-                  서포터를
+                  브랜드 캠페인을
                 </Text>
                 <Text
                   style={{
                     color: 'white',
                     fontSize: 12,
                   }}>
-                  추가해주세요!
+                  추가해주세요
                 </Text>
               </TouchableOpacity>
-            </ImageBackground> */}
+            </ImageBackground>
           </ScrollView>
         )}
       </View>
       <View>
         <Text style={{color: 'white', fontSize: 16, marginHorizontal: 20}}>
-          설인수님을 위한 추천광고
+          설인수님을 위한 추천 브랜드
         </Text>
         <ScrollView
           horizontal
@@ -316,6 +369,103 @@ const Home = ({navigation}) => {
           </TouchableOpacity>
         </ScrollView>
       </View>
+      <Modal visible={modal} transparent={true} animationType={'fade'}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          }}>
+          <View
+            style={{
+              paddingVertical: 20,
+              paddingHorizontal: 30,
+              backgroundColor: 'white',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 20,
+            }}>
+            <View style={{alignItems: 'center'}}>
+              <Text
+                style={{
+                  fontFamily: 'Pretendard-Bold',
+                  fontSize: 16,
+                  color: 'black',
+                }}>
+                차량 정보를 등록해야만
+              </Text>
+              <Text
+                style={{
+                  fontFamily: 'Pretendard-Bold',
+                  fontSize: 16,
+                  color: 'black',
+                }}>
+                브랜드 캠페인 신청이 가능합니다.
+              </Text>
+            </View>
+            <View style={{alignItems: 'center', marginTop: 10}}>
+              <Text
+                style={{
+                  fontFamily: 'Pretendard-Bold',
+                  fontSize: 16,
+                  color: 'black',
+                }}>
+                진행하시겠습니까?
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 20,
+              }}>
+              <TouchableOpacity
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  paddingVertical: 10,
+                  paddingHorizontal: 30,
+                  marginHorizontal: 5,
+                  borderRadius: 10,
+                  backgroundColor: 'black',
+                }}
+                onPress={() => setModal(false)}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 14,
+                    fontFamily: 'Pretendard',
+                  }}>
+                  취소
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  paddingVertical: 10,
+                  paddingHorizontal: 30,
+                  marginHorizontal: 5,
+                  borderRadius: 10,
+                  backgroundColor: 'black',
+                }}
+                onPress={() => {
+                  setModal(false);
+                  navigation.navigate('ResisterCarInfo');
+                }}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 14,
+                    fontFamily: 'Pretendard',
+                  }}>
+                  확인
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };

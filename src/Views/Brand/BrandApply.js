@@ -17,17 +17,9 @@ const BrandApply = ({navigation: {navigate}, route}) => {
   const [request, setrequest] = useState('본인');
   const [isUserAddress, setIsUserAddress] = useState(false);
 
-  const [userName, setUserName] = useState('홍길동');
-  const [userPhoneNumber, setUserPhoneNumber] = useState('010-2345-6789');
-  const [userAddress, setUserAddress] = useState(
-    '대구 달서구 호산동로 34길 21-4 행복빌 203호',
-  );
-
-  let userInfo = {
-    userName: '홍길동',
-    userPhoneNumber: '010-2345-6789',
-    userAddress: '대구 달서구 호산동로 34길 21-4 행복빌 203호',
-  };
+  const [userName, setUserName] = useState('');
+  const [userPhoneNumber, setUserPhoneNumber] = useState('');
+  const [userAddress, setUserAddress] = useState('');
 
   let brandInfo = {
     brandTitle: route.params.title,
@@ -175,7 +167,12 @@ const BrandApply = ({navigation: {navigate}, route}) => {
                 배송지를 추가해주세요.
               </Text>
             </View>
-            <View style={{alignItems: 'flex-end', paddingHorizontal: 20}}>
+            <View
+              style={{
+                alignItems: 'flex-end',
+                paddingHorizontal: 20,
+                marginVertical: 10,
+              }}>
               <TouchableOpacity style={{}}>
                 <Text
                   style={{...styles.text, color: '#FFC500', fontSize: 15}}
@@ -201,7 +198,7 @@ const BrandApply = ({navigation: {navigate}, route}) => {
 
         <View style={{marginHorizontal: 20}}>
           <Text style={{fontSize: 18, ...styles.text, fontWeight: 'bold'}}>
-            광고 상품 정보
+            브랜드 캠페인 정보
           </Text>
         </View>
         <View
@@ -236,9 +233,9 @@ const BrandApply = ({navigation: {navigate}, route}) => {
                   flex: 1,
                   flexDirection: 'row',
                 }}>
-                <Text style={{...styles.text, flex: 1}}>광고 소재</Text>
+                <Text style={{...styles.text, flex: 1}}>스티커 소재</Text>
                 <Text style={{...styles.text, flex: 1, color: 'gray'}}>
-                  내지
+                  차량용 PVC 스티커
                 </Text>
               </View>
               <View
@@ -270,7 +267,7 @@ const BrandApply = ({navigation: {navigate}, route}) => {
               style={{
                 ...styles.text,
                 color: 'black',
-                fontSize: 18,
+                fontSize: 16,
                 textAlign: 'center',
               }}>
               주문하기
@@ -283,7 +280,7 @@ const BrandApply = ({navigation: {navigate}, route}) => {
             <Text
               style={{
                 ...styles.text,
-                fontSize: 18,
+                fontSize: 16,
                 textAlign: 'center',
               }}>
               주문하기

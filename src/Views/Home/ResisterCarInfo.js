@@ -468,16 +468,14 @@ const ResisterCarInfo = ({navigation}) => {
         <View
           style={{
             flex: 1,
+            marginVertical: 40,
             paddingHorizontal: 20,
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <View style={{marginTop: 80, alignItems: 'center'}}>
-            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 24}}>
-              브랜드 서포터가 될
-            </Text>
-            <Text style={{...styles.text, fontWeight: 'bold', fontSize: 24}}>
-              모든 준비가 완료되었습니다!
+          <View style={{marginVertical: 40, alignItems: 'center'}}>
+            <Text style={{...styles.text, fontSize: 18}}>
+              차량 정보 등록이 완료되었습니다.
             </Text>
           </View>
           <View>
@@ -486,12 +484,17 @@ const ResisterCarInfo = ({navigation}) => {
               style={{width: 250, height: 250}}
             />
           </View>
+          <View style={{marginVertical: 40, alignItems: 'center'}}>
+            <Text style={{...styles.text, fontSize: 18}}>
+              이제 브랜드 캠페인을 진행할 수 있습니다.
+            </Text>
+          </View>
           <TouchableOpacity
             style={{
               borderColor: '#FFC500',
               borderWidth: 1,
               borderRadius: 20,
-              marginBottom: 80,
+              marginBottom: 30,
               paddingVertical: 5,
               paddingHorizontal: 20,
             }}
@@ -504,7 +507,7 @@ const ResisterCarInfo = ({navigation}) => {
                 ...styles.text,
                 textAlign: 'center',
                 color: '#FFC500',
-                fontSize: 16,
+                fontSize: 14,
               }}>
               시작하기
             </Text>

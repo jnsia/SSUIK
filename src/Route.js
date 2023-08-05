@@ -95,7 +95,10 @@ const LoginStackNavigator = () => {
         component={Resister}
         options={{
           headerShown: true,
-          headerStyle: {backgroundColor: 'black'},
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
           headerTitle: '회원가입',
           headerTitleStyle: {fontSize: 16, color: 'white'},
           headerTintColor: 'white',
@@ -106,7 +109,10 @@ const LoginStackNavigator = () => {
         component={SearchUserInfo}
         options={{
           headerShown: true,
-          headerStyle: {backgroundColor: 'black'},
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
           headerTitle: '이메일/비밀번호 찾기',
           headerTitleStyle: {fontSize: 16, color: 'white'},
           headerTintColor: 'white',
@@ -187,7 +193,7 @@ const BrandStackNavigator = () => {
         name="Brand"
         component={recruitBrand}
         options={{
-          title: '스폰서',
+          title: '브랜드',
           headerTitleStyle: {color: 'white'},
           headerStyle: {
             backgroundColor: 'black',
@@ -201,7 +207,7 @@ const BrandStackNavigator = () => {
         component={BrandInfo}
         options={{
           headerShown: true,
-          title: '스폰서 정보',
+          title: '브랜드 정보',
           headerStyle: {
             backgroundColor: 'black',
             height: 75,
@@ -218,7 +224,7 @@ const BrandStackNavigator = () => {
         component={BrandApply}
         options={{
           headerShown: true,
-          title: '신청서 작성',
+          title: '브랜드 캠페인 신청',
           headerStyle: {
             backgroundColor: 'black',
             height: 75,
