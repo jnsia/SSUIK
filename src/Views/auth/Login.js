@@ -56,19 +56,6 @@ const Login = ({navigation}) => {
     }
   };
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      const backHandler = BackHandler.addEventListener(
-        'hardwareBackPress',
-        () => {
-          return true;
-        },
-      );
-
-      return () => backHandler.remove();
-    }
-  }, []);
-
   useFocusEffect(() => {
     getPermission();
   });
@@ -110,7 +97,7 @@ const Login = ({navigation}) => {
     setuserID('');
     setuserPW('');
 
-    navigation.push('Main');
+    navigation.replace('Home');
   };
 
   return (

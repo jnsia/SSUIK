@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Entypo';
 
@@ -14,11 +14,10 @@ const My = ({navigation}) => {
   const storeData = () => {
     try {
       AsyncStorage.removeItem('@isLogin');
+      navigation.replace('Login');
     } catch (e) {
       console.log('set error');
     }
-
-    navigation.pop();
   };
 
   return (
@@ -64,7 +63,7 @@ const My = ({navigation}) => {
               paddingVertical: 5,
             }}>
             <Text
-              style={{...styles.text, fontSize: 12, color: '#FFC500'}}
+              style={{...styles.text, fontSize: 13, color: '#FFC500'}}
               onPress={() => storeData()}>
               로그아웃
             </Text>

@@ -1,10 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {PermissionsAndroid, SafeAreaView, StyleSheet} from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
 import {NavigationContainer} from '@react-navigation/native';
 
-import Route from './Route';
+import {LoginStackNavigator, MainTabNavigator} from './Route';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {createStackNavigator} from '@react-navigation/stack';
+
+const AuthStack = createStackNavigator();
 
 const App = () => {
   // iOS 위치 정보 접근 권한
@@ -42,12 +46,39 @@ const App = () => {
   //   },
   // );
 
+  const [isLogin, setIsLogin] = useState(false);
+
+  const getIsLogin = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@isLogin');
+      console.log(jsonValue);
+
+      if (jsonValue === null) {
+        setIsLogin(false);
+      } else {
+        setIsLogin(true);
+      }
+    } catch (e) {
+      console.log('get error');
+    }
+  };
+
+  useEffect(() => {
+    getIsLogin();
+  }, [isLogin]);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <NavigationContainer>
-        <Route />
-      </NavigationContainer>
-    </SafeAreaView>
+    <NavigationContainer style={styles.container}>
+      {isLogin ? (
+        <AuthStack.Navigator screenOptions={{headerShown: false}}>
+          <AuthStack.Screen name="MainTab" component={MainTabNavigator} />
+        </AuthStack.Navigator>
+      ) : (
+        <AuthStack.Navigator screenOptions={{headerShown: false}}>
+          <AuthStack.Screen name="LoginStack" component={LoginStackNavigator} />
+        </AuthStack.Navigator>
+      )}
+    </NavigationContainer>
   );
 };
 

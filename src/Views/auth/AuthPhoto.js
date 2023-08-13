@@ -29,13 +29,13 @@ const AuthPhoto = ({navigation}) => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem('@authPhoto', jsonValue);
-      navigation.push('Home');
 
       console.log(jsonValue);
 
       setSticker('');
       setBackside('');
       setDashboard('');
+      setModal(true);
     } catch (e) {
       console.error(e);
     }
@@ -422,7 +422,6 @@ const AuthPhoto = ({navigation}) => {
                 backgroundColor: '#FFC500',
               }}
               onPress={() => {
-                setModal(true);
                 setAuthPhoto(authPhotoInfo);
               }}>
               <Text

@@ -56,19 +56,6 @@ const Point = ({navigation}) => {
     setAmount(amount + num);
   };
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      const backHandler = BackHandler.addEventListener(
-        'hardwareBackPress',
-        () => {
-          return true;
-        },
-      );
-
-      return () => backHandler.remove();
-    }
-  }, []);
-
   useFocusEffect(
     useCallback(() => {
       setWithdraw(false);

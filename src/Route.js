@@ -46,8 +46,6 @@ import Setting from './Views/Mypage/Setting';
 import TermsAndPolicy from './Views/Mypage/TermsAndPolicy';
 import SearchUserInfo from './Views/auth/SearchUserInfo';
 
-const RouteStack = createStackNavigator();
-
 const AuthStack = createStackNavigator();
 const LoginStack = createStackNavigator();
 
@@ -59,32 +57,7 @@ const EventStack = createStackNavigator();
 const PointStack = createStackNavigator();
 const MypageStack = createStackNavigator();
 
-const getIsLogin = async () => {
-  try {
-    const jsonValue = await AsyncStorage.getItem('@isLogin');
-    console.log(jsonValue);
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
-  } catch (e) {
-    console.log('get error');
-  }
-};
-
-const isLogin = getIsLogin();
-const isPermission = false;
-
-const AuthStackNavigator = () => {
-  return (
-    <AuthStack.Navigator screenOptions={{headerShown: false}}>
-      {isLogin ? (
-        <AuthStack.Screen name="LoginStack" component={LoginStackNavigator} />
-      ) : (
-        <AuthStack.Screen name="MainTab" component={MainTabNavigator} />
-      )}
-    </AuthStack.Navigator>
-  );
-};
-
-const LoginStackNavigator = () => {
+export const LoginStackNavigator = () => {
   return (
     <LoginStack.Navigator
       initialRouteName="Permission"
@@ -118,12 +91,21 @@ const LoginStackNavigator = () => {
           headerTintColor: 'white',
         }}
       />
-      <LoginStack.Screen name="Main" component={MainTabNavigator} />
+      <MainTab.Screen
+        name="Home"
+        component={MainTabNavigator}
+        options={{
+          tabBarLabel: '홈',
+          tabBarIcon: ({color, size}) => (
+            <EntypoIcon name="home" color={color} size={25} />
+          ),
+        }}
+      />
     </LoginStack.Navigator>
   );
 };
 
-const MainTabNavigator = () => {
+export const MainTabNavigator = () => {
   return (
     <MainTab.Navigator
       initialRouteName="HomeScreen"
@@ -474,21 +456,6 @@ const MypageStackNavigator = ({navigation}) => {
       />
       <MypageStack.Screen name="Setting" component={Setting} />
       <MypageStack.Screen name="TermsAndPolicy" component={TermsAndPolicy} />
-      <MypageStack.Screen
-        name="Logout"
-        component={AuthStackNavigator}
-        options={{headerShown: false, headerLeft: false}}
-      />
     </MypageStack.Navigator>
   );
 };
-
-const Route = () => {
-  return (
-    <RouteStack.Navigator screenOptions={{headerShown: false}}>
-      <RouteStack.Screen name="Auth" component={AuthStackNavigator} />
-    </RouteStack.Navigator>
-  );
-};
-
-export default Route;

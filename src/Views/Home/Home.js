@@ -90,18 +90,18 @@ const Home = ({navigation}) => {
     console.log('Done.');
   };
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      const backHandler = BackHandler.addEventListener(
-        'hardwareBackPress',
-        () => {
-          return true;
-        },
-      );
+  // useEffect(() => {
+  //   if (Platform.OS === 'android') {
+  //     const backHandler = BackHandler.addEventListener(
+  //       'hardwareBackPress',
+  //       () => {
+  //         return true;
+  //       },
+  //     );
 
-      return () => backHandler.remove();
-    }
-  }, []);
+  //     return () => backHandler.remove();
+  //   }
+  // }, []);
 
   useFocusEffect(() => {
     getBrandApply();
