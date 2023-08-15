@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import {Image, TouchableOpacity} from 'react-native';
+import {Alert, BackHandler, Image, TouchableOpacity} from 'react-native';
 // import logoImage from './Images/ssuik-logo.png';
 
 // function logo() {
@@ -60,7 +60,7 @@ const MypageStack = createStackNavigator();
 export const LoginStackNavigator = () => {
   return (
     <LoginStack.Navigator
-      initialRouteName="Permission"
+      initialRouteName="Login"
       screenOptions={{headerShown: false}}>
       <LoginStack.Screen name="Login" component={Login} />
       <LoginStack.Screen
@@ -75,6 +75,9 @@ export const LoginStackNavigator = () => {
           headerTitle: '회원가입',
           headerTitleStyle: {fontSize: 16, color: 'white'},
           headerTintColor: 'white',
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
       <LoginStack.Screen
@@ -89,6 +92,9 @@ export const LoginStackNavigator = () => {
           headerTitle: '이메일/비밀번호 찾기',
           headerTitleStyle: {fontSize: 16, color: 'white'},
           headerTintColor: 'white',
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
       <MainTab.Screen
@@ -182,6 +188,9 @@ const BrandStackNavigator = () => {
             height: 75,
           },
           headerTintColor: 'white',
+          presentation: 'modal',
+          animationTypeForReplace: 'push',
+          animation: 'slide_from_right',
         }}
       />
       <BrandStack.Screen
@@ -199,6 +208,9 @@ const BrandStackNavigator = () => {
             fontSize: 16,
             fontFamily: 'BlackHanSans-Regular',
           },
+          presentation: 'modal',
+          animationTypeForReplace: 'push',
+          animation: 'slide_from_right',
         }}
       />
       <BrandStack.Screen
@@ -216,6 +228,9 @@ const BrandStackNavigator = () => {
             fontSize: 16,
             fontFamily: 'BlackHanSans-Regular',
           },
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
       <BrandStack.Screen
@@ -233,6 +248,9 @@ const BrandStackNavigator = () => {
             fontSize: 16,
             fontFamily: 'BlackHanSans-Regular',
           },
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
     </BrandStack.Navigator>
@@ -309,12 +327,21 @@ const HomeStackNavigator = ({navigation}) => {
             fontSize: 16,
             fontFamily: 'BlackHanSans-Regular',
           },
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
       <HomeStack.Screen
-        options={{headerShown: false, headerLeft: false}}
         name="BrandStackNavigator"
         component={BrandStackNavigator}
+        options={{
+          headerShown: false,
+          headerLeft: false,
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
+        }}
       />
       <HomeStack.Screen
         name="AuthPhoto"
@@ -327,6 +354,9 @@ const HomeStackNavigator = ({navigation}) => {
             height: 75,
           },
           headerTintColor: 'white',
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
       <HomeStack.Screen
@@ -344,6 +374,9 @@ const HomeStackNavigator = ({navigation}) => {
             fontSize: 16,
             fontFamily: 'BlackHanSans-Regular',
           },
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
     </HomeStack.Navigator>
@@ -412,6 +445,9 @@ const MypageStackNavigator = ({navigation}) => {
             height: 75,
           },
           headerTintColor: 'white',
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
       <MypageStack.Screen
@@ -426,6 +462,9 @@ const MypageStackNavigator = ({navigation}) => {
             height: 75,
           },
           headerTintColor: 'white',
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
       <MypageStack.Screen
@@ -439,6 +478,9 @@ const MypageStackNavigator = ({navigation}) => {
             height: 75,
           },
           headerTintColor: 'white',
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
       <MypageStack.Screen
@@ -452,10 +494,43 @@ const MypageStackNavigator = ({navigation}) => {
             height: 75,
           },
           headerTintColor: 'white',
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
         }}
       />
-      <MypageStack.Screen name="Setting" component={Setting} />
-      <MypageStack.Screen name="TermsAndPolicy" component={TermsAndPolicy} />
+      <MypageStack.Screen
+        name="Setting"
+        component={Setting}
+        options={{
+          title: '알림설정',
+          headerBackTitleVisible: false,
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
+        }}
+      />
+      <MypageStack.Screen
+        name="TermsAndPolicy"
+        component={TermsAndPolicy}
+        options={{
+          title: '약관 및 정책',
+          headerBackTitleVisible: false,
+          headerStyle: {
+            backgroundColor: 'black',
+            height: 75,
+          },
+          headerTintColor: 'white',
+          presentation: 'modal',
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
+        }}
+      />
     </MypageStack.Navigator>
   );
 };

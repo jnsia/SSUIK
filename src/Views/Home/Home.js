@@ -236,16 +236,16 @@ const Home = ({navigation}) => {
           </ScrollView>
         ) : (
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <ImageBackground
-              source={require('../../Images/ProAds-left1.png')}
-              resizeMode="cover"
-              imageStyle={{borderRadius: 20}}
-              style={styles.processADS}>
-              {done === false ? (
+            {done === false ? (
+              <ImageBackground
+                source={require('../../Images/ProAds-left1.png')}
+                resizeMode="cover"
+                imageStyle={{borderRadius: 20}}
+                style={styles.processADS}>
                 <TouchableOpacity
                   style={{
                     flex: 1,
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
                     justifyContent: 'center',
                     borderRadius: 20,
                   }}
@@ -269,35 +269,73 @@ const Home = ({navigation}) => {
                     차량에 붙인 스티커를 인증해주세요.
                   </Text>
                 </TouchableOpacity>
-              ) : (
-                <View>
+              </ImageBackground>
+            ) : (
+              <ImageBackground
+                source={require('../../Images/BadBlue-logo.jpg')}
+                resizeMode="contain"
+                imageStyle={{borderRadius: 20}}
+                style={styles.processADS}>
+                <View
+                  style={{
+                    flex: 1,
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    justifyContent: 'center',
+                    borderRadius: 20,
+                  }}>
                   <Text
                     style={{
-                      fontSize: 10,
-                      fontFamily: 'Pretendard-Regular',
-                      color: 'lightgrey',
+                      textAlign: 'center',
+                      fontSize: 16,
+                      color: '#FFC500',
+                      lineHeight: 20,
                     }}>
-                    2023.01.25 ~ 2023.03.23
+                    인증 중...
                   </Text>
                   <Text
                     style={{
-                      fontSize: 24,
-                      fontFamily: 'Pretendard-Bold',
-                      color: '#FFD550',
-                    }}>
-                    D-21
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontFamily: 'Pretendard-Bold',
+                      textAlign: 'center',
+                      fontSize: 13,
                       color: 'white',
+                      lineHeight: 20,
                     }}>
-                    + point 25,000
+                    조금만 기다려주세요!
                   </Text>
                 </View>
-              )}
-            </ImageBackground>
+              </ImageBackground>
+              // <ImageBackground
+              //   source={require('../../Images/BadBlue-logo.jpg')}
+              //   resizeMode="contain"
+              //   imageStyle={{borderRadius: 20}}
+              //   style={styles.processADS}>
+              //   <View>
+              //     <Text
+              //       style={{
+              //         fontSize: 10,
+              //         fontFamily: 'Pretendard-Regular',
+              //         color: 'lightgrey',
+              //       }}>
+              //       2023.01.25 ~ 2023.03.23
+              //     </Text>
+              //     <Text
+              //       style={{
+              //         fontSize: 24,
+              //         fontFamily: 'Pretendard-Bold',
+              //         color: '#FFD550',
+              //       }}>
+              //       D-21
+              //     </Text>
+              //     <Text
+              //       style={{
+              //         fontSize: 14,
+              //         fontFamily: 'Pretendard-Bold',
+              //         color: 'white',
+              //       }}>
+              //       + point 25,000
+              //     </Text>
+              //   </View>
+              // </ImageBackground>
+            )}
             <ImageBackground
               source={require('../../Images/ProAds-left1.png')}
               resizeMode="cover"
