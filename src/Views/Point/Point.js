@@ -19,6 +19,8 @@ import {useFocusEffect} from '@react-navigation/native';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
+const userPoint = 8000;
+
 const pointHistory = [
   {
     type: 'withdraw',
@@ -48,19 +50,21 @@ const Point = ({navigation}) => {
   const [history, setHistory] = useState('전체');
   const [apply, setApply] = useState(true);
 
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState('');
   const [account, setAccount] = useState('');
   const [bank, setBank] = useState('');
 
   const plusAmount = num => {
-    setAmount(amount + num);
+    if (amount + num > userPoint) {
+      setAmount(userPoint);
+    } else {
+      setAmount(amount + num);
+    }
   };
 
   useFocusEffect(
     useCallback(() => {
       setWithdraw(false);
-      setAmount(0);
-      setAccount('');
       setBank('');
     }, []),
   );
@@ -90,7 +94,9 @@ const Point = ({navigation}) => {
           </Text>
         </View>
         <View style={{marginBottom: 10}}>
-          <Text style={{...styles.pointText, fontWeight: 'bold'}}>8,000</Text>
+          <Text style={{...styles.pointText, fontWeight: 'bold'}}>
+            {userPoint.toLocaleString()}
+          </Text>
         </View>
         <View style={{marginBottom: 10}}>
           <Text style={{...styles.pointText, fontSize: 12, color: 'lightgray'}}>
@@ -182,7 +188,7 @@ const Point = ({navigation}) => {
                   </Text>
                   <Text
                     style={{...styles.text, fontSize: 16, color: 'lightgray'}}>
-                    8,000POINT
+                    {userPoint.toLocaleString()}POINT
                   </Text>
                 </View>
                 <Text style={{...styles.text, fontSize: 16, marginTop: 10}}>
@@ -197,13 +203,19 @@ const Point = ({navigation}) => {
                       inputMode="numeric"
                       keyboardType="number-pad"
                       maxLength={10}
-                      value={amount}
-                      onChange={() => setAmount()}></TextInput>
+                      value={amount.toLocaleString()}
+                      onChangeText={text => {
+                        if (parseInt(text.replace(',', '')) > userPoint) {
+                          setAmount(userPoint);
+                        } else {
+                          setAmount(parseInt(text) || 0);
+                        }
+                      }}></TextInput>
                   </View>
                   <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity
                       style={styles.amountBtn}
-                      onPress={() => console.log(amount)}>
+                      onPress={() => plusAmount(1000)}>
                       <Text style={{color: 'white', fontSize: 10}}>+ 1천</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -296,8 +308,8 @@ const Point = ({navigation}) => {
                     inputMode="numeric"
                     keyboardType="number-pad"
                     maxLength={20}
-                    value={account}
-                    onChangeText={setAccount}></TextInput>
+                    value={account.toLocaleString()}
+                    onChange={text => setAmount(parseInt(text))}></TextInput>
                 </View>
                 {amount !== 0 && bank !== '' && account !== '' ? (
                   <TouchableOpacity
@@ -405,6 +417,7 @@ const Point = ({navigation}) => {
             <View>
               {pointHistory.map((info, index) => (
                 <PointInfo
+                  key={index}
                   type={info.type}
                   title={info.title}
                   time={info.time}
@@ -418,6 +431,7 @@ const Point = ({navigation}) => {
               {pointHistory.map((info, index) =>
                 info.type === 'accumulate' ? (
                   <PointInfo
+                    key={index}
                     type={info.type}
                     title={info.title}
                     time={info.time}
@@ -434,6 +448,7 @@ const Point = ({navigation}) => {
               {pointHistory.map((info, index) =>
                 info.type === 'withdraw' ? (
                   <PointInfo
+                    key={index}
                     type={info.type}
                     title={info.title}
                     time={info.time}

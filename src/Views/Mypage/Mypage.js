@@ -14,7 +14,8 @@ const My = ({navigation}) => {
   const storeData = () => {
     try {
       AsyncStorage.removeItem('@isLogin');
-      navigation.replace('Login');
+      navigation.replace('LoginStack');
+      console.log('Logout');
     } catch (e) {
       console.log('set error');
     }
@@ -61,10 +62,9 @@ const My = ({navigation}) => {
               borderRadius: 20,
               paddingHorizontal: 15,
               paddingVertical: 5,
-            }}>
-            <Text
-              style={{...styles.text, fontSize: 13, color: '#FFC500'}}
-              onPress={() => storeData()}>
+            }}
+            onPress={() => storeData()}>
+            <Text style={{...styles.text, fontSize: 13, color: '#FFC500'}}>
               로그아웃
             </Text>
           </TouchableOpacity>

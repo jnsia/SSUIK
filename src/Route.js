@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome';
-import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -46,7 +43,6 @@ import Setting from './Views/Mypage/Setting';
 import TermsAndPolicy from './Views/Mypage/TermsAndPolicy';
 import SearchUserInfo from './Views/auth/SearchUserInfo';
 
-const AuthStack = createStackNavigator();
 const LoginStack = createStackNavigator();
 
 const MainTab = createBottomTabNavigator();
@@ -103,7 +99,7 @@ export const LoginStackNavigator = () => {
         options={{
           tabBarLabel: '홈',
           tabBarIcon: ({color, size}) => (
-            <EntypoIcon name="home" color={color} size={25} />
+            <Icon name="home" color={color} size={20} />
           ),
         }}
       />
@@ -135,17 +131,7 @@ export const MainTabNavigator = () => {
         options={{
           tabBarLabel: '홈',
           tabBarIcon: ({color, size}) => (
-            <EntypoIcon name="home" color={color} size={25} />
-          ),
-        }}
-      />
-      <MainTab.Screen
-        name="PointScreen"
-        component={PointStackNavigator}
-        options={{
-          tabBarLabel: '포인트',
-          tabBarIcon: ({color, size}) => (
-            <EntypoIcon name="credit" color={color} size={25} />
+            <Icon name="home" color={color} size={20} />
           ),
         }}
       />
@@ -155,18 +141,27 @@ export const MainTabNavigator = () => {
         options={{
           tabBarLabel: '이벤트',
           tabBarIcon: ({color, size}) => (
-            <EntypoIcon name="calendar" color={color} size={25} />
+            <Icon name="calendar" color={color} size={20} />
           ),
         }}
       />
-      {/* <MainTab.Screen name="EventScreen" component={Event} /> */}
+      <MainTab.Screen
+        name="PointScreen"
+        component={PointStackNavigator}
+        options={{
+          tabBarLabel: '포인트',
+          tabBarIcon: ({color, size}) => (
+            <Icon name="dollar" color={color} size={20} />
+          ),
+        }}
+      />
       <MainTab.Screen
         name="MypageScreen"
         component={MypageStackNavigator}
         options={{
           tabBarLabel: '마이페이지',
           tabBarIcon: ({color, size}) => (
-            <EntypoIcon name="user" color={color} size={25} />
+            <Icon name="user" color={color} size={20} />
           ),
         }}
       />
@@ -302,10 +297,10 @@ const HomeStackNavigator = ({navigation}) => {
               onPress={() => {
                 navigation.push('Notice');
               }}>
-              <EntypoIcon
+              <Icon
                 name="bell"
                 color={'white'}
-                size={25}
+                size={20}
                 style={{marginRight: 20}}
               />
             </TouchableOpacity>

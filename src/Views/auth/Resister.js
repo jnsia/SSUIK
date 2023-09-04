@@ -19,7 +19,6 @@ import LogoImage from '../../Images/logo.jpg';
 
 const Resister = ({navigation}) => {
   const [step, setStep] = useState(1);
-  const [userNickname, setuserNickname] = useState('');
   const [userEmail, setuserEmail] = useState('');
   const [userPW, setuserPW] = useState('');
   const [userCheckPW, setuserCheckPW] = useState('');
@@ -92,18 +91,23 @@ const Resister = ({navigation}) => {
   const resisterSubmit = async () => {
     try {
       axios
-        .post('http://localhost:8001/auth/resister', {
+        .post('http://43.200.18.249:3000/sign-up', {
           email: userEmail,
-          password: userPW,
-          name: userName,
-          birthday: userBirthday,
-          phoneNumber: userPhoneNumber,
-          sex: userSex,
-          nickname: userNickname,
-          job: userJob,
+          passwd: userPW,
+          username: userName,
+          // birthday: userBirthday,
+          // phoneNumber: userPhoneNumber,
+          // sex: userSex,
+          // job: userJob,
         })
-        .then(Alert.alert('회원가입', '회원가입이 완료되었습니다!'))
-        .then(navigation.pop());
+        .then(res => {
+          Alert.alert('회원가입', '회원가입이 완료되었습니다!');
+          console.log(res);
+          navigation.pop();
+        })
+        .catch(err => {
+          console.log(err);
+        });
     } catch (error) {
       return console.log(error);
     }

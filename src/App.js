@@ -1,12 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Alert, BackHandler, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 
-import Geolocation from 'react-native-geolocation-service';
-import {
-  NavigationContainer,
-  useFocusEffect,
-  useIsFocused,
-} from '@react-navigation/native';
+import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
 
 import {LoginStackNavigator, MainTabNavigator} from './Route';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -38,15 +33,13 @@ const App = () => {
 
   return (
     <NavigationContainer style={styles.container}>
-      {isLogin ? (
-        <AuthStack.Navigator screenOptions={{headerShown: false}}>
+      <AuthStack.Navigator screenOptions={{headerShown: false}}>
+        {isLogin ? (
           <AuthStack.Screen name="MainTab" component={MainTabNavigator} />
-        </AuthStack.Navigator>
-      ) : (
-        <AuthStack.Navigator screenOptions={{headerShown: false}}>
+        ) : (
           <AuthStack.Screen name="LoginStack" component={LoginStackNavigator} />
-        </AuthStack.Navigator>
-      )}
+        )}
+      </AuthStack.Navigator>
     </NavigationContainer>
   );
 };

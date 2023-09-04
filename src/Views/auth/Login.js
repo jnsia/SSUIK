@@ -15,7 +15,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Geolocation from 'react-native-geolocation-service';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
 import LogoImage from '../../Images/logo.jpg';
@@ -35,9 +35,7 @@ const Login = ({navigation}) => {
     try {
       const location = await AsyncStorage.getItem('@location');
 
-      if (location === null) {
-        setPermission(false);
-      } else {
+      if (location != null) {
         setPermission(true);
       }
     } catch (e) {
@@ -56,9 +54,26 @@ const Login = ({navigation}) => {
     }
   };
 
-  useFocusEffect(() => {
+  const getPosition = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        setLocation(position);
+      },
+      error => {
+        console.log(error.code, error.message);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 10000,
+        accuracy: 'high',
+      },
+    );
+  };
+
+  useEffect(() => {
     getPermission();
-  });
+  }, [permission]);
 
   let loginInfo = {
     userID: userID,
@@ -83,21 +98,21 @@ const Login = ({navigation}) => {
     }
 
     axios
-      .post('http://localhost:8001/auth/login', {
+      .post('http://43.200.18.249:3000/sign-in', {
         email: userID,
-        password: userPW,
+        passwd: userPW,
       })
       .then(res => {
-        console.log(res.data);
+        console.log(res);
       })
       .catch(err => {
         console.log(err);
       });
 
+    navigation.replace('Home');
+
     setuserID('');
     setuserPW('');
-
-    navigation.replace('Home');
   };
 
   return (
@@ -219,8 +234,14 @@ const Login = ({navigation}) => {
             필수 접근 권한
           </Text>
           <View style={styles.modalPermission}>
-            <View style={{padding: 20, flex: 1}}>
-              <Icon name="location" size={40} />
+            <View
+              style={{
+                padding: 20,
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Icon name="location-arrow" size={40} />
             </View>
             <View style={{padding: 20, borderRadius: 10, flex: 4}}>
               <Text style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
@@ -233,7 +254,13 @@ const Login = ({navigation}) => {
             선택 접근 권한
           </Text>
           <View style={styles.modalPermission}>
-            <View style={{padding: 20, flex: 1}}>
+            <View
+              style={{
+                padding: 20,
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
               <Icon name="camera" size={40} />
             </View>
             <View style={{padding: 20, borderRadius: 10, flex: 4}}>
@@ -259,23 +286,7 @@ const Login = ({navigation}) => {
               ]);
 
               setPermission(true);
-
-              Geolocation.getCurrentPosition(
-                position => {
-                  console.log(position);
-
-                  setLocation(position);
-                },
-                error => {
-                  console.log(error.code, error.message);
-                },
-                {
-                  enableHighAccuracy: true,
-                  timeout: 15000,
-                  maximumAge: 10000,
-                  accuracy: 'high',
-                },
-              );
+              getPosition();
             }}>
             <Text
               style={{
